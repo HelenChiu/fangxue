@@ -1717,6 +1717,11 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
   .sbar { top: 14px; border-color: rgba(255, 209, 102, .5) !important; }
   .sbar::before { content: ""; position: absolute; left: -100vw; right: -100vw; bottom: calc(100% + 2px); height: 16px; background: var(--night); }
 }
+
+/* 標點符號選項：放大、放進虛線格子 */
+.opts.punc .pmark { display: inline-flex; align-items: center; justify-content: center; min-width: 60px; height: 60px; padding: 0 8px; font-size: 40px; line-height: 1; font-weight: 700; border: 1.5px dashed var(--rim); border-radius: 10px; background: rgba(255, 255, 255, .05); font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+.opt.ok .pmark { border-color: rgba(22, 33, 62, .45); }
+.pmark.sm { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 34px; padding: 0 4px; margin: 0 2px; font-size: 24px; line-height: 1; font-weight: 700; border: 1.5px dashed var(--rim); border-radius: 8px; vertical-align: middle; color: var(--txt); font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
 </style>
 
 <div id="app"></div>
@@ -3685,7 +3690,8 @@ function qBody(q, i) {
       if (q.big) h += '<div class="big-em">' + q.big + '</div>';
       h += '<p class="qt">' + esc(q.q) + '</p>' + qPic(q);
       if (q.chip) return h + chipBtns(q.o, r, 'data-act="pc" data-i="' + i + '"');
-      return h + '<div class="opts">' + q.o.map(function (o, kk) { return '<button class="opt' + (r === o ? ' sel' : '') + '" data-act="pc" data-i="' + i + '" data-k="' + kk + '" data-v="' + esc(o) + '"><span class="no">' + (q.letters ? LET[kk] : NUM[kk]) + '</span><span>' + esc(o) + '</span></button>'; }).join('') + '</div>';
+      var pq_ = isPuncQ(q);
+      return h + '<div class="opts' + (pq_ ? ' punc' : '') + '">' + q.o.map(function (o, kk) { return '<button class="opt' + (r === o ? ' sel' : '') + '" data-act="pc" data-i="' + i + '" data-k="' + kk + '" data-v="' + esc(o) + '"><span class="no">' + (q.letters ? LET[kk] : NUM[kk]) + '</span>' + (pq_ ? '<span class="pmark">' + esc(o) + '</span>' : '<span>' + esc(o) + '</span>') + '</button>'; }).join('') + '</div>';
     case 'fill': return '<p class="qt">' + esc(q.q) + '</p>' + qPic(q) + '<div class="fillrow"><input type="text" autocomplete="off" aria-label="寫下答案" data-pin="' + i + '" value="' + esc(r) + '"></div>';
     case 'text': return '<p class="qt">' + esc(q.q) + '</p><textarea class="wr" data-pin="' + i + '" aria-label="寫下答案">' + esc(r) + '</textarea>';
     case 'mark':
@@ -3734,6 +3740,9 @@ function qBody(q, i) {
   }
   return '';
 }
+/* 選項全是標點符號（像頓號、間隔號），放大放進格子裡，才看得出位置和樣子 */
+function isPuncQ(q) { return !!(q && q.o && q.o.length && q.o.every(function (o) { return /^[^\u4e00-\u9fffA-Za-z0-9]+$/.test(o); })); }
+function puncTxt(q, t) { return isPuncQ(q) && t && /^[^\u4e00-\u9fffA-Za-z0-9（）]+$/.test(t) ? '<span class="pmark sm">' + esc(t) + '</span>' : esc(t); }
 function cardInner(q, i) {
   return '<div class="pqh"><span class="no">' + (i + 1) + '</span><span class="ptype">' + esc(q.kind || '') + '</span><span class="ref">' + (refOf(q) ? '📖 ' + esc(refOf(q)) : '') + '</span>' + calcBtn(q, 'p' + i) + '</div><div class="pbody">' + qBody(q, i) + '</div>';
 }
@@ -3752,8 +3761,8 @@ function paperView() {
 /* --- 交卷與批改 --- */
 function reviewHTML(q, i, g) {
   var h = '<div class="review pbody" style="gap:8px">';
-  if (!q.self) h += '<p><b style="color:var(--' + (g.got === g.pts ? 'green' : 'red') + ')">' + (g.got === g.pts ? '答對了！' : g.got > 0 ? '部分答對（' + g.got + ' / ' + g.pts + '）' : '答錯了') + '</b>　<span class="small muted">你的答案：' + esc(userText(q, PM.R[i])) + '</span></p>';
-  if (q.self || PM.answers !== false) h += '<div class="modelbox"><p>' + (q.self ? '範例：' : '正確答案：') + '<b>' + esc(q.answer) + '</b></p>' + (q.explain ? '<p class="small">' + esc(q.explain) + '</p>' : '') + '</div>';
+  if (!q.self) h += '<p><b style="color:var(--' + (g.got === g.pts ? 'green' : 'red') + ')">' + (g.got === g.pts ? '答對了！' : g.got > 0 ? '部分答對（' + g.got + ' / ' + g.pts + '）' : '答錯了') + '</b>　<span class="small muted">你的答案：' + puncTxt(q, userText(q, PM.R[i])) + '</span></p>';
+  if (q.self || PM.answers !== false) h += '<div class="modelbox"><p>' + (q.self ? '範例：' : '正確答案：') + '<b>' + puncTxt(q, q.answer) + '</b></p>' + (q.explain ? '<p class="small">' + esc(q.explain) + '</p>' : '') + '</div>';
   if (q.t === 'oral') h += '<button class="btn say" data-act="say" data-w="' + esc(oralSpeakText(q.text)) + '">🔊 聽標準發音</button>';
   if (q.self) h += '<div class="selfmark" id="sm' + i + '"><span>' + (q.t === 'oral' ? '家長聽完，評一評：' : '對照範例，自己評一評：') + '</span><button class="btn" data-act="selfm" data-i="' + i + '" data-v="1">○ ' + (q.t === 'oral' ? '念對了' : '寫對了') + '</button><button class="btn no" data-act="selfm" data-i="' + i + '" data-v="0">✕ 要再練習</button></div>';
   return h + '</div>';
