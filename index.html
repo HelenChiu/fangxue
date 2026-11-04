@@ -1715,7 +1715,6 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
 .pad.erasing .ink { cursor: cell; }
 @media (max-width: 560px) {
   .sbar { top: 16px; border-color: rgba(255, 209, 102, .3) !important; }
-  .sbar::before { content: ""; position: absolute; left: -100vw; right: -100vw; bottom: calc(100% + 2px); height: 18px; background: #24315E; box-shadow: 0 1px 0 rgba(255, 255, 255, .04); }
 }
 
 /* 標點符號選項：放大、放進虛線格子 */
@@ -5891,7 +5890,7 @@ function unitPanel(act, arr, list, subj) {
   order = order.filter(function (u) { return inR.indexOf(u) < 0; });
   var pk;
   if (uAll(arr)) pk = { cnt: '全部', sum: '全部單元' };
-  else if (arr[0] === NONE) pk = { cnt: '還沒選', sum: '請點這裡選擇', none: 1 };
+  else if (arr[0] === NONE) pk = { cnt: '請選擇', sum: '請點這裡選擇', none: 1 };
   else {
     var used = [], parts = [], n = 0;
     order.forEach(function (u) { if (u === '@mid' || u === '@fin') { var ex = syl[u === '@mid' ? 'mid' : 'fin']; if (ex.units.every(function (x) { return uOn(arr, x); })) { parts.push(pkShort(ex.label)); used = used.concat(ex.units); } } });
@@ -5909,7 +5908,7 @@ function unitPanel(act, arr, list, subj) {
 function typePanel(act, allAct, subj, isOn) {
   var all = TYPES[subj].every(function (t) { return isOn(subj, t[0]); });
   var onT = TYPES[subj].filter(function (t) { return isOn(subj, t[0]); });
-  var pk = all ? { cnt: '全部', sum: '全部題型' } : onT.length ? { cnt: '已選 ' + onT.length + ' 個', sum: onT.map(function (t) { return t[1]; }).join('、') } : { cnt: '還沒選', sum: '請點這裡選擇', none: 1 };
+  var pk = all ? { cnt: '全部', sum: '全部題型' } : onT.length ? { cnt: '已選 ' + onT.length + ' 個', sum: onT.map(function (t) { return t[1]; }).join('、') } : { cnt: '請選擇', sum: '請點這裡選擇', none: 1 };
   return ckPanel('選題型', ckBox(allAct, '', all, '全選') + TYPES[subj].map(function (t) { return ckBox(act, t[0], isOn(subj, t[0]), t[1]); }).join(''), FE.type, '請至少選一種題型，才能開始出題。', pk);
 }
 function countPanel(act, cur, ns, ansId, ansOn) {
