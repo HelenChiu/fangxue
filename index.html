@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793782362"><script>(function(){var B="1793782362";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
+<meta name="fx-build" content="1793782630"><script>(function(){var B="1793782630";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3362,7 +3362,7 @@ var GEN = {
   four: function (subj, uf) {
     var pool = EV.filter(function (v) { return okU(uf, U_E[v[3]]); }); if (!pool.length) return null;
     var v = rnd(pool);
-    return { t: 'four', subj: 'eng', unit: U_E[v[3]], kind: 'Trace and Write', q: 'Trace and Write：描一次，再寫兩次　' + v[1], em: v[2], model: v[0], answer: v[0], explain: v[0] + ' 是「' + v[1] + '」。', pts: 1, self: true, key: 'fo' + v[0] };
+    return { t: 'four', subj: 'eng', unit: U_E[v[3]], kind: 'Trace and Write', q: 'Trace and Write：描一次，再寫一次　' + v[1], em: v[2], model: v[0], answer: v[0], explain: v[0] + ' 是「' + v[1] + '」。', pts: 1, self: true, key: 'fo' + v[0] };
   }
 };
 var TYPES = {
@@ -3539,7 +3539,7 @@ function padHTML(kind, o) {
 function initPads(root) {
   (root || document).querySelectorAll('.pad:not([data-ok])').forEach(function (pad) {
     var kind = pad.dataset.kind, rows = +pad.dataset.rows || 1, cells = +pad.dataset.cells || 5, w = pad.clientWidth || 320, dpr = window.devicePixelRatio || 1;
-    var h = kind === 'tian' ? Math.round(w / cells) : rows * Math.round(Math.max(64, Math.min(96, w / 6)));
+    var h = kind === 'tian' ? Math.round(w / cells) : rows * Math.round(Math.max(100, Math.min(130, w / 3.2)));
     var g = pad.querySelector('.g'), ink = pad.querySelector('.ink');
     pad.setAttribute('data-ok', '1'); pad.style.height = h + 'px';
     [g, ink].forEach(function (c) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.width = w + 'px'; c.style.height = h + 'px'; });
@@ -3767,7 +3767,7 @@ function qBody(q, i) {
     case 'tian':
       return '<p class="qt">看注音，寫出國字</p><div class="zy" style="font-size:28px"><span style="color:var(--ink)">' + esc(q.word).replace('（　）', '（</span>' + esc(q.zy) + '<span style="color:var(--ink)">）') + '</span></div>' + padHTML('tian', { cells: 1, model: q.c }) + '<p class="muted small">用手指或觸控筆寫在格子裡。想偷看可以按「看範字」。</p>';
     case 'four':
-      return '<div class="big-em" style="font-size:48px">' + q.em + '</div><p class="qt">' + esc(q.q) + '</p>' + padHTML('four', { rows: 3, model: q.model }) + '<p class="muted small">第一行描一描，下面兩行自己寫。</p>';
+      return '<div class="big-em" style="font-size:48px">' + q.em + '</div><p class="qt">' + esc(q.q) + '</p>' + padHTML('four', { rows: 2, model: q.model }) + '<p class="muted small">第一行描一描，下面一行自己寫。</p>';
     case 'oral':
       return '<div class="oqrow"><p class="qt">大聲念出來</p><button class="odone" data-act="pdone" data-i="' + i + '" aria-pressed="' + !!r + '">' + (r ? '✓ 完成' : '完成') + '</button></div>' + oralItemHTML({ part: q.part || 'w', text: q.text, ico: q.ico }, true);
     case 'lrw':
@@ -3952,7 +3952,7 @@ function printHTML(q, n) {
       h += '<p class="pt">' + b + '看注音，寫國字。</p><div class="tzr" style="margin-left:1.6em"><div class="zyc">' + esc(q.word.replace('（　）', '（' + q.zy + '）')) + '</div>' + '<div class="tz"></div>'.repeat(6) + '</div>';
       break;
     case 'oral': h += '<p class="pt">' + b + '（○ ✕）口試練習：大聲念出來</p><div class="porl">' + (q.ico ? '<span class="pico">' + q.ico + '</span>' : '') + '<span class="ptx' + (q.text.length > 40 ? ' long' : '') + '">' + esc(q.text) + '</span></div>'; break;
-    case 'four': h += '<p class="pt">' + b + esc(q.q) + ' <span style="font-size:26px">' + q.em + '</span></p>' + fourSVG(640, 150, 3, q.model); break;
+    case 'four': h += '<p class="pt">' + b + esc(q.q) + ' <span style="font-size:26px">' + q.em + '</span></p>' + fourSVG(640, 110, 2, q.model); break;
     case 'lrw':
       h += '<p class="pt">' + b + 'Look, read, and write：<span style="font-size:34px">' + q.em + '</span></p><div class="po" style="margin-left:1.6em">' + q.words.map(function (w) { return '<span style="border:1.5px solid #555;border-radius:6px;padding:0 8px">' + esc(w) + '</span>'; }).join('') + '</div>' + fourSVG(640, 100, 2, '');
       break;
