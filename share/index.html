@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793795444"><script>(function(){var B="1793795444";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1793801464"><script>(function(){var B="1793801464";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -6096,9 +6096,11 @@ function head() {
     '<div class="hdr-r">' + muteBtnHTML() + (CLOUD.canWrite ? '<button class="upbtn" data-act="nav" data-v="mats" aria-current="' + onMats + '">教材上傳</button>' : '') + '</div></header>';
 }
 function homeFoot() {
-  return '<footer class="hfoot"><span class="frow"><b>放學小星球　三年級自學複習</b><span class="fsep" aria-hidden="true">｜</span><span class="flinks"><button data-act="nav" data-v="priv">隱私說明</button><span class="fsep" aria-hidden="true" hidden>｜</span><button data-act="nav" data-v="about" hidden>關於放學小星球</button></span></span>' +
+  return '<footer class="hfoot"><span class="frow"><b>放學小星球　三年級自學複習</b><span class="fsep" aria-hidden="true" hidden>｜</span><span class="flinks" hidden><button data-act="nav" data-v="priv" hidden>隱私說明</button><span class="fsep" aria-hidden="true" hidden>｜</span><button data-act="nav" data-v="about" hidden>關於放學小星球</button></span></span>' +
     '</footer>';
 }
+/* 「隱私說明」連結先隱藏；要備份時，在網址後面加 #backup 直接打開 */
+(function () { try { if (/^#(backup|priv)$/.test(location.hash)) view = 'priv'; } catch (e) {} window.addEventListener('hashchange', function () { if (/^#(backup|priv)$/.test(location.hash)) { view = 'priv'; render(); window.scrollTo(0, 0); } }); })();
 function render() {
   if (view !== 'oral') oralStop();
   var pkL = PK && document.querySelector('.cpanel.open .cks'), pkT = pkL ? pkL.scrollTop : 0;
