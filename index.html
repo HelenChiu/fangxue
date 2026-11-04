@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793783762"><script>(function(){var B="1793783762";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
+<meta name="fx-build" content="1793784285"><script>(function(){var B="1793784285";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -1759,6 +1759,14 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
 .cheerfx { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 130; }
 
 .pad.split { background: transparent; border: 0; border-radius: 0; overflow: visible; }
+
+/* 進度備份 */
+.bkbox { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+.bkbox h3 { margin: 8px 0 0; font-size: 18px; }
+.bkbox textarea { width: 100%; min-height: 76px; font-size: 13px; word-break: break-all; }
+.bkfile { cursor: pointer; display: inline-flex; align-items: center; }
+.bkask { border: 2px solid var(--star); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; background: rgba(255, 209, 102, .08); }
+.bkmsg { color: var(--star); font-weight: 700; margin: 0; }
 </style>
 
 <div id="app"></div>
@@ -4461,6 +4469,29 @@ function srcView() {
     '<section class="panel"><h2>常用參考網站</h2><p class="muted">這些網站會在新分頁開啟。想拿來出題的內容，截圖後放進「上傳教材」；PDF 檔可以直接上傳。</p>' +
     SOURCES.map(function (g) { return '<h3>' + g.g + '</h3><div class="links">' + g.items.map(function (it) { return '<a href="' + it[2] + '" target="_blank" rel="noopener noreferrer"><strong>' + it[0] + '</strong><span>' + it[1] + '</span></a>'; }).join('') + '</div>'; }).join('') + '</section>';
 }
+/* ---------- 進度備份：星星、星球上的生物、錯題本 → 一段備份碼／一個小檔案，換網址或換裝置時貼回來還原 ---------- */
+var BK = { pend: null, msg: '' };
+function bkGarden() { try { return JSON.parse(localStorage.getItem('guru-garden') || '[]') || []; } catch (e) { return []; } }
+function bkData() { return { v: 1, t: Date.now(), stars: S.stars || 0, wrong: S.wrong || [], garden: bkGarden() }; }
+function bkCode() { return 'FXQ1:' + btoa(unescape(encodeURIComponent(JSON.stringify(bkData())))); }
+function bkParse(txt) {
+  txt = String(txt || '').trim(); var m = txt.match(/FXQ1:([A-Za-z0-9+\/=]+)/); if (!m) return null;
+  try { var d = JSON.parse(decodeURIComponent(escape(atob(m[1])))); if (!d || d.v !== 1 || !Array.isArray(d.garden)) return null; return d; } catch (e) { return null; }
+}
+function bkSum(d) { return '星星 ' + (d.stars || 0) + ' 顆、星球生物 ' + d.garden.length + ' 個、錯題 ' + (d.wrong || []).length + ' 題'; }
+function backupHTML() {
+  var now = bkData(), h = '<section class="panel bkbox"><h2>進度備份與還原</h2><p class="muted">星星、星球上的生物和錯題本，只存在這台裝置。換手機、換網址或重新加主畫面圖示前，先在這裡備份；到新的地方再貼回來還原。</p>' +
+    '<p><b>這台裝置目前：</b>' + bkSum(now) + '</p>' +
+    '<div class="row"><button class="btn primary" data-act="bkcopy">複製備份碼</button><button class="btn" data-act="bkdl">下載備份檔</button></div>' +
+    '<textarea id="bkout" class="wr" readonly aria-label="備份碼" rows="3">' + esc(bkCode()) + '</textarea>' +
+    '<h3>還原</h3><p class="muted small">把備份碼貼在下面，或選擇之前下載的備份檔。</p>' +
+    '<textarea id="bkin" class="wr" rows="3" aria-label="貼上備份碼" placeholder="在這裡貼上備份碼"></textarea>' +
+    '<div class="row"><button class="btn" data-act="bkcheck">還原這段備份碼</button><label class="btn ghost bkfile">選擇備份檔<input type="file" id="bkfile" accept=".txt,text/plain" hidden></label></div>';
+  if (BK.pend) h += '<div class="bkask" role="alert"><p>要把這台裝置的進度換成備份裡的內容嗎？</p><p class="small">備份：' + bkSum(BK.pend) + '<br>現在：' + bkSum(now) + '</p><div class="row"><button class="btn primary" data-act="bkyes">確定還原</button><button class="btn ghost" data-act="bkno">先不要</button></div></div>';
+  if (BK.msg) h += '<p class="bkmsg" role="status">' + esc(BK.msg) + '</p>';
+  return h + '</section>';
+}
+function bkTry(txt) { var d = bkParse(txt); if (!d) { BK.pend = null; BK.msg = '看不懂這段備份碼，請確認有完整複製（開頭是 FXQ1:）。'; } else { BK.pend = d; BK.msg = ''; } render(); var a = document.querySelector('.bkask'); if (a) a.scrollIntoView({ block: 'center' }); }
 function privView() {
   return '<section class="panel"><h2>隱私怎麼處理</h2><ul class="plain">' +
     '<li>網站沒有任何地方要填孩子的名字、學校、班級或座號。</li>' +
@@ -6047,7 +6078,7 @@ function body() {
     case 'paper': return paperView();
     case 'oral': return oralView();
     case 'src': return heroHTML('參考網站', '常用的教材與題庫網站') + '<div class="narrow">' + srcView() + '</div>';
-    case 'priv': return heroHTML('隱私說明', '照片、檔案和紀錄怎麼處理') + '<div class="narrow">' + privView() + '</div>';
+    case 'priv': return heroHTML('隱私說明', '照片、檔案和紀錄怎麼處理') + '<div class="narrow">' + privView() + backupHTML() + '</div>';
     case 'about': return heroHTML('關於放學小星球', '網站的用意和使用方式') + '<div class="narrow"><section class="panel aboutp"><h2>建置中</h2><p class="muted">Coming Soon...</p><p class="muted" hidden>這一頁會介紹放學小星球的用意和使用方式，內容完成後會放在這裡。</p></section></div>';
   }
   return '';
@@ -6459,6 +6490,11 @@ on(document, 'click', function (e) {
   else if (/(type|tall)$/.test(a)) FE.type = false;
   else if (/^(psubj|usubj)$/.test(a)) FE.subj = false;
   switch (a) {
+    case 'bkcopy': var bo = $('#bkout'); if (bo) { var bt = bo.value; (navigator.clipboard ? navigator.clipboard.writeText(bt) : Promise.reject()).then(function () { toast('備份碼已複製，記得貼到安全的地方（例如傳給自己的 LINE）'); }, function () { bo.focus(); bo.select(); toast('請長按選取，再按「拷貝」'); }); } break;
+    case 'bkdl': saveFile('放學小星球備份-' + new Date().toISOString().slice(0, 10) + '.txt', new Blob([bkCode()], { type: 'text/plain' })); break;
+    case 'bkcheck': var bi = $('#bkin'); bkTry(bi ? bi.value : ''); break;
+    case 'bkno': BK.pend = null; BK.msg = ''; render(); break;
+    case 'bkyes': if (BK.pend) { var bd = BK.pend; S.stars = bd.stars || 0; S.wrong = bd.wrong || []; save(); try { localStorage.setItem('guru-garden', JSON.stringify(bd.garden)); } catch (e2) {} BK.pend = null; BK.msg = '還原好了！' + bkSum(bd) + '。'; render(); } break;
     case 'pkopen': PK = v; PKA = 1; render(); PKA = 0; var pkd = document.querySelector('.cpanel.open .pkdone'); if (pkd) pkd.focus({ preventScroll: true }); break;
     case 'pkdone': var pkv = PK; PK = null; render(); var pkr = pkv && document.querySelector('.pkrow[data-v="' + pkv + '"]'); if (pkr) pkr.focus({ preventScroll: true }); break;
     case 'menu': if (v === 'class') CZ.subj = ''; if (v === 'exam') EZ.subj = ''; /* fall through */
@@ -6603,6 +6639,7 @@ on(document, 'input', function (e) {
   if (ds.pg !== undefined) { var k = ds.pg, val = scrub(t.value).slice(0, 20); if (val) S.pagesMap[k] = val; else delete S.pagesMap[k]; save(); }
 });
 on(document, 'change', function (e) {
+  if (e.target && e.target.id === 'bkfile') { var bf = e.target.files && e.target.files[0]; if (bf) { var fr = new FileReader(); fr.onload = function () { bkTry(fr.result); }; fr.readAsText(bf); } return; }
   var t = e.target, ds = t.dataset || {};
   if (ds.pin !== undefined && PM && !PM.done && t.tagName === 'SELECT') { var p = ds.pin.split(':'); PM.R[+p[0]][+p[1]] = t.value; updateBar(); return; }
   if (t.id === 'file' || t.id === 'cam') { var fs = Array.prototype.slice.call(t.files || []); t.value = ''; addFiles(fs); }
