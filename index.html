@@ -1639,6 +1639,33 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
   .swnav .tl { display: none; }
   .swnav .ts { display: inline; }
 }
+
+/* 手機版：選單元／選題型改成「點一列 → 從下面彈出清單」 */
+.pkrow, .pkveil, .pkft { display: none; }
+.cpanel.pick .pksheet { display: contents; }
+@media (max-width: 560px) {
+  .cpanel.pick { padding: 2px 18px; gap: 0; }
+  .pkrow { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; width: 100%; padding: 14px 0; border: 0; background: transparent; color: var(--txt); font: inherit; text-align: left; cursor: pointer; }
+  .pkrow b { font-size: 18px; display: flex; align-items: center; gap: 8px; }
+  .pkrow b::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--star); }
+  .pkcnt { color: var(--star); font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .pkcnt::after { content: "›"; font-size: 22px; line-height: 1; color: var(--txt-2); }
+  .pksum { grid-column: 1 / -1; font-size: 13px; color: var(--txt-2); line-height: 1.6; padding-left: 18px; }
+  .pksum.empty { color: #FF9A8B; }
+  .cpanel.pick .ferr { margin: -4px 0 12px; }
+  .cpanel.pick .pksheet { display: none; }
+  .cpanel.pick.open .pkveil { display: block; position: fixed; inset: 0; background: rgba(8, 12, 28, .72); z-index: 80; }
+  .cpanel.pick.open .pksheet { display: flex; flex-direction: column; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 81; max-height: 82vh; max-height: 82dvh; background: var(--panel); border: 1px solid var(--rim); border-bottom: 0; border-radius: 24px 24px 0 0; padding-block: 18px calc(14px + env(safe-area-inset-bottom, 0px)); padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); animation: pkup .22s ease-out; }
+  .cpanel.pick.open .pksheet .clbl { font-family: var(--f-disp, inherit); font-size: 22px; margin: 0 0 2px 6px; }
+  .cpanel.pick.open .pksheet .cks { flex-direction: column; flex-wrap: nowrap; gap: 2px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+  .cpanel.pick.open .pksheet .ck { width: 100%; padding: 8px 8px; font-size: 16px; line-height: 1.4; border-radius: 12px; }
+  .cpanel.pick.open .pksheet .ck[data-ex] { background: var(--panel-in); }
+  .cpanel.pick.open .pkft { display: block; padding-top: 12px; border-top: 1px solid var(--rim); }
+  .pkdone { width: 100%; margin: 0; }
+  #app:has(.cpanel.pick.open) { overflow: hidden; }
+}
+@keyframes pkup { from { transform: translateY(30px); opacity: .4; } }
+@media (prefers-reduced-motion: reduce) { .cpanel.pick.open .pksheet { animation: none; } }
 </style>
 
 <div id="app"></div>
@@ -4687,7 +4714,7 @@ function askDialog(text, okAct) {
   document.body.appendChild(d); d.querySelector('.askok').focus();
 }
 function closeAsk() { var d = document.getElementById('askbg'); if (d) d.remove(); }
-on(document, 'keydown', function (e) { if (e.key === 'Escape') { closeAsk(); closeCalc(); } });
+on(document, 'keydown', function (e) { if (e.key === 'Escape') { closeAsk(); closeCalc(); if (PK) { var pkv = PK; PK = null; render(); var pkr = document.querySelector('.pkrow[data-v="' + pkv + '"]'); if (pkr) pkr.focus({ preventScroll: true }); } } });
 /* ---------- 計算紙（數學題右上角） ---------- */
 var CALC = { pages: {}, key: null, bk: null, color: '#1f2433', size: 3, tool: 'pen', big: false };
 var CALC_COLORS = [['#1f2433', '黑'], ['#e0352b', '紅'], ['#16a34a', '綠'], ['#f08a00', '橘'], ['#2563eb', '藍']];
@@ -5709,8 +5736,16 @@ function uToggle(arr, v, all, subj) {
 function ckBox(act, v, on, label, extra) {
   return '<button type="button" class="ck" role="checkbox" aria-checked="' + (on ? 'true' : 'false') + '" data-act="' + act + '" data-v="' + esc(v) + '"' + (extra || '') + '><span class="box" aria-hidden="true"></span><span>' + label + '</span></button>';
 }
-var FE = {};
-function ckPanel(title, html, err, msg) { return '<section class="cpanel' + (err ? ' err' : '') + '"><p class="clbl">' + title + '</p><div class="cks">' + html + '</div>' + (err ? '<p class="ferr" role="alert">' + msg + '</p>' : '') + '</section>'; }
+var FE = {}, PK = null;
+function pkShort(t) { var m = String(t).match(/^(期中考範圍|期末考範圍|第.+?課|第\d+單元|單元\d+|Starter Unit|Unit \d+|Review \d+)/); return m ? m[1] : t; }
+function ckPanel(title, html, err, msg, pk) {
+  if (pk) {
+    var op = PK === title;
+    return '<section class="cpanel pick' + (err ? ' err' : '') + (op ? ' open' : '') + '"><button type="button" class="pkrow" data-act="pkopen" data-v="' + title + '" aria-haspopup="dialog" aria-expanded="' + op + '"><b>' + title + '</b><span class="pkcnt">' + pk.cnt + '</span><span class="pksum' + (pk.none ? ' empty' : '') + '">' + pk.sum + '</span></button>' +
+      '<div class="pkveil" data-act="pkdone" aria-hidden="true"></div><div class="pksheet"' + (op ? ' role="dialog" aria-modal="true" aria-label="' + title + '"' : '') + '><p class="clbl">' + title + '</p><div class="cks">' + html + '</div><div class="pkft"><button type="button" class="gobtn pkdone" data-act="pkdone">完成</button></div></div>' +
+      (err ? '<p class="ferr" role="alert">' + msg + '</p>' : '') + '</section>';
+  }
+  return '<section class="cpanel' + (err ? ' err' : '') + '"><p class="clbl">' + title + '</p><div class="cks">' + html + '</div>' + (err ? '<p class="ferr" role="alert">' + msg + '</p>' : '') + '</section>'; }
 function okForm(arr, subj, isOn) {
   FE = { unit: arr[0] === NONE, type: !!isOn && !TYPES[subj].some(function (t) { return isOn(subj, t[0]); }) };
   if (!FE.unit && !FE.type) { FE = {}; return true; }
@@ -5723,17 +5758,28 @@ function unitPanel(act, arr, list, subj) {
   var syl = SYL[subj], order = syl ? syl.order.slice() : [], inR = (syl && syl.inRange) || [];
   list.forEach(function (u) { if (order.indexOf(u) < 0) order.push(u); });
   order = order.filter(function (u) { return inR.indexOf(u) < 0; });
+  var pk;
+  if (uAll(arr)) pk = { cnt: '全部', sum: '全部單元' };
+  else if (arr[0] === NONE) pk = { cnt: '還沒選', sum: '請點這裡選擇', none: 1 };
+  else {
+    var used = [], parts = [], n = 0;
+    order.forEach(function (u) { if (u === '@mid' || u === '@fin') { var ex = syl[u === '@mid' ? 'mid' : 'fin']; if (ex.units.every(function (x) { return uOn(arr, x); })) { parts.push(pkShort(ex.label)); used = used.concat(ex.units); } } });
+    order.forEach(function (u) { if (u === '@mid' || u === '@fin' || !uOn(arr, u)) return; n++; if (used.indexOf(u) < 0) parts.push(pkShort(uLbl(u))); });
+    pk = { cnt: '已選 ' + n + ' 個', sum: esc(parts.join('、')) };
+  }
   return ckPanel('選單元', ckBox(act, '', uAll(arr), '全選') + order.map(function (u) {
     if (u === '@mid' || u === '@fin') {
       var ex = syl[u === '@mid' ? 'mid' : 'fin'];
       return ckBox(act, u, ex.units.every(function (x) { return uOn(arr, x); }), esc(ex.label), ' data-ex="1"');
     }
     return ckBox(act, u, uOn(arr, u), esc(uLbl(u)));
-  }).join(''), FE.unit, '請至少選一個單元，才能開始出題。');
+  }).join(''), FE.unit, '請至少選一個單元，才能開始出題。', pk);
 }
 function typePanel(act, allAct, subj, isOn) {
   var all = TYPES[subj].every(function (t) { return isOn(subj, t[0]); });
-  return ckPanel('選題型', ckBox(allAct, '', all, '全選') + TYPES[subj].map(function (t) { return ckBox(act, t[0], isOn(subj, t[0]), t[1]); }).join(''), FE.type, '請至少選一種題型，才能開始出題。');
+  var onT = TYPES[subj].filter(function (t) { return isOn(subj, t[0]); });
+  var pk = all ? { cnt: '全部', sum: onT.map(function (t) { return t[1]; }).join('、') } : onT.length ? { cnt: '已選 ' + onT.length + ' 個', sum: onT.map(function (t) { return t[1]; }).join('、') } : { cnt: '還沒選', sum: '請點這裡選擇', none: 1 };
+  return ckPanel('選題型', ckBox(allAct, '', all, '全選') + TYPES[subj].map(function (t) { return ckBox(act, t[0], isOn(subj, t[0]), t[1]); }).join(''), FE.type, '請至少選一種題型，才能開始出題。', pk);
 }
 function countPanel(act, cur, ns, ansId, ansOn) {
   return '<section class="cpanel"><p class="clbl">選題數</p><div class="nseg">' + ns.map(function (n) { return '<button type="button" class="nbtn" data-act="' + act + '" data-v="' + n + '" aria-pressed="' + (cur === n) + '">' + n + '題</button>'; }).join('') + '</div>' +
@@ -5760,6 +5806,7 @@ function homeFoot() {
 }
 function render() {
   if (view !== 'oral') oralStop();
+  var pkL = PK && document.querySelector('.cpanel.open .cks'), pkT = pkL ? pkL.scrollTop : 0;
   var app = $('#app'), home = view === 'home';
   /* 首頁重繪時，動畫從原本播到的地方接著播，不要重來 */
   if (home && render.last !== 'home') render.t0 = Date.now(); render.last = view;
@@ -5771,6 +5818,7 @@ function render() {
   if (view === 'paper') { initPads(app); updateBar(); }
   if (CALC.key) { var cb = app.querySelector('.calcbtn[data-k="' + CALC.bk + '"]'); if (!cb) closeCalc(); else cb.setAttribute('aria-pressed', 'true'); }
   if (view === 'subject' && ST.tab === 'sheet') fitSheets();
+  if (pkT) { var pkL2 = document.querySelector('.cpanel.open .cks'); if (pkL2) pkL2.scrollTop = pkT; }
 }
 function body() {
   switch (view) {
@@ -6193,11 +6241,13 @@ on(document, 'click', function (e) {
   if (PM && PM.done && /^(pc|pm|pz|pf|pdone)$/.test(a)) return;
   if (a === 'pdone' && PM) { var di = +b.dataset.i; PM.R[di] = PM.R[di] ? '' : '1'; b.setAttribute('aria-pressed', !!PM.R[di]); b.textContent = PM.R[di] ? '✓ 完成' : '完成'; PM.warn = false; updateBar(); return; }
   if (/^oral/.test(a) && oralAct(a, b)) return;
-  if (/^(nav|menu|hgo|stab|sw|mtab)$/.test(a)) FE = {};
+  if (/^(nav|menu|hgo|stab|sw|mtab)$/.test(a)) { FE = {}; PK = null; }
   else if (/^(unit|czunit|shunit)$/.test(a)) FE.unit = false;
   else if (/(type|tall)$/.test(a)) FE.type = false;
   else if (/^(psubj|usubj)$/.test(a)) FE.subj = false;
   switch (a) {
+    case 'pkopen': PK = v; render(); var pkd = document.querySelector('.cpanel.open .pkdone'); if (pkd) pkd.focus({ preventScroll: true }); break;
+    case 'pkdone': var pkv = PK; PK = null; render(); var pkr = pkv && document.querySelector('.pkrow[data-v="' + pkv + '"]'); if (pkr) pkr.focus({ preventScroll: true }); break;
     case 'menu': if (v === 'class') CZ.subj = ''; if (v === 'exam') EZ.subj = ''; /* fall through */
     case 'nav': if (PM) { stopTimer(); } PM = null; view = v; G = null; confirmClear = false; render(); window.scrollTo(0, 0); break;
     case 'hgo': enterSubj(v, 'play'); render(); window.scrollTo(0, 0); break;
