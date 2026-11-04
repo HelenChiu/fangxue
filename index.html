@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793781533"><script>(function(){var B="1793781533";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
+<meta name="fx-build" content="1793782028"><script>(function(){var B="1793782028";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -1755,6 +1755,8 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
   .cpanel.pick.open.pk-type .pksheet .cks > .ck:first-child { grid-column: 1 / -1; }
   .cpanel.pick.open .pkmore:not([hidden]) { display: flex; align-items: flex-end; justify-content: center; position: relative; z-index: 1; height: 48px; margin-top: -48px; padding-bottom: 6px; pointer-events: none; background: linear-gradient(to bottom, rgba(31, 44, 82, 0), var(--panel) 75%); color: var(--star); font-size: 14px; font-weight: 700; letter-spacing: .04em; }
 }
+
+.cheerfx { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 130; }
 </style>
 
 <div id="app"></div>
@@ -3842,9 +3844,34 @@ function submitPaper(force) {
   window.scrollTo(0, 0);
   /* 有要自己評分的題目：先提醒去評分，全部評完才跳星星；沒有的話直接跳星星 */
   var pend = PM.qs.filter(function (q) { return q.self; }).length;
-  if (pend) { PM.waitStars = true; remindPop(pend, notes); } else starPop(stars);
+  if (pend) { PM.waitStars = true; remindPop(pend, notes); } else { starPop(stars); if (paperPct() === 100) setTimeout(cheer, 300); }
 }
 /* 所有題目都評完了，算這張卷子總共拿到幾顆星星 */
+function paperPct() { var t = 0, g = 0; PM.qs.forEach(function (q, i) { var r = gradeQ(q, PM.R[i], i); t += r.pts; g += r.got; }); return t ? Math.round(g / t * 100) : 0; }
+/* 全對：從分數那裡撒出彩帶 */
+function cheer() {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var st = document.querySelector('#psum .stamp'), W = window.innerWidth, H = window.innerHeight, x = W / 2, y = H * 0.35;
+  if (st) { var b = st.getBoundingClientRect(); x = b.left + b.width / 2; y = b.top + b.height / 2; }
+  var cv = document.createElement('canvas'), dpr = Math.min(window.devicePixelRatio || 1, 2); cv.className = 'cheerfx';
+  cv.width = W * dpr; cv.height = H * dpr; document.body.appendChild(cv);
+  var c = cv.getContext('2d'); c.scale(dpr, dpr);
+  var CF = ['#FFD166', '#4ECDC4', '#FF8C6B', '#FF9EC7', '#6C8CFF', '#C49BFF', '#FFFFFF'], ps = [];
+  function shot(x0, y0, n, pw) { for (var i = 0; i < n; i++) { var a = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.3, sp = (0.5 + Math.random()) * pw; ps.push({ x: x0, y: y0, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, w: 5 + Math.random() * 6, h: 8 + Math.random() * 10, rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4, col: CF[i % CF.length], rib: Math.random() < 0.3 }); } }
+  shot(x, y, 140, 12); setTimeout(function () { shot(20, H * 0.4, 45, 10); shot(W - 20, H * 0.4, 45, 10); }, 250);
+  var t0 = performance.now();
+  (function frame(now) {
+    c.clearRect(0, 0, W, H);
+    ps.forEach(function (p) {
+      p.vy += 0.18; p.vx *= 0.99; p.vy *= 0.99; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      c.save(); c.translate(p.x, p.y); c.rotate(p.rot); c.fillStyle = p.col; c.strokeStyle = p.col;
+      if (p.rib) { c.beginPath(); c.moveTo(-2, -10); c.quadraticCurveTo(6, -3, -2, 4); c.quadraticCurveTo(-8, 10, 0, 14); c.lineWidth = 3; c.stroke(); }
+      else { var hh = p.h * Math.abs(Math.cos(p.rot * 2)) + 1; c.fillRect(-p.w / 2, -hh / 2, p.w, hh); }
+      c.restore();
+    });
+    if (now - t0 < 3400 && cv.isConnected) requestAnimationFrame(frame); else cv.remove();
+  })(t0);
+}
 function paperStars() { var n = 0; PM.qs.forEach(function (q, i) { n += gradeQ(q, PM.R[i], i).got; }); return n; }
 function popBox(inner, btn, after) {
   var old = document.getElementById('starpop'); if (old) old.remove();
@@ -3855,8 +3882,8 @@ function popBox(inner, btn, after) {
   var ok = d.querySelector('#spOk'); if (ok) ok.focus({ preventScroll: true });
 }
 function remindPop(n, notes) {
-  popBox('<div class="spstar" aria-hidden="true">✎</div><h3 id="spT">交卷囉！</h3><p>還有 <b>' + n + '</b> 題要自己對答案、評分喔！<br>全部評完就會拿到星星～</p>' +
-    (notes && notes.length ? '<div class="spnote"><b>提醒</b>' + notes.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') + '</div>' : ''), '去評分', function () {
+  popBox('<div class="spstar" aria-hidden="true">✎</div><h3 id="spT">交卷囉！</h3>' +
+    (notes && notes.length ? '<div class="spnote">' + notes.map(function (t, k) { return '<p>' + (k ? '' : '因') + esc(t) + '</p>'; }).join('') + '</div>' : ''), '對答案去', function () {
     var c = document.querySelector('.selfmark'); if (c) { var card = c.closest('.pq'); if (card) card.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
   });
 }
@@ -3876,7 +3903,10 @@ function selfMark(i, v) {
   var ps = $('#psum'); if (ps) ps.innerHTML = summaryHTML();
   var hs = $('.stars span'); if (hs) hs.textContent = S.stars;
   /* 最後一題自己評完，才跳出星星 */
-  if (PM.waitStars && PM.qs.every(function (x, k) { return !x.self || PM.marks[k] !== undefined; })) { PM.waitStars = false; starPop(paperStars(), null, true); }
+  if (PM.waitStars && PM.qs.every(function (x, k) { return !x.self || PM.marks[k] !== undefined; })) {
+    PM.waitStars = false; window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (paperPct() === 100) setTimeout(cheer, 700);
+  }
 }
 
 /* ================= A4 評量出題卷 ================= */
