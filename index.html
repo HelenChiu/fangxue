@@ -1707,6 +1707,16 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
 .spbox .btn { min-width: 160px; }
 @keyframes sppop { from { transform: scale(.85); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .spbox { animation: none; } }
+
+/* 寫字區：返回上一步、橡皮擦用圖示按鈕；手機版作答列黃框淡一點、上方留白 */
+.padtools .padico { width: 48px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+.padtools .padico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.padtools .padico[aria-pressed="true"] { background: var(--star); border-color: var(--star); color: var(--night); }
+.pad.erasing .ink { cursor: cell; }
+@media (max-width: 560px) {
+  .sbar { top: 14px; border-color: rgba(255, 209, 102, .5) !important; }
+  .sbar::before { content: ""; position: absolute; left: -100vw; right: -100vw; bottom: calc(100% + 2px); height: 16px; background: var(--night); }
+}
 </style>
 
 <div id="app"></div>
@@ -3484,7 +3494,7 @@ function resultView() {
 /* ================= 書寫板（田字格／英文四線格） ================= */
 function padHTML(kind, o) {
   return '<div class="padbox"><div class="pad" data-kind="' + kind + '" data-rows="' + (o.rows || 1) + '" data-cells="' + (o.cells || 5) + '" data-model="' + esc(o.model || '') + '" data-showmodel="' + (o.show ? 1 : 0) + '"><canvas class="g"></canvas><canvas class="ink"></canvas></div>' +
-    '<div class="padtools"><button class="btn ghost" data-act="padclear">清除重寫</button>' + (kind === 'tian' ? '<button class="btn ghost" data-act="padmodel">看範字／隱藏</button>' : '') + '</div></div>';
+    '<div class="padtools"><button class="btn ghost padico" data-act="padundo" aria-label="返回上一步" title="返回上一步"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 5 9l4 4"/><path d="M5 9h10a4.5 4.5 0 0 1 0 9H7"/></svg></button><button class="btn ghost padico" data-act="paderase" aria-label="橡皮擦" aria-pressed="false" title="橡皮擦"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 13.2 12.4 5a2 2 0 0 1 2.8 0l3.8 3.8a2 2 0 0 1 0 2.8L11.6 19H7.8l-3.6-3.6a1.6 1.6 0 0 1 0-2.2z"/><path d="M8.4 9l6.6 6.6"/><path d="M11.6 19H20"/></svg></button><button class="btn ghost" data-act="padclear">清除重寫</button>' + (kind === 'tian' ? '<button class="btn ghost" data-act="padmodel">看範字／隱藏</button>' : '') + '</div></div>';
 }
 function initPads(root) {
   (root || document).querySelectorAll('.pad:not([data-ok])').forEach(function (pad) {
@@ -3520,18 +3530,24 @@ function initPads(root) {
       }
     }
     pad._draw = draw; draw();
-    var ctx = ink.getContext('2d'), drawing = false, lx = 0, ly = 0;
+    var ctx = ink.getContext('2d'), drawing = false, lx = 0, ly = 0, strokes = [], cur = null;
+    pad._erase = false;
+    function pen(er) { ctx.globalCompositeOperation = er ? 'destination-out' : 'source-over'; ctx.lineWidth = er ? 20 : 3.2; }
+    function dot(er, x, y) { ctx.save(); pen(er); ctx.beginPath(); ctx.arc(x, y, er ? 10 : 1.6, 0, 6.3); ctx.fill(); ctx.restore(); }
+    function seg(er, a, b) { ctx.save(); pen(er); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); ctx.restore(); }
+    function wipe() { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, ink.width, ink.height); ctx.restore(); }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 3.2; ctx.strokeStyle = '#14303a'; ctx.fillStyle = '#14303a';
     function pos(e) { var r = ink.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
     ink.addEventListener('pointerdown', function (e) {
       drawing = true; try { ink.setPointerCapture(e.pointerId); } catch (_) {}
-      var p = pos(e); lx = p[0]; ly = p[1]; ctx.beginPath(); ctx.arc(lx, ly, 1.6, 0, 6.3); ctx.fill();
+      var p = pos(e); lx = p[0]; ly = p[1]; cur = { e: pad._erase, pts: [p] }; strokes.push(cur); dot(cur.e, lx, ly);
       var card = pad.closest('.pq'); if (card && PM && !PM.done) { PM.R[+card.dataset.i] = 1; updateBar(); }
       e.preventDefault();
     });
-    ink.addEventListener('pointermove', function (e) { if (!drawing) return; var p = pos(e); ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(p[0], p[1]); ctx.stroke(); lx = p[0]; ly = p[1]; e.preventDefault(); });
+    ink.addEventListener('pointermove', function (e) { if (!drawing) return; var p = pos(e); seg(cur && cur.e, [lx, ly], p); if (cur) cur.pts.push(p); lx = p[0]; ly = p[1]; e.preventDefault(); });
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { ink.addEventListener(n, function () { drawing = false; }); });
-    pad._clear = function () { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, ink.width, ink.height); ctx.restore(); };
+    pad._clear = function () { strokes = []; wipe(); };
+    pad._undo = function () { strokes.pop(); wipe(); strokes.forEach(function (st) { dot(st.e, st.pts[0][0], st.pts[0][1]); for (var k = 1; k < st.pts.length; k++) seg(st.e, st.pts[k - 1], st.pts[k]); }); };
   });
 }
 function say(w) {
@@ -6396,6 +6412,8 @@ on(document, 'click', function (e) {
     case 'pf': var iff = cardIndex(b); PM.R[iff][+b.dataset.b] = b.dataset.v; refreshCard(iff); break;
     case 'say': say(b.dataset.w); break;
     case 'padclear': var pd = b.closest('.padbox').querySelector('.pad'); if (pd && pd._clear) pd._clear(); break;
+    case 'padundo': var pdu = b.closest('.padbox').querySelector('.pad'); if (pdu && pdu._undo) pdu._undo(); break;
+    case 'paderase': var pde = b.closest('.padbox').querySelector('.pad'); if (pde) { pde._erase = !pde._erase; b.setAttribute('aria-pressed', pde._erase); pde.classList.toggle('erasing', pde._erase); } break;
     case 'padmodel': var pd2 = b.closest('.padbox').querySelector('.pad'); if (pd2) { pd2.dataset.showmodel = pd2.dataset.showmodel === '1' ? '0' : '1'; pd2._draw(); } break;
     case 'submitp': submitPaper(false); break;
     case 'submitforce': closeAsk(); submitPaper(true); break;
