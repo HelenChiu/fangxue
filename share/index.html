@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793791776"><script>(function(){var B="1793791776";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1793792030"><script>(function(){var B="1793792030";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -1771,6 +1771,12 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
 /* 提示訊息改成置中的小視窗（後面的畫面變暗） */
 .toast { top: 50% !important; bottom: auto !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: min(320px, calc(100% - 48px)); max-width: none; padding: 22px 22px !important; border-radius: 22px !important; background: var(--panel) !important; color: var(--txt) !important; border: 2px solid var(--star); font-size: 17px; font-weight: 700 !important; line-height: 1.6; text-align: center; z-index: 125 !important; outline: 100vmax solid rgba(8, 12, 28, .6); outline-offset: 0; cursor: pointer; animation: sppop .22s ease-out; }
 @media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
+
+.bkhelp { border: 1px solid var(--rim); border-radius: 16px; padding: 12px 16px; background: rgba(255, 255, 255, .03); }
+.bkhelp summary { cursor: pointer; font-weight: 700; color: var(--star); list-style-position: outside; }
+.bkhelp ol { margin: 12px 0 8px; padding-left: 1.4em; display: flex; flex-direction: column; gap: 8px; line-height: 1.7; }
+.bkhelp ul { margin: 6px 0 0; padding-left: 1.2em; color: var(--txt-2); line-height: 1.7; }
+.bkhelp p { margin: 8px 0 0; color: var(--txt-2); line-height: 1.7; }
 </style>
 
 <div id="app"></div>
@@ -4502,6 +4508,13 @@ function bkParse(txt) {
 function bkSum(d) { return '星星 ' + (d.stars || 0) + ' 顆、星球生物 ' + d.garden.length + ' 個、錯題 ' + (d.wrong || []).length + ' 題'; }
 function backupHTML() {
   var now = bkData(), h = '<section class="panel bkbox"><h2>進度備份與還原</h2><p class="muted">星星、星球上的生物和錯題本，只存在這台裝置。換手機、換網址或重新加主畫面圖示前，先在這裡備份；到新的地方再貼回來還原。</p>' +
+    '<details class="bkhelp"><summary>怎麼搬家？（點開看步驟）</summary><ol>' +
+    '<li><b>在原本的地方備份</b>：從平常玩的主畫面圖示（或網址）打開，首頁最下面點「隱私說明」，在這一區按「複製備份碼」。</li>' +
+    '<li><b>把備份碼帶過去</b>：同一台裝置，直接切到新的地方貼上最保險。換另一台的話，可以用 LINE 或備忘錄傳給自己，記得整段複製。也可以按「下載備份檔」存起來。</li>' +
+    '<li><b>在新的地方還原</b>：打開新的網址或新的主畫面圖示，一樣到「隱私說明」這一區，貼上備份碼，按「還原這段備份碼」，再按「確定還原」。</li>' +
+    '<li><b>確認</b>：回首頁看看星星、星球上的生物有沒有都在。都在了，再把舊的主畫面圖示刪掉。</li></ol>' +
+    '<p class="small"><b>加到主畫面</b>：用 Safari 打開網址，按下方的「分享」，選「加入主畫面」。</p>' +
+    '<ul class="small"><li>還原會把這台裝置原本的進度<b>整個換掉</b>，不是加在一起。</li><li>舊的地方的進度不會被刪掉，搬家途中隨時可以回頭。</li><li>建議每隔一陣子就備份一次，存在 LINE 或備忘錄裡。</li></ul></details>' +
     '<p><b>這台裝置目前：</b>' + bkSum(now) + '</p>' +
     '<div class="row"><button class="btn primary" data-act="bkcopy">複製備份碼</button><button class="btn" data-act="bkdl">下載備份檔</button></div>' +
     '<textarea id="bkout" class="wr" readonly aria-label="備份碼" rows="3">' + esc(BK.code || '製作中…') + '</textarea><p class="muted small" id="bklen">' + (BK.code ? '備份碼共 ' + BK.code.length + ' 個字' : '') + '</p>' +
