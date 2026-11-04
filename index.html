@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793780037"><script>(function(){var B="1793780037";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
+<meta name="fx-build" content="1793780415"><script>(function(){var B="1793780415";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3823,16 +3823,30 @@ function submitPaper(force) {
   var hs = $('.stars span'); if (hs) hs.textContent = S.stars;
   /* 有電腦不能批改的題目（書寫題、口試題），交卷時一起提醒 */
   var notes = howRows(PM.qs).filter(function (r) { return r[0] !== '作答方式'; }).map(function (r) { return r[1].replace(/<[^>]+>/g, ''); });
-  window.scrollTo(0, 0); starPop(stars, notes);
+  window.scrollTo(0, 0);
+  /* 有要自己評分的題目：先提醒去評分，全部評完才跳星星；沒有的話直接跳星星 */
+  var pend = PM.qs.filter(function (q) { return q.self; }).length;
+  if (pend) { PM.waitStars = true; remindPop(pend, notes); } else starPop(stars);
 }
-/* 交卷後在畫面中間跳出得到幾顆星星 */
-function starPop(n, notes) {
+/* 所有題目都評完了，算這張卷子總共拿到幾顆星星 */
+function paperStars() { var n = 0; PM.qs.forEach(function (q, i) { n += gradeQ(q, PM.R[i], i).got; }); return n; }
+function popBox(inner, btn, after) {
   var old = document.getElementById('starpop'); if (old) old.remove();
   var d = document.createElement('div'); d.id = 'starpop'; d.className = 'starpop'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'spT');
-  d.innerHTML = '<div class="spbox"><div class="spstar" aria-hidden="true">★</div><h3 id="spT">交卷囉！</h3><p>' + (n ? '你得到 <b>' + n + '</b> 顆星星！' : '這次沒拿到星星，看看解答再挑戰一次～') + '</p>' + (notes && notes.length ? '<div class="spnote"><b>提醒</b>' + notes.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') + '</div>' : '') + '<button type="button" class="btn primary" id="spOk">看成績</button></div>';
+  d.innerHTML = '<div class="spbox">' + inner + '<button type="button" class="btn primary" id="spOk">' + btn + '</button></div>';
   document.body.appendChild(d);
-  d.addEventListener('click', function (e) { if (e.target === d || e.target.id === 'spOk') d.remove(); });
+  d.addEventListener('click', function (e) { if (e.target === d || e.target.id === 'spOk') { d.remove(); if (after) after(); } });
   var ok = d.querySelector('#spOk'); if (ok) ok.focus({ preventScroll: true });
+}
+function remindPop(n, notes) {
+  popBox('<div class="spstar" aria-hidden="true">✎</div><h3 id="spT">交卷囉！</h3><p>還有 <b>' + n + '</b> 題要自己對答案、評分喔！<br>全部評完就會拿到星星～</p>' +
+    (notes && notes.length ? '<div class="spnote"><b>提醒</b>' + notes.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') + '</div>' : ''), '去評分', function () {
+    var c = document.querySelector('.selfmark'); if (c) { var card = c.closest('.pq'); if (card) card.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+  });
+}
+/* 交卷後在畫面中間跳出得到幾顆星星 */
+function starPop(n, notes, done) {
+  popBox('<div class="spstar" aria-hidden="true">★</div><h3 id="spT">' + (done ? '全部評完囉！' : '交卷囉！') + '</h3><p>' + (n ? '你得到 <b>' + n + '</b> 顆星星！' : '這次沒拿到星星，看看解答再挑戰一次～') + '</p>', '看成績', done ? function () { window.scrollTo({ top: 0, behavior: 'smooth' }); } : null);
 }
 function selfMark(i, v) {
   if (!PM || !PM.done) return; var q = PM.qs[i], was = PM.marks[i];
@@ -3845,6 +3859,8 @@ function selfMark(i, v) {
   var card = document.getElementById('pq' + i); if (card) { card.classList.remove('right', 'wrong'); card.classList.add(v === 1 ? 'right' : 'wrong'); }
   var ps = $('#psum'); if (ps) ps.innerHTML = summaryHTML();
   var hs = $('.stars span'); if (hs) hs.textContent = S.stars;
+  /* 最後一題自己評完，才跳出星星 */
+  if (PM.waitStars && PM.qs.every(function (x, k) { return !x.self || PM.marks[k] !== undefined; })) { PM.waitStars = false; starPop(paperStars(), null, true); }
 }
 
 /* ================= A4 評量出題卷 ================= */
