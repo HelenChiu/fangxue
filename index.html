@@ -1621,8 +1621,11 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
 .gq-scmath { margin-top: 18px; }
 .gq-scmath .gq-sheet { min-height: 220px; }
 
-/* 手機上方狀態列（瀏海）那一塊固定成深色底，內容只在它下面捲動、不會疊上去 */
-body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top, 0px); background: #0E152C; z-index: 2147483000; pointer-events: none; }
+/* 手機：內容只在狀態列（時間、電量）下面的範圍裡捲動，不會捲到狀態列底下 */
+@media (max-width: 560px) {
+  html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+  #app { position: fixed !important; top: env(safe-area-inset-top, 0px); left: 0; right: 0; bottom: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; min-height: 0 !important; }
+}
 </style>
 
 <div id="app"></div>
@@ -3481,6 +3484,14 @@ function answered(q, r) {
     if (PM.isel && PM.isel.i === i) setSlot(i, k, PM.isel.c);
     else if (PM.R[i][k]) setSlot(i, k, '');
   });
+})();
+
+/* 手機：捲動改在 #app 裡面（配合上面的 CSS），讓原本「捲到最上面」等動作也照常運作 */
+(function () {
+  var mq = window.matchMedia('(max-width: 560px)'), orig = window.scrollTo.bind(window);
+  function box() { return mq.matches ? document.getElementById('app') : null; }
+  window.scrollTo = function (a, b) { var el = box(); if (!el) return orig.apply(window, arguments); if (a && typeof a === 'object') el.scrollTo(a); else el.scrollTo(a || 0, b || 0); };
+  try { Object.defineProperty(window, 'scrollY', { configurable: true, get: function () { var el = box(); return el ? el.scrollTop : (document.scrollingElement || document.documentElement).scrollTop; } }); } catch (e) {}
 })();
 function updateBar() {
   if (!PM) return; var n = 0; PM.qs.forEach(function (q, i) { if (answered(q, PM.R[i])) n++; });
