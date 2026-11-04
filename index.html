@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793780948"><script>(function(){var B="1793780948";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
+<meta name="fx-build" content="1793781238"><script>(function(){var B="1793781238";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -1744,6 +1744,15 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
 @media (max-width: 560px) {
   .selfmark > span { flex: 0 0 100%; }
   .selfmark .btn { flex: 1 1 0; min-width: 0; justify-content: center; }
+}
+
+/* 手機版底部清單：題型排兩欄；清單超出畫面時提示「往下滑還有」 */
+.pkmore { display: none; }
+@media (max-width: 560px) {
+  .cpanel.pick.open.pk-type .pksheet .cks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 8px; }
+  .cpanel.pick.open.pk-type .pksheet .ck { padding: 8px 6px; }
+  .cpanel.pick.open.pk-type .pksheet .cks > .ck:first-child { grid-column: 1 / -1; }
+  .cpanel.pick.open .pkmore:not([hidden]) { display: flex; align-items: flex-end; justify-content: center; position: relative; z-index: 1; height: 48px; margin-top: -48px; padding-bottom: 6px; pointer-events: none; background: linear-gradient(to bottom, rgba(31, 44, 82, 0), var(--panel) 75%); color: var(--star); font-size: 14px; font-weight: 700; letter-spacing: .04em; }
 }
 </style>
 
@@ -5902,8 +5911,8 @@ function pkShort(t) { var m = String(t).match(/^(期中考範圍|期末考範圍
 function ckPanel(title, html, err, msg, pk) {
   if (pk) {
     var op = PK === title;
-    return '<section class="cpanel pick' + (err ? ' err' : '') + (op ? ' open' + (PKA ? ' anim' : '') : '') + '"><button type="button" class="pkrow" data-act="pkopen" data-v="' + title + '" aria-haspopup="dialog" aria-expanded="' + op + '"><b>' + title + '</b><span class="pkcnt">' + pk.cnt + '</span><span class="pksum' + (pk.none ? ' empty' : '') + '">' + pk.sum + '</span></button>' +
-      '<div class="pkveil" data-act="pkdone" aria-hidden="true"></div><div class="pksheet"' + (op ? ' role="dialog" aria-modal="true" aria-label="' + title + '"' : '') + '><p class="clbl">' + title + '</p><div class="cks">' + html + '</div><div class="pkft"><button type="button" class="gobtn pkdone" data-act="pkdone">完成</button></div></div>' +
+    return '<section class="cpanel pick' + (title === '選題型' ? ' pk-type' : '') + (err ? ' err' : '') + (op ? ' open' + (PKA ? ' anim' : '') : '') + '"><button type="button" class="pkrow" data-act="pkopen" data-v="' + title + '" aria-haspopup="dialog" aria-expanded="' + op + '"><b>' + title + '</b><span class="pkcnt">' + pk.cnt + '</span><span class="pksum' + (pk.none ? ' empty' : '') + '">' + pk.sum + '</span></button>' +
+      '<div class="pkveil" data-act="pkdone" aria-hidden="true"></div><div class="pksheet"' + (op ? ' role="dialog" aria-modal="true" aria-label="' + title + '"' : '') + '><p class="clbl">' + title + '</p><div class="cks">' + html + '</div><div class="pkmore" aria-hidden="true" hidden>↓ 往下滑還有</div><div class="pkft"><button type="button" class="gobtn pkdone" data-act="pkdone">完成</button></div></div>' +
       (err ? '<p class="ferr" role="alert">' + msg + '</p>' : '') + '</section>';
   }
   return '<section class="cpanel' + (err ? ' err' : '') + '"><p class="clbl">' + title + '</p><div class="cks">' + html + '</div>' + (err ? '<p class="ferr" role="alert">' + msg + '</p>' : '') + '</section>'; }
@@ -5980,6 +5989,12 @@ function render() {
   if (CALC.key) { var cb = app.querySelector('.calcbtn[data-k="' + CALC.bk + '"]'); if (!cb) closeCalc(); else cb.setAttribute('aria-pressed', 'true'); }
   if (view === 'subject' && ST.tab === 'sheet') fitSheets();
   if (pkT) { var pkL2 = document.querySelector('.cpanel.open .cks'); if (pkL2) pkL2.scrollTop = pkT; }
+  if (PK) { var pkL3 = document.querySelector('.cpanel.open .cks'); if (pkL3) { pkL3.addEventListener('scroll', pkMore, { passive: true }); pkMore(); } }
+}
+/* 底部清單還有東西沒露出來時，顯示「往下滑還有」；滑到底就藏起來 */
+function pkMore() {
+  var L = document.querySelector('.cpanel.open .cks'), m = document.querySelector('.cpanel.open .pkmore'); if (!L || !m) return;
+  m.hidden = L.scrollHeight - L.clientHeight - L.scrollTop < 8;
 }
 function body() {
   switch (view) {
