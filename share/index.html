@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793791425"><script>(function(){var B="1793791425";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1793791776"><script>(function(){var B="1793791776";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -4476,28 +4476,53 @@ function srcView() {
     SOURCES.map(function (g) { return '<h3>' + g.g + '</h3><div class="links">' + g.items.map(function (it) { return '<a href="' + it[2] + '" target="_blank" rel="noopener noreferrer"><strong>' + it[0] + '</strong><span>' + it[1] + '</span></a>'; }).join('') + '</div>'; }).join('') + '</section>';
 }
 /* ---------- 進度備份：星星、星球上的生物、錯題本 → 一段備份碼／一個小檔案，換網址或換裝置時貼回來還原 ---------- */
-var BK = { pend: null, msg: '' };
+var BK = { pend: null, msg: '', input: '', code: '' };
 function bkGarden() { try { return JSON.parse(localStorage.getItem('guru-garden') || '[]') || []; } catch (e) { return []; } }
 function bkData() { return { v: 1, t: Date.now(), stars: S.stars || 0, wrong: S.wrong || [], garden: bkGarden() }; }
-function bkCode() { return 'FXQ1:' + btoa(unescape(encodeURIComponent(JSON.stringify(bkData())))); }
+function b64(u8) { var s = '', i; for (i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(s); }
+function unb64(t) { var s = atob(t), u = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; }
+/* 備份碼：先壓縮（FXQ2，比較短，LINE 傳得過去）；舊瀏覽器不支援壓縮就用 FXQ1 */
+function bkCode() {
+  var j = JSON.stringify(bkData());
+  if (window.CompressionStream) {
+    try { return new Response(new Blob([j]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer().then(function (ab) { return 'FXQ2:' + b64(new Uint8Array(ab)); }); } catch (e) {}
+  }
+  return Promise.resolve('FXQ1:' + btoa(unescape(encodeURIComponent(j))));
+}
+function bkOk(d) { return d && d.v === 1 && Array.isArray(d.garden) ? d : null; }
 function bkParse(txt) {
-  txt = String(txt || '').trim(); var m = txt.match(/FXQ1:([A-Za-z0-9+\/=]+)/); if (!m) return null;
-  try { var d = JSON.parse(decodeURIComponent(escape(atob(m[1])))); if (!d || d.v !== 1 || !Array.isArray(d.garden)) return null; return d; } catch (e) { return null; }
+  txt = String(txt || '').replace(/[\s\u200B-\u200D\uFEFF]/g, ''); /* 拿掉換行、空白（LINE 或備忘錄有時會自動加） */
+  var m = txt.match(/FXQ([12]):([A-Za-z0-9+\/=]+)/); if (!m) return Promise.resolve(null);
+  try {
+    if (m[1] === '1') return Promise.resolve(bkOk(JSON.parse(decodeURIComponent(escape(atob(m[2]))))));
+    if (!window.DecompressionStream) return Promise.resolve(null);
+    return new Response(new Blob([unb64(m[2])]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text().then(function (t) { return bkOk(JSON.parse(t)); }).catch(function () { return null; });
+  } catch (e) { return Promise.resolve(null); }
 }
 function bkSum(d) { return '星星 ' + (d.stars || 0) + ' 顆、星球生物 ' + d.garden.length + ' 個、錯題 ' + (d.wrong || []).length + ' 題'; }
 function backupHTML() {
   var now = bkData(), h = '<section class="panel bkbox"><h2>進度備份與還原</h2><p class="muted">星星、星球上的生物和錯題本，只存在這台裝置。換手機、換網址或重新加主畫面圖示前，先在這裡備份；到新的地方再貼回來還原。</p>' +
     '<p><b>這台裝置目前：</b>' + bkSum(now) + '</p>' +
     '<div class="row"><button class="btn primary" data-act="bkcopy">複製備份碼</button><button class="btn" data-act="bkdl">下載備份檔</button></div>' +
-    '<textarea id="bkout" class="wr" readonly aria-label="備份碼" rows="3">' + esc(bkCode()) + '</textarea>' +
+    '<textarea id="bkout" class="wr" readonly aria-label="備份碼" rows="3">' + esc(BK.code || '製作中…') + '</textarea><p class="muted small" id="bklen">' + (BK.code ? '備份碼共 ' + BK.code.length + ' 個字' : '') + '</p>' +
     '<h3>還原</h3><p class="muted small">把備份碼貼在下面，或選擇之前下載的備份檔。</p>' +
-    '<textarea id="bkin" class="wr" rows="3" aria-label="貼上備份碼" placeholder="在這裡貼上備份碼"></textarea>' +
+    '<textarea id="bkin" class="wr" rows="3" aria-label="貼上備份碼" placeholder="在這裡貼上備份碼">' + esc(BK.input) + '</textarea>' +
     '<div class="row"><button class="btn" data-act="bkcheck">還原這段備份碼</button><label class="btn ghost bkfile">選擇備份檔<input type="file" id="bkfile" accept=".txt,text/plain" hidden></label></div>';
   if (BK.pend) h += '<div class="bkask" role="alert"><p>要把這台裝置的進度換成備份裡的內容嗎？</p><p class="small">備份：' + bkSum(BK.pend) + '<br>現在：' + bkSum(now) + '</p><div class="row"><button class="btn primary" data-act="bkyes">確定還原</button><button class="btn ghost" data-act="bkno">先不要</button></div></div>';
   if (BK.msg) h += '<p class="bkmsg" role="status">' + esc(BK.msg) + '</p>';
   return h + '</section>';
 }
-function bkTry(txt) { var d = bkParse(txt); if (!d) { BK.pend = null; BK.msg = '看不懂這段備份碼，請確認有完整複製（開頭是 FXQ1:）。'; } else { BK.pend = d; BK.msg = ''; } render(); var a = document.querySelector('.bkask'); if (a) a.scrollIntoView({ block: 'center' }); }
+function bkTry(txt) {
+  BK.input = String(txt || '').slice(0, 200000);
+  bkParse(txt).then(function (d) {
+    var n = String(txt || '').replace(/\s/g, '').length;
+    if (!d) { BK.pend = null; BK.msg = n ? '這段備份碼不完整（收到 ' + n + ' 個字），可能複製時被截斷了。請在原本那台裝置按「複製備份碼」，直接回到這裡貼上；或改用「下載備份檔」。' : '請先貼上備份碼。'; }
+    else { BK.pend = d; BK.msg = ''; }
+    render(); var a = document.querySelector('.bkask, .bkmsg'); if (a) a.scrollIntoView({ block: 'center' });
+  });
+}
+/* 進到隱私說明頁時，在背景把備份碼做好 */
+function bkFill() { bkCode().then(function (c) { BK.code = c; var o = $('#bkout'), l = $('#bklen'); if (o) o.value = c; if (l) l.textContent = '備份碼共 ' + c.length + ' 個字'; }); }
 function privView() {
   return '<section class="panel"><h2>隱私怎麼處理</h2><ul class="plain">' +
     '<li>網站沒有任何地方要填孩子的名字、學校、班級或座號。</li>' +
@@ -6062,6 +6087,7 @@ function render() {
   if (view === 'paper') { initPads(app); updateBar(); }
   if (CALC.key) { var cb = app.querySelector('.calcbtn[data-k="' + CALC.bk + '"]'); if (!cb) closeCalc(); else cb.setAttribute('aria-pressed', 'true'); }
   if (view === 'subject' && ST.tab === 'sheet') fitSheets();
+  if (view === 'priv') bkFill();
   if (pkT) { var pkL2 = document.querySelector('.cpanel.open .cks'); if (pkL2) pkL2.scrollTop = pkT; }
   if (PK) { var pkL3 = document.querySelector('.cpanel.open .cks'); if (pkL3) { pkL3.addEventListener('scroll', pkMore, { passive: true }); pkMore(); } }
 }
@@ -6497,10 +6523,10 @@ on(document, 'click', function (e) {
   else if (/^(psubj|usubj)$/.test(a)) FE.subj = false;
   switch (a) {
     case 'bkcopy': var bo = $('#bkout'); if (bo) { var bt = bo.value; (navigator.clipboard ? navigator.clipboard.writeText(bt) : Promise.reject()).then(function () { toast('備份碼已複製，記得貼到安全的地方（例如傳給自己的 LINE）'); }, function () { bo.focus(); bo.select(); toast('請長按選取，再按「拷貝」'); }); } break;
-    case 'bkdl': saveFile('放學小星球備份-' + new Date().toISOString().slice(0, 10) + '.txt', new Blob([bkCode()], { type: 'text/plain' })); break;
+    case 'bkdl': bkCode().then(function (c) { saveFile('放學小星球備份-' + new Date().toISOString().slice(0, 10) + '.txt', new Blob([c], { type: 'text/plain' })); }); break;
     case 'bkcheck': var bi = $('#bkin'); bkTry(bi ? bi.value : ''); break;
     case 'bkno': BK.pend = null; BK.msg = ''; render(); break;
-    case 'bkyes': if (BK.pend) { var bd = BK.pend; S.stars = bd.stars || 0; S.wrong = bd.wrong || []; save(); try { localStorage.setItem('guru-garden', JSON.stringify(bd.garden)); } catch (e2) {} BK.pend = null; BK.msg = '還原好了！' + bkSum(bd) + '。'; render(); } break;
+    case 'bkyes': if (BK.pend) { var bd = BK.pend; S.stars = bd.stars || 0; S.wrong = bd.wrong || []; save(); try { localStorage.setItem('guru-garden', JSON.stringify(bd.garden)); } catch (e2) {} BK.pend = null; BK.input = ''; BK.msg = '還原好了！' + bkSum(bd) + '。'; render(); } break;
     case 'pkopen': PK = v; PKA = 1; render(); PKA = 0; var pkd = document.querySelector('.cpanel.open .pkdone'); if (pkd) pkd.focus({ preventScroll: true }); break;
     case 'pkdone': var pkv = PK; PK = null; render(); var pkr = pkv && document.querySelector('.pkrow[data-v="' + pkv + '"]'); if (pkr) pkr.focus({ preventScroll: true }); break;
     case 'menu': if (v === 'class') CZ.subj = ''; if (v === 'exam') EZ.subj = ''; /* fall through */
