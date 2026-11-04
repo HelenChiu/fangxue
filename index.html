@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793779581"><script>(function(){var B="1793779581";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
+<meta name="fx-build" content="1793780037"><script>(function(){var B="1793780037";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3897,7 +3897,7 @@ function printHTML(q, n) {
   }
   return h + '</div>';
 }
-var SH = { subj: 'chi', unit: [], types: {}, n: 10, answers: true, pages: null, qs: null, busy: '' };
+var SH = { subj: 'chi', unit: [], types: {}, n: 5, answers: true, pages: null, qs: null, busy: '' };
 function shOn(subj, k) { return !!SH.types[subj + k]; }
 function sheetTypes(subj) { var ks = TYPES[subj].map(function (t) { return t[0]; }).filter(function (k) { return shOn(subj, k); }); return ks.length ? ks : ['base']; }
 function paginate(qs, title, scope, withAns) {
@@ -4075,7 +4075,7 @@ function pdfToImages(file, room) {
 
 /* ---------- state ---------- */
 var view = 'home', sel = { subj: null, unit: [] }, G = null, last = null, confirmClear = false;
-var CZ = { subj: '', unit: [], types: {}, n: 10 };
+var CZ = { subj: '', unit: [], types: {}, n: 5 };
 var EZ = { subj: '' };
 var M = { tab: 'url', pg: 1, tags: [], url: '', uname: '', usubj: 'any', uunit: '', unote: '', upg: '', edit: null, ed: {}, confirm: null };
 var P = { sug: '', sctl: null, subj: 'any', unit: '', tpage: '', lesson: false, text: '', pages: '', note: '', names: [], terms: (S.terms || []).join('、'), imgs: [], busy: false, msg: '', err: '', preview: null, ctl: null, regen: null, replace: null, tags: [], mnote: '' };
@@ -4223,7 +4223,7 @@ function classView() {
   var s = SUBJ[CZ.subj], units = unitList(CZ.subj).filter(function (u) { return showUnit(CZ.subj, u); });
   var uchips = '<button class="chip" data-act="czunit" data-v="" aria-pressed="' + (!CZ.unit.length) + '">全部</button>' + units.map(function (u) { return '<button class="chip" data-act="czunit" data-v="' + esc(u) + '" aria-pressed="' + (CZ.unit.indexOf(u) >= 0) + '">' + esc(uLbl(u)) + '</button>'; }).join('');
   var tchips = '<button class="chip" data-act="cztall" data-v="" aria-pressed="' + TYPES[CZ.subj].every(function (t) { return czOn(CZ.subj, t[0]); }) + '">全部</button>' + TYPES[CZ.subj].map(function (t) { return '<button class="chip" data-act="cztype" data-v="' + t[0] + '" aria-pressed="' + czOn(CZ.subj, t[0]) + '">' + t[1] + '</button>'; }).join('');
-  var nchips = [10, 15, 20].map(function (n) { return '<button class="chip" data-act="czn" data-v="' + n + '" aria-pressed="' + (CZ.n === n) + '">' + n + ' 題</button>'; }).join('');
+  var nchips = [5, 10, 15, 20].map(function (n) { return '<button class="chip" data-act="czn" data-v="' + n + '" aria-pressed="' + (CZ.n === n) + '">' + n + ' 題</button>'; }).join('');
   return h + '<div class="row"><button class="btn ghost" data-act="czsubj" data-v="">← 返回</button></div>' +
     subjTabs('czsubj', CZ.subj) +
     introHTML([['範圍', CZ.unit.length ? esc(CZ.unit.join('、')) : '所選單元（沒選就是全部）'], ['題型', '可以自己勾選要練哪些題型']].concat(howSubjRows(CZ.subj)).concat([['課本位置', '每題標示單元和頁數；頁數還空白的，請到「教材上傳專區 → 課本頁數」填寫。']]), '本次考試說明') +
@@ -4280,7 +4280,7 @@ function sheetView() {
   var sj = visSubj().map(function (k) { return '<button class="chip ' + SUBJ[k].cls + '" data-act="shsubj" data-v="' + k + '" aria-pressed="' + (SH.subj === k) + '">' + SUBJ[k].name + '</button>'; }).join('');
   var uchips = '<button class="chip" data-act="shunit" data-v="" aria-pressed="' + (!SH.unit.length) + '">全部</button>' + units.map(function (u) { return '<button class="chip" data-act="shunit" data-v="' + esc(u) + '" aria-pressed="' + (SH.unit.indexOf(u) >= 0) + '">' + esc(uLbl(u)) + '</button>'; }).join('');
   var tchips = '<button class="chip" data-act="shtall" data-v="" aria-pressed="' + TYPES[SH.subj].every(function (t) { return shOn(SH.subj, t[0]); }) + '">全部</button>' + TYPES[SH.subj].map(function (t) { return '<button class="chip" data-act="shtype" data-v="' + t[0] + '" aria-pressed="' + shOn(SH.subj, t[0]) + '">' + t[1] + '</button>'; }).join('');
-  var nchips = [10, 15, 20, 30].map(function (n) { return '<button class="chip" data-act="shn" data-v="' + n + '" aria-pressed="' + (SH.n === n) + '">' + n + ' 題</button>'; }).join('');
+  var nchips = [5, 10, 15, 20, 30].map(function (n) { return '<button class="chip" data-act="shn" data-v="' + n + '" aria-pressed="' + (SH.n === n) + '">' + n + ' 題</button>'; }).join('');
   var out = h;
   out += '<div class="panel"><p class="lbl">科目</p><div class="chips">' + sj + '</div><p class="lbl">單元（多選）</p><div class="chips ' + s.cls + '">' + uchips + '</div><p class="lbl">題型（多選）</p><div class="chips ' + s.cls + '">' + tchips + '</div><p class="lbl">題數</p><div class="chips ' + s.cls + '">' + nchips + '</div>' +
     '<label class="row small" style="gap:8px"><input id="shans" type="checkbox"' + (SH.answers ? ' checked' : '') + '> 最後附上解答頁</label>' +
@@ -6033,11 +6033,11 @@ function axFor(subj, unit) {
 }
 function classBody() {
   var hw = howSubjRows(CZ.subj);
-  return '<p class="gonote">' + hw.map(function (r) { return r[1]; }).join('<br>') + '</p>' + unitPanel('czunit', CZ.unit, czUnits(), CZ.subj) + typePanel('cztype', 'cztall', CZ.subj, czOn) + countPanel('czn', CZ.n, [10, 15, 20], 'czans', CZ.answers !== false) +
+  return '<p class="gonote">' + hw.map(function (r) { return r[1]; }).join('<br>') + '</p>' + unitPanel('czunit', CZ.unit, czUnits(), CZ.subj) + typePanel('cztype', 'cztall', CZ.subj, czOn) + countPanel('czn', CZ.n, [5, 10, 15, 20], 'czans', CZ.answers !== false) +
     '<button class="gobtn" data-act="czgo">開始測驗</button>';
 }
 function sheetBody() {
-  var out = unitPanel('shunit', SH.unit, shUnits(), SH.subj) + typePanel('shtype', 'shtall', SH.subj, shOn) + countPanel('shn', SH.n, [10, 15, 20, 30], 'shans', SH.answers) +
+  var out = unitPanel('shunit', SH.unit, shUnits(), SH.subj) + typePanel('shtype', 'shtall', SH.subj, shOn) + countPanel('shn', SH.n, [5, 10, 15, 20, 30], 'shans', SH.answers) +
     '<button class="gobtn" data-act="shgo">' + (SH.pages ? '再出一張新卷' : '出題卷') + '</button>';
   if (SH.pages) {
     var dis = SH.busy ? ' disabled' : '';
