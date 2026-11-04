@@ -1625,6 +1625,20 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
   html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
   #app { position: fixed !important; top: env(safe-area-inset-top, 0px); left: 0; right: 0; bottom: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; min-height: 0 !important; }
 }
+
+/* 手機：科目用一個字、六科排一排；模式下方的說明文字先隱藏 */
+.subjtabs .ts, .swnav .ts { display: none; }
+@media (max-width: 560px) {
+  .tabs.subjtabs { display: grid !important; grid-template-columns: repeat(6, minmax(0, 1fr)) !important; gap: 8px !important; flex-wrap: nowrap !important; }
+  .tabs.subjtabs .chip { min-width: 0 !important; width: 100%; padding: 8px 0 !important; justify-content: center; text-align: center; }
+  .subjtabs .tl { display: none; }
+  .subjtabs .ts { display: inline; }
+  .wide > .gonote { display: none !important; }
+  .swnav { display: grid !important; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px !important; width: 100%; }
+  .swnav .swsubj { padding: 6px 0 !important; min-width: 0; font-size: 20px; }
+  .swnav .tl { display: none; }
+  .swnav .ts { display: inline; }
+}
 </style>
 
 <div id="app"></div>
@@ -2996,7 +3010,7 @@ function uLbl(u) { return u === 'Unit 1 & 2' ? '期中考範圍 (Unit 1 & 2)' : 
 var HIDE_UNITS = ['的、得、地', '量詞', '標點符號'];
 function showUnit(subj, name) { return !comboU(name) && !(subj === 'chi' && (HIDE_UNITS.indexOf(name) >= 0 || name === UX)); }
 function subjTabs(act, cur) {
-  return '<div class="tabs subjtabs" role="tablist">' + ['chi', 'eng', 'math', 'soc', 'nat', 'hea'].filter(function (k) { return SUBJ[k] && !SUBJ[k].hidden; }).map(function (k) { return '<button class="chip" data-act="' + act + '" data-v="' + k + '" aria-pressed="' + (cur === k) + '">' + (k === 'chi' ? '國語' : SUBJ[k].name) + '</button>'; }).join('') + '</div>';
+  return '<div class="tabs subjtabs" role="tablist">' + ['chi', 'eng', 'math', 'soc', 'nat', 'hea'].filter(function (k) { return SUBJ[k] && !SUBJ[k].hidden; }).map(function (k) { return '<button class="chip" data-act="' + act + '" data-v="' + k + '" aria-pressed="' + (cur === k) + '"><span class="tl">' + (k === 'chi' ? '國語' : SUBJ[k].name) + '</span><span class="ts" aria-hidden="true">' + SUBJ[k].ch + '</span></button>'; }).join('') + '</div>';
 }
 function visSubj() { return Object.keys(SUBJ).filter(function (k) { return !SUBJ[k].hidden; }); }
 function unitsOf(subj) {
@@ -5798,7 +5812,7 @@ function subjectView() {
   var k = sel.subj, s = SUBJ[k];
   var tabs = '<div class="mtabs" role="tablist">' + STABS.map(function (t) { return '<button role="tab" class="mtab" data-act="stab" data-v="' + t[0] + '" aria-selected="' + (ST.tab === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div>';
   var b = ST.tab === 'class' ? classBody() : ST.tab === 'sheet' ? sheetBody() : playBody();
-  var others = ['chi', 'eng', 'math', 'soc', 'nat', 'hea'].filter(function (x) { return !SUBJ[x].hidden; }).map(function (x) { return x === k ? '<button class="swsubj" aria-current="page">' + sname(x) + '</button>' : '<button class="swsubj" data-act="sw" data-v="' + x + '">' + sname(x) + '</button>'; }).join('<span class="swsep" aria-hidden="true">｜</span>');
+  var others = ['chi', 'eng', 'math', 'soc', 'nat', 'hea'].filter(function (x) { return !SUBJ[x].hidden; }).map(function (x) { var lb = '<span class="tl">' + sname(x) + '</span><span class="ts" aria-hidden="true">' + SUBJ[x].ch + '</span>'; return x === k ? '<button class="swsubj" aria-current="page" aria-label="' + sname(x) + '">' + lb + '</button>' : '<button class="swsubj" data-act="sw" data-v="' + x + '" aria-label="' + sname(x) + '">' + lb + '</button>'; }).join('<span class="swsep" aria-hidden="true">｜</span>');
   return '<div class="hero"><h2>' + sname(k) + '</h2><nav class="swnav" aria-label="切換科目">' + others + '</nav></div>' + tabs + '<div class="wide ' + s.cls + '">' + b + '</div>';
 }
 function playBody() {
