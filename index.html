@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793782630"><script>(function(){var B="1793782630";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
+<meta name="fx-build" content="1793782852"><script>(function(){var B="1793782852";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3539,7 +3539,8 @@ function padHTML(kind, o) {
 function initPads(root) {
   (root || document).querySelectorAll('.pad:not([data-ok])').forEach(function (pad) {
     var kind = pad.dataset.kind, rows = +pad.dataset.rows || 1, cells = +pad.dataset.cells || 5, w = pad.clientWidth || 320, dpr = window.devicePixelRatio || 1;
-    var h = kind === 'tian' ? Math.round(w / cells) : rows * Math.round(Math.max(100, Math.min(130, w / 3.2)));
+    var HD = kind === 'four' && pad.dataset.model && rows > 1 ? 28 : 0; /* 有描寫字時，每一行上面加一條「描一描／自己寫」標題 */
+    var h = kind === 'tian' ? Math.round(w / cells) : rows * (Math.round(Math.max(100, Math.min(130, w / 3.2))) + HD);
     var g = pad.querySelector('.g'), ink = pad.querySelector('.ink');
     pad.setAttribute('data-ok', '1'); pad.style.height = h + 'px';
     [g, ink].forEach(function (c) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.width = w + 'px'; c.style.height = h + 'px'; });
@@ -3557,9 +3558,17 @@ function initPads(root) {
         x.setLineDash([]);
         if (showm && model) { x.fillStyle = 'rgba(20,48,58,.22)'; x.font = Math.round(s * 0.74) + 'px "Noto Sans TC","PingFang TC","Microsoft JhengHei",serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(model, s / 2, h / 2 + s * 0.04); }
       } else {
-        var rh = h / rows, r;
+        var rh = (h - rows * HD) / rows, r;
         for (r = 0; r < rows; r++) {
-          var y0 = r * rh, ys = [0.14, 0.38, 0.62, 0.86];
+          var y0 = r * (rh + HD) + HD, ys = [0.14, 0.38, 0.62, 0.86];
+          if (HD) {
+            var tr = r === 0;
+            x.fillStyle = tr ? '#FFF1C9' : '#D9F2EF'; x.fillRect(0, y0 - HD, w, HD);
+            if (tr) { x.fillStyle = '#FFFBEF'; x.fillRect(0, y0, w, rh); }
+            if (r > 0) { x.fillStyle = '#16213E'; x.fillRect(0, y0 - HD - 3, w, 3); }
+            x.fillStyle = '#1F2433'; x.font = 'bold 14px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif'; x.textAlign = 'left'; x.textBaseline = 'middle';
+            x.fillText(tr ? '① 描一描（照著淡淡的字描）' : '② 自己寫', 12, y0 - HD / 2);
+          }
           ys.forEach(function (f, k) {
             x.beginPath(); x.setLineDash(k === 1 ? [6, 5] : []); x.strokeStyle = k === 2 ? '#d6453d' : '#6f9ad8'; x.lineWidth = k === 2 ? 1.6 : 1.2;
             x.moveTo(0, y0 + rh * f); x.lineTo(w, y0 + rh * f); x.stroke();
