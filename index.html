@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793779158"><script>(function(){var B="1793779158";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
+<meta name="fx-build" content="1793779236"><script>(function(){var B="1793779236";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script>
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3248,7 +3248,7 @@ var GEN = {
   zifill: function (subj, uf) {
     var P_ = charPool(uf).filter(function (c) { return c.s && c.s.indexOf(c.c) >= 0; }); if (!P_.length) return null;
     var c = rnd(P_), oth = shuffle(charPool(null).filter(function (x) { return x.c !== c.c; })).slice(0, 3).map(function (x) { return x.c; });
-    var q = mkChoice({ subj: 'chi', unit: c.unit, ref: c.ref, kind: '生字填寫', q: '選出適合填入空格的生字：\n' + c.s.replace(c.c, '（　）') + '\n注音提示：' + c.zy, options: [c.c].concat(oth), answer: c.c, explain: '「' + c.c + '」讀作' + c.zy + '，例如：' + c.w.join('、') + '。', key: 'zf' + c.c + c.s });
+    var q = mkChoice({ subj: 'chi', unit: c.unit, ref: c.ref, kind: '生字填寫', q: '選出適合填入括號的生字：\n' + c.s.replace(c.c, '（' + c.zy + '）'), options: [c.c].concat(oth), answer: c.c, explain: '「' + c.c + '」讀作' + c.zy + '，例如：' + c.w.join('、') + '。', key: 'zf' + c.c + c.s });
     q.chip = true; return q;
   },
   zy2: function (subj, uf) {
@@ -3730,7 +3730,7 @@ function qBody(q, i) {
       h = '<p class="qt">' + esc(q.q) + '　把空白的花瓣補起來</p>' + petalHTML(q, r);
       return h + q.blanks.map(function (b, kk) {
         var p = q.petals[b.i];
-        var lab = b.ask === 'c' ? '花瓣 ' + (b.i + 1) + '：' + p.zy + '　' + p.w.replace(p.c, '（　）') + '　→ 選出生字' : '花瓣 ' + (b.i + 1) + '：「' + p.c + '」（' + p.w + '）→ 怎麼念？';
+        var lab = b.ask === 'c' ? '花瓣 ' + (b.i + 1) + '：' + p.w.replace(p.c, '（' + p.zy + '）') + '　→ 選出生字' : '花瓣 ' + (b.i + 1) + '：「' + p.c + '」（' + p.w + '）→ 怎麼念？';
         return '<div class="flbl"><p>' + esc(lab) + '</p>' + chipBtns(b.o, r[kk], 'data-act="pf" data-i="' + i + '" data-b="' + kk + '"') + '</div>';
       }).join('');
     case 'lw':
