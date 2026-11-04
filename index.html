@@ -1656,7 +1656,8 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
   .cpanel.pick .pksheet { display: none; }
   .cpanel.pick.open .pkveil { display: block; position: fixed; inset: 0; background: rgba(8, 12, 28, .72); z-index: 80; }
   .cpanel.pick.open .pksheet { display: flex; flex-direction: column; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 81; max-height: 82vh; max-height: 82dvh; background: var(--panel); border: 1px solid var(--rim); border-bottom: 0; border-radius: 24px 24px 0 0; padding-block: 18px calc(14px + env(safe-area-inset-bottom, 0px)); padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
-  .cpanel.pick.open.anim .pksheet { animation: pkup .22s ease-out; }
+  .cpanel.pick.open.anim .pksheet { animation: pkup .24s cubic-bezier(.2, .8, .3, 1); }
+  .cpanel.pick.open.anim .pkveil { animation: pkfade .2s ease-out; }
   .cpanel.pick.open .pksheet .clbl { font-family: var(--f-disp, inherit); font-size: 22px; margin: 0 0 2px 6px; }
   .cpanel.pick.open .pksheet .cks { flex-direction: column; flex-wrap: nowrap; gap: 2px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
   .cpanel.pick.open .pksheet .ck { width: 100%; padding: 8px 8px; font-size: 16px; line-height: 1.4; border-radius: 12px; }
@@ -1665,8 +1666,9 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
   .pkdone { width: 100%; margin: 0; }
   #app:has(.cpanel.pick.open) { overflow: hidden; }
 }
-@keyframes pkup { from { transform: translateY(30px); opacity: .4; } }
-@media (prefers-reduced-motion: reduce) { .cpanel.pick.open .pksheet { animation: none; } }
+@keyframes pkup { from { transform: translateY(100%); } }
+@keyframes pkfade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cpanel.pick.open .pksheet, .cpanel.pick.open .pkveil { animation: none !important; } }
 
 /* iPad：首頁標題、年級不斷行；直式時六科排成兩欄三列，剛好填滿到頁尾 */
 @media (min-width: 761px) { .app.home main .band3 .hero { flex: none; } .app.home main .band3 .hero h2, .app.home main .band3 .hero p { white-space: nowrap; } .band3 .deco.rk { flex: 0 1 470px; min-width: 0; } }
