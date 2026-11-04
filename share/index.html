@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793794349"><script>(function(){var B="1793794349";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1793794596"><script>(function(){var B="1793794596";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -8167,30 +8167,39 @@ function ARCADE(app, env) {
     function startMode(mode) {
       clearAll(); area.innerHTML = '';
       var MOB = window.matchMedia('(max-width: 560px)').matches; /* 手機版：泡泡變大、依字數大小不同、位置稍微錯開 */
-      var M = BUB_MODES[mode], ROWS = MOB ? 3 : 2, COLS = MOB ? 3 : 5, cells = [], /* 泡泡少一點（手機 8 顆、電腦 9 顆），比較好找、也比較大顆好點 */ popped = 0, round = 0, N = M.scratch ? 6 : 10, miss = 0, cur = null, busy = false;
+      var M = BUB_MODES[mode], NB = MOB ? rnd(10, 11) : rnd(12, 14), cells = [], /* 泡泡 10～14 顆，大小不一、位置不規則 */ popped = 0, round = 0, N = M.scratch ? 6 : 10, miss = 0, cur = null, busy = false;
       var neb = mk('<div class="nebula"><div class="bgrid"></div><div class="launch"><span class="lq"></span></div><div class="tally">消除泡泡<b>0</b></div></div>');
       area.appendChild(neb);
       if (M.scratch) { var sc = scratch(); sc.style.marginTop = '14px'; area.appendChild(sc); }
       var grid = neb.querySelector('.bgrid'), lq = neb.querySelector('.lq'), tally = neb.querySelector('.tally b');
       if (MOB && sh.slot) { sh.slot.innerHTML = '<span class="tallyx">消除泡泡 <b>0</b></span>'; tally = sh.slot.querySelector('b'); }
       function rndVal() { if (M.make) return M.make(); var it = pick(M.pool); return { v: it[0], it: it }; }
-      function fill(c) { var r = rndVal(); c.v = r.v; c.it = r.it; c.q = r.q; c.col = rnd(0, BUB_COLORS.length - 1); if (c.it && c.it[3]) c.el.innerHTML = '<i>' + c.it[3] + '</i><small>' + esc(c.v) + '</small>'; else c.el.textContent = c.v; c.el.style.setProperty('--bc', BUB_COLORS[c.col]); c.el.className = 'bub' + (String(c.v).length > 4 ? ' long' : '') + ' in'; c.el.disabled = false; if (MOB) mobSize(c); }
-      function mobSize(c) {
-        var t = String(c.v), L = t.length, zh = /[^\x00-\x7f]/.test(t), w = zh ? 1 : (/^[0-9]+$/.test(t) ? 0.62 : 0.56), sz, fs;
-        if (c.it && c.it[3]) { sz = 92; fs = 30; }
-        else { sz = Math.max(80, Math.min(96, 72 + L * (zh ? 8 : 4))); fs = Math.min(sz * 0.42, sz * 0.8 / (L * w)); }
-        sz = Math.min(96, sz + rnd(-3, 3));
-        c.el.style.width = sz + 'px'; c.el.style.fontSize = Math.floor(fs) + 'px';
-        c.el.style.marginTop = (-sz / 2 + c.jy) + 'px'; c.el.style.marginLeft = c.jx + 'px';
+      function fill(c) { var r = rndVal(); c.v = r.v; c.it = r.it; c.q = r.q; c.col = rnd(0, BUB_COLORS.length - 1); if (c.it && c.it[3]) c.el.innerHTML = '<i>' + c.it[3] + '</i><small>' + esc(c.v) + '</small>'; else c.el.textContent = c.v; c.el.style.setProperty('--bc', BUB_COLORS[c.col]); c.el.className = 'bub' + (String(c.v).length > 4 ? ' long' : '') + ' in'; c.el.disabled = false; bubSize(c); }
+      /* 依字數調整字的大小（泡泡大小在擺位置時就決定好了） */
+      function bubSize(c) {
+        var t = String(c.v), L = t.length, zh = /[^\x00-\x7f]/.test(t), w = zh ? 1 : (/^[0-9]+$/.test(t) ? 0.62 : 0.56), sz = c.sz, fs;
+        fs = c.it && c.it[3] ? sz * 0.3 : Math.min(sz * 0.42, sz * 0.8 / (L * w));
+        c.el.style.fontSize = Math.floor(fs) + 'px';
       }
-      for (var r = 0; r < ROWS; r++) for (var cc = 0; cc < COLS - (r % 2); cc++) (function (r, cc) {
-        var el = mk('<button class="bub"></button>'), c = { r: r, c: cc, el: el, jx: MOB ? rnd(-5, 5) : 0, jy: MOB ? rnd(-5, 5) : 0 };
-        el.style.left = ((cc + (r % 2 ? 1 : 0.5)) / COLS * 100) + '%'; el.style.top = MOB ? (r * 30 + 14) + '%' : (r * 42 + 10) + '%';
-        if (!MOB) { el.style.width = '17%'; el.style.maxWidth = '124px'; el.style.fontSize = 'clamp(20px, 4vw, 38px)'; }
-        cells.push(c); grid.appendChild(el); fill(c);
-        el.addEventListener('click', function () { tap(c); });
-      })(r, cc);
-      function near(a, b2) { var dr = Math.abs(a.r - b2.r); if (dr > 1) return false; var xa = a.c + (a.r % 2 ? 0.5 : 0), xb = b2.c + (b2.r % 2 ? 0.5 : 0); return dr === 0 ? Math.abs(xa - xb) === 1 : Math.abs(xa - xb) === 0.5; }
+      /* 不規則擺放：隨機找位置，不跟別顆重疊；放不下就縮小一點再找 */
+      var GW = grid.clientWidth || 600, GH = grid.clientHeight || 360, SMIN = MOB ? 64 : 80, SMAX = MOB ? 96 : 128, GAPB = MOB ? 6 : 10;
+      for (var bi = 0; bi < NB; bi++) {
+        var sz = rnd(SMIN, SMAX), spot = null;
+        for (var tr = 0; tr < 400 && !spot; tr++) {
+          if (tr && tr % 80 === 0) sz = Math.max(SMIN - 10, sz - 10);
+          var x = sz / 2 + Math.random() * (GW - sz), y = sz / 2 + Math.random() * (GH - sz);
+          if (cells.every(function (o) { var dx = o.x - x, dy = o.y - y; return Math.sqrt(dx * dx + dy * dy) >= (o.sz + sz) / 2 + GAPB; })) spot = { x: x, y: y };
+        }
+        if (!spot) break;
+        (function (sz, spot) {
+          var el = mk('<button class="bub"></button>'), c = { el: el, x: spot.x, y: spot.y, sz: sz };
+          el.style.left = spot.x + 'px'; el.style.top = (spot.y - sz / 2) + 'px'; el.style.width = sz + 'px'; el.style.maxWidth = 'none'; el.style.margin = '0';
+          cells.push(c); grid.appendChild(el); fill(c);
+          el.addEventListener('click', function () { tap(c); });
+        })(sz, spot);
+      }
+      /* 「連在一起」＝兩顆泡泡靠得很近 */
+      function near(a, b2) { var dx = a.x - b2.x, dy = a.y - b2.y; return Math.sqrt(dx * dx + dy * dy) <= (a.sz + b2.sz) / 2 + GAPB + (MOB ? 22 : 30); }
       function cluster(c0) { var out = [c0], q = [c0]; while (q.length) { var x = q.shift(); cells.forEach(function (y) { if (out.indexOf(y) < 0 && y.col === c0.col && near(x, y)) { out.push(y); q.push(y); } }); } return out; }
       function isAns(c) {
         if (M.group) return c.it[2] === cur.key;
