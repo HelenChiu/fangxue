@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1793794596"><script>(function(){var B="1793794596";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1793795444"><script>(function(){var B="1793795444";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -4495,13 +4495,25 @@ function bkCode() {
   }
   return Promise.resolve('FXQ1:' + btoa(unescape(encodeURIComponent(j))));
 }
+/* 複製：先用新的方法，不行就改用舊方法（iPhone、iPad 的主畫面圖示有時不讓用新方法） */
+function bkCopy(t) {
+  function legacy() {
+    var ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px;';
+    document.body.appendChild(ta); ta.focus(); ta.select(); try { ta.setSelectionRange(0, t.length); } catch (e) {}
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {} ta.remove(); return ok;
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext !== false) {
+    try { return navigator.clipboard.writeText(t).then(function () { return true; }, function () { return legacy(); }); } catch (e) {}
+  }
+  return Promise.resolve(legacy());
+}
 function bkOk(d) { return d && d.v === 1 && Array.isArray(d.garden) ? d : null; }
 function bkParse(txt) {
   txt = String(txt || '').replace(/[\s\u200B-\u200D\uFEFF]/g, ''); /* 拿掉換行、空白（LINE 或備忘錄有時會自動加） */
   var m = txt.match(/FXQ([12]):([A-Za-z0-9+\/=]+)/); if (!m) return Promise.resolve(null);
   try {
     if (m[1] === '1') return Promise.resolve(bkOk(JSON.parse(decodeURIComponent(escape(atob(m[2]))))));
-    if (!window.DecompressionStream) return Promise.resolve(null);
+    if (!window.DecompressionStream) { BK.old = true; return Promise.resolve(null); }
     return new Response(new Blob([unb64(m[2])]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text().then(function (t) { return bkOk(JSON.parse(t)); }).catch(function () { return null; });
   } catch (e) { return Promise.resolve(null); }
 }
@@ -4517,7 +4529,7 @@ function backupHTML() {
     '<ul class="small"><li>還原會把這台裝置原本的進度<b>整個換掉</b>，不是加在一起。</li><li>舊的地方的進度不會被刪掉，搬家途中隨時可以回頭。</li><li>建議每隔一陣子就備份一次，存在 LINE 或備忘錄裡。</li></ul></details>' +
     '<p><b>這台裝置目前：</b>' + bkSum(now) + '</p>' +
     '<div class="row"><button class="btn primary" data-act="bkcopy">複製備份碼</button><button class="btn" data-act="bkdl">下載備份檔</button></div>' +
-    '<textarea id="bkout" class="wr" readonly aria-label="備份碼" rows="3">' + esc(BK.code || '製作中…') + '</textarea><p class="muted small" id="bklen">' + (BK.code ? '備份碼共 ' + BK.code.length + ' 個字' : '') + '</p>' +
+    '<textarea id="bkout" class="wr" readonly aria-label="備份碼" rows="3" onfocus="try{this.setSelectionRange(0,this.value.length)}catch(e){}">' + esc(BK.code || '製作中…') + '</textarea><p class="muted small" id="bklen">' + (BK.code ? '備份碼共 ' + BK.code.length + ' 個字' : '') + '</p>' +
     '<h3>還原</h3><p class="muted small">把備份碼貼在下面，或選擇之前下載的備份檔。</p>' +
     '<textarea id="bkin" class="wr" rows="3" aria-label="貼上備份碼" placeholder="在這裡貼上備份碼">' + esc(BK.input) + '</textarea>' +
     '<div class="row"><button class="btn" data-act="bkcheck">還原這段備份碼</button><label class="btn ghost bkfile">選擇備份檔<input type="file" id="bkfile" accept=".txt,text/plain" hidden></label></div>';
@@ -4529,7 +4541,8 @@ function bkTry(txt) {
   BK.input = String(txt || '').slice(0, 200000);
   bkParse(txt).then(function (d) {
     var n = String(txt || '').replace(/\s/g, '').length;
-    if (!d) { BK.pend = null; BK.msg = n ? '這段備份碼不完整（收到 ' + n + ' 個字），可能複製時被截斷了。請在原本那台裝置按「複製備份碼」，直接回到這裡貼上；或改用「下載備份檔」。' : '請先貼上備份碼。'; }
+    if (!d && BK.old) { BK.old = false; BK.pend = null; BK.msg = '這台裝置的瀏覽器版本比較舊，讀不了這種備份碼。請先把系統更新到最新版再試一次。'; }
+    else if (!d) { BK.pend = null; BK.msg = n ? '這段備份碼不完整（收到 ' + n + ' 個字），可能複製時被截斷了。請在原本那台裝置按「複製備份碼」，直接回到這裡貼上；或改用「下載備份檔」。' : '請先貼上備份碼。'; }
     else { BK.pend = d; BK.msg = ''; }
     render(); var a = document.querySelector('.bkask, .bkmsg'); if (a) a.scrollIntoView({ block: 'center' });
   });
@@ -6535,7 +6548,7 @@ on(document, 'click', function (e) {
   else if (/(type|tall)$/.test(a)) FE.type = false;
   else if (/^(psubj|usubj)$/.test(a)) FE.subj = false;
   switch (a) {
-    case 'bkcopy': var bo = $('#bkout'); if (bo) { var bt = bo.value; (navigator.clipboard ? navigator.clipboard.writeText(bt) : Promise.reject()).then(function () { toast('備份碼已複製，記得貼到安全的地方（例如傳給自己的 LINE）'); }, function () { bo.focus(); bo.select(); toast('請長按選取，再按「拷貝」'); }); } break;
+    case 'bkcopy': var bo = $('#bkout'); if (bo && /^FXQ/.test(bo.value)) { var bt = bo.value; bkCopy(bt).then(function (ok) { if (ok) toast('備份碼已複製（共 ' + bt.length + ' 個字）。現在可以到新的地方貼上，或先傳給自己的 LINE 存著。'); else { bo.focus(); try { bo.setSelectionRange(0, bt.length); } catch (e3) {} toast('這台裝置不讓網頁直接複製。備份碼已經幫你選好了，請按「拷貝」。'); } }); } else toast('備份碼還在製作中，請等一秒再按一次。'); break;
     case 'bkdl': bkCode().then(function (c) { saveFile('放學小星球備份-' + new Date().toISOString().slice(0, 10) + '.txt', new Blob([c], { type: 'text/plain' })); }); break;
     case 'bkcheck': var bi = $('#bkin'); bkTry(bi ? bi.value : ''); break;
     case 'bkno': BK.pend = null; BK.msg = ''; render(); break;
@@ -8174,7 +8187,10 @@ function ARCADE(app, env) {
       var grid = neb.querySelector('.bgrid'), lq = neb.querySelector('.lq'), tally = neb.querySelector('.tally b');
       if (MOB && sh.slot) { sh.slot.innerHTML = '<span class="tallyx">消除泡泡 <b>0</b></span>'; tally = sh.slot.querySelector('b'); }
       function rndVal() { if (M.make) return M.make(); var it = pick(M.pool); return { v: it[0], it: it }; }
-      function fill(c) { var r = rndVal(); c.v = r.v; c.it = r.it; c.q = r.q; c.col = rnd(0, BUB_COLORS.length - 1); if (c.it && c.it[3]) c.el.innerHTML = '<i>' + c.it[3] + '</i><small>' + esc(c.v) + '</small>'; else c.el.textContent = c.v; c.el.style.setProperty('--bc', BUB_COLORS[c.col]); c.el.className = 'bub' + (String(c.v).length > 4 ? ' long' : '') + ' in'; c.el.disabled = false; bubSize(c); }
+      function fill(c) { var r = rndVal(); c.v = r.v; c.it = r.it; c.q = r.q; c.col = rnd(0, BUB_COLORS.length - 1);
+        /* 泡泡變少後，同色相連的機會也少；新泡泡有六成機會跟旁邊一顆同色，才有連爆可以玩 */
+        var nb = c.x == null ? [] : cells.filter(function (o) { return o !== c && o.col != null && near(o, c); });
+        if (nb.length && Math.random() < 0.6) c.col = pick(nb).col; if (c.it && c.it[3]) c.el.innerHTML = '<i>' + c.it[3] + '</i><small>' + esc(c.v) + '</small>'; else c.el.textContent = c.v; c.el.style.setProperty('--bc', BUB_COLORS[c.col]); c.el.className = 'bub' + (String(c.v).length > 4 ? ' long' : '') + ' in'; c.el.disabled = false; bubSize(c); }
       /* 依字數調整字的大小（泡泡大小在擺位置時就決定好了） */
       function bubSize(c) {
         var t = String(c.v), L = t.length, zh = /[^\x00-\x7f]/.test(t), w = zh ? 1 : (/^[0-9]+$/.test(t) ? 0.62 : 0.56), sz = c.sz, fs;
@@ -8187,7 +8203,12 @@ function ARCADE(app, env) {
         var sz = rnd(SMIN, SMAX), spot = null;
         for (var tr = 0; tr < 400 && !spot; tr++) {
           if (tr && tr % 80 === 0) sz = Math.max(SMIN - 10, sz - 10);
-          var x = sz / 2 + Math.random() * (GW - sz), y = sz / 2 + Math.random() * (GH - sz);
+          var x, y;
+          if (cells.length && Math.random() < 0.65) { /* 多數泡泡靠在別顆旁邊，聚成一小團一小團，才有連爆 */
+            var base = pick(cells), ang = Math.random() * Math.PI * 2, dist = (base.sz + sz) / 2 + GAPB + Math.random() * 14;
+            x = base.x + Math.cos(ang) * dist; y = base.y + Math.sin(ang) * dist;
+            if (x < sz / 2 || x > GW - sz / 2 || y < sz / 2 || y > GH - sz / 2) continue;
+          } else { x = sz / 2 + Math.random() * (GW - sz); y = sz / 2 + Math.random() * (GH - sz); }
           if (cells.every(function (o) { var dx = o.x - x, dy = o.y - y; return Math.sqrt(dx * dx + dy * dy) >= (o.sz + sz) / 2 + GAPB; })) spot = { x: x, y: y };
         }
         if (!spot) break;
