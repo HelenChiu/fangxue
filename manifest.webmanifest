@@ -1,0 +1,15 @@
+{
+ "name": "放學小星球",
+ "short_name": "放學小星球",
+ "start_url": "./",
+ "display": "standalone",
+ "background_color": "#16213E",
+ "theme_color": "#0E152C",
+ "icons": [
+  {
+   "src": "apple-touch-icon.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  }
+ ]
+}
