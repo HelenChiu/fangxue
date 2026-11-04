@@ -1655,7 +1655,8 @@ button.glcard:hover em { background: var(--pc); color: var(--night); }
   .cpanel.pick .ferr { margin: -4px 0 12px; }
   .cpanel.pick .pksheet { display: none; }
   .cpanel.pick.open .pkveil { display: block; position: fixed; inset: 0; background: rgba(8, 12, 28, .72); z-index: 80; }
-  .cpanel.pick.open .pksheet { display: flex; flex-direction: column; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 81; max-height: 82vh; max-height: 82dvh; background: var(--panel); border: 1px solid var(--rim); border-bottom: 0; border-radius: 24px 24px 0 0; padding-block: 18px calc(14px + env(safe-area-inset-bottom, 0px)); padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); animation: pkup .22s ease-out; }
+  .cpanel.pick.open .pksheet { display: flex; flex-direction: column; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 81; max-height: 82vh; max-height: 82dvh; background: var(--panel); border: 1px solid var(--rim); border-bottom: 0; border-radius: 24px 24px 0 0; padding-block: 18px calc(14px + env(safe-area-inset-bottom, 0px)); padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+  .cpanel.pick.open.anim .pksheet { animation: pkup .22s ease-out; }
   .cpanel.pick.open .pksheet .clbl { font-family: var(--f-disp, inherit); font-size: 22px; margin: 0 0 2px 6px; }
   .cpanel.pick.open .pksheet .cks { flex-direction: column; flex-wrap: nowrap; gap: 2px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
   .cpanel.pick.open .pksheet .ck { width: 100%; padding: 8px 8px; font-size: 16px; line-height: 1.4; border-radius: 12px; }
@@ -5828,12 +5829,12 @@ function uToggle(arr, v, all, subj) {
 function ckBox(act, v, on, label, extra) {
   return '<button type="button" class="ck" role="checkbox" aria-checked="' + (on ? 'true' : 'false') + '" data-act="' + act + '" data-v="' + esc(v) + '"' + (extra || '') + '><span class="box" aria-hidden="true"></span><span>' + label + '</span></button>';
 }
-var FE = {}, PK = null;
+var FE = {}, PK = null, PKA = 0; /* PKA：剛打開清單才播滑出動畫，勾選時重畫不再播 */
 function pkShort(t) { var m = String(t).match(/^(期中考範圍|期末考範圍|第.+?課|第\d+單元|單元\d+|Starter Unit|Unit \d+|Review \d+)/); return m ? m[1] : t; }
 function ckPanel(title, html, err, msg, pk) {
   if (pk) {
     var op = PK === title;
-    return '<section class="cpanel pick' + (err ? ' err' : '') + (op ? ' open' : '') + '"><button type="button" class="pkrow" data-act="pkopen" data-v="' + title + '" aria-haspopup="dialog" aria-expanded="' + op + '"><b>' + title + '</b><span class="pkcnt">' + pk.cnt + '</span><span class="pksum' + (pk.none ? ' empty' : '') + '">' + pk.sum + '</span></button>' +
+    return '<section class="cpanel pick' + (err ? ' err' : '') + (op ? ' open' + (PKA ? ' anim' : '') : '') + '"><button type="button" class="pkrow" data-act="pkopen" data-v="' + title + '" aria-haspopup="dialog" aria-expanded="' + op + '"><b>' + title + '</b><span class="pkcnt">' + pk.cnt + '</span><span class="pksum' + (pk.none ? ' empty' : '') + '">' + pk.sum + '</span></button>' +
       '<div class="pkveil" data-act="pkdone" aria-hidden="true"></div><div class="pksheet"' + (op ? ' role="dialog" aria-modal="true" aria-label="' + title + '"' : '') + '><p class="clbl">' + title + '</p><div class="cks">' + html + '</div><div class="pkft"><button type="button" class="gobtn pkdone" data-act="pkdone">完成</button></div></div>' +
       (err ? '<p class="ferr" role="alert">' + msg + '</p>' : '') + '</section>';
   }
@@ -6338,7 +6339,7 @@ on(document, 'click', function (e) {
   else if (/(type|tall)$/.test(a)) FE.type = false;
   else if (/^(psubj|usubj)$/.test(a)) FE.subj = false;
   switch (a) {
-    case 'pkopen': PK = v; render(); var pkd = document.querySelector('.cpanel.open .pkdone'); if (pkd) pkd.focus({ preventScroll: true }); break;
+    case 'pkopen': PK = v; PKA = 1; render(); PKA = 0; var pkd = document.querySelector('.cpanel.open .pkdone'); if (pkd) pkd.focus({ preventScroll: true }); break;
     case 'pkdone': var pkv = PK; PK = null; render(); var pkr = pkv && document.querySelector('.pkrow[data-v="' + pkv + '"]'); if (pkr) pkr.focus({ preventScroll: true }); break;
     case 'menu': if (v === 'class') CZ.subj = ''; if (v === 'exam') EZ.subj = ''; /* fall through */
     case 'nav': if (PM) { stopTimer(); } PM = null; view = v; G = null; confirmClear = false; render(); window.scrollTo(0, 0); break;
