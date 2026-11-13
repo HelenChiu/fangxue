@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1794591203"><script>(function(){var B="1794591203";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1794591434"><script>(function(){var B="1794591434";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3486,6 +3486,73 @@ var MWB8 = [
   B('math', "單元8 分數", "一條蛋糕捲平分成 8 份，生日會吃掉 8 份，是吃掉了幾條？", ["8/8 條，也就是 1 條", "1/8 條", "8 條"], "8/8 條，也就是 1 條", "8 份全吃完就是 8/8＝1 條。")
 ];
 MWB8.forEach(function (q, i) { q.id = 'mwb8-' + i; });
+/* 數學習作 單元9 圓（南一）：分析習作題型（生活中的圓、圓心圓周半徑直徑、直徑是半徑的 2 倍、圓的性質判斷、對折找圓心、圓規畫圓與比長短、同心圓、找寶藏）後原創出題，沒有使用原書題目 */
+var MWB9 = [
+  B('math', "單元9 圓", "下面哪一個東西的形狀是圓形？", ["一元硬幣", "三角板", "書本封面"], "一元硬幣", "硬幣是圓形的；三角板是三角形，書本封面是長方形。"),
+  B('math', "單元9 圓", "下面哪一個東西的形狀「不是」圓形？", ["光碟", "鈕扣", "撲克牌"], "撲克牌", "撲克牌是長方形。"),
+  B('math', "單元9 圓", "一片雪花的形狀尖尖的，有很多角，它是不是圓形？", ["是", "不是"], "不是", "圓形的邊是彎彎的、沒有角，有尖角的就不是圓。"),
+  B('math', "單元9 圓", "圓的正中間那一點叫做什麼？", ["頂點", "圓心", "圓周"], "圓心", "圓正中間的點叫圓心。"),
+  B('math', "單元9 圓", "圓外面那一圈彎彎的線叫做什麼？", ["圓周", "直徑", "半徑"], "圓周", "圍成圓的那一圈線叫圓周。"),
+  B('math', "單元9 圓", "從圓心到圓周的直線叫做什麼？", ["直徑", "半徑", "邊"], "半徑", "圓心到圓周的距離叫半徑。"),
+  B('math', "單元9 圓", "穿過圓心、兩端都在圓周上的直線叫做什麼？", ["半徑", "直徑", "圓周"], "直徑", "通過圓心的最長直線是直徑。"),
+  TF('math', "單元9 圓", "直徑是圓裡面最長的直線。", "對", "通過圓心的直徑是圓內最長的直線。"),
+  TF('math', "單元9 圓", "半徑是圓裡面最長的直線。", "錯", "最長的是直徑，半徑只有直徑的一半。"),
+  TF('math', "單元9 圓", "圓心到圓周上任何一點的距離都一樣長。", "對", "同一個圓的半徑都一樣長。"),
+  TF('math', "單元9 圓", "一個圓只有 1 條直徑。", "錯", "通過圓心可以畫出很多很多條直徑。"),
+  TF('math', "單元9 圓", "一個圓只有 1 個圓心。", "對", "每個圓只有 1 個圓心。"),
+  TF('math', "單元9 圓", "一個圓可以畫出很多條半徑，而且都一樣長。", "對", "從圓心往圓周任何方向畫，都是半徑，長度都一樣。"),
+  TF('math', "單元9 圓", "兩條直徑交叉的那一點，就是圓心。", "對", "直徑都會通過圓心，所以兩條直徑的交點就是圓心。"),
+  TF('math', "單元9 圓", "一條線兩端都在圓周上，就一定是直徑。", "錯", "還要通過圓心才是直徑；沒通過圓心的比直徑短。"),
+  B('math', "單元9 圓", "把一張圓形紙對折，再換個方向對折一次，兩條折痕交叉的地方是：", ["圓周", "圓心", "半徑"], "圓心", "兩條折痕都是直徑，交點就是圓心。"),
+  FL('math', "單元9 圓", "直徑是半徑的（　）倍。", "2", "直徑＝半徑＋半徑，是半徑的 2 倍。"),
+  FL('math', "單元9 圓", "一個圓的半徑是 3 公分，直徑是（　）公分。", "6", "3×2＝6 公分。"),
+  FL('math', "單元9 圓", "一個圓的半徑是 7 公分，直徑是（　）公分。", "14", "7×2＝14 公分。"),
+  FL('math', "單元9 圓", "一個圓的直徑是 10 公分，半徑是（　）公分。", "5", "10÷2＝5 公分。"),
+  FL('math', "單元9 圓", "一個圓的直徑是 16 公分，半徑是（　）公分。", "8", "16÷2＝8 公分。"),
+  FL('math', "單元9 圓", "一個圓的半徑是 4 公分 5 毫米，直徑是（　）毫米。", "90", "45×2＝90 毫米，就是 9 公分。"),
+  B('math', "單元9 圓", "「直徑 10 公分的圓」和「半徑 10 公分的圓」，哪一個比較大？", ["一樣大", "直徑 10 公分的圓", "半徑 10 公分的圓"], "半徑 10 公分的圓", "直徑 10 公分的圓，半徑只有 5 公分，所以半徑 10 公分的圓比較大。"),
+  B('math', "單元9 圓", "「半徑 6 公分的圓」和「直徑 12 公分的圓」，哪一個比較大？", ["一樣大", "半徑 6 公分的圓", "直徑 12 公分的圓"], "一樣大", "直徑 12 公分的圓，半徑也是 6 公分，一樣大。"),
+  FL('math', "單元9 圓", "一個圓的圓周上有一點 A，A 到圓心是 5 公分；圓周上另一點 B 到圓心是（　）公分。", "5", "圓心到圓周上任何一點都一樣遠。"),
+  B('math', "單元9 圓", "一個圓裡畫了 4 條直線，長度分別是 6 公分、9 公分、8 公分、7 公分，其中一條是直徑。直徑是哪一條？", ["6 公分", "8 公分", "9 公分"], "9 公分", "直徑是圓裡最長的直線，所以是 9 公分那條。"),
+  FL('math', "單元9 圓", "一個圓裡最長的直線是 12 公分，這個圓的半徑是（　）公分。", "6", "最長的直線是直徑 12 公分，半徑是 6 公分。"),
+  B('math', "單元9 圓", "用圓規畫圓時，圓規的針尖要放在哪裡？", ["圓周上", "要畫的圓的圓心", "隨便哪裡"], "要畫的圓的圓心", "針尖固定的那一點就是圓心。"),
+  B('math', "單元9 圓", "用圓規畫圓時，針尖和筆尖張開的距離是：", ["圓的半徑", "圓的直徑", "圓周的長"], "圓的半徑", "兩腳張開的距離就是半徑。"),
+  FL('math', "單元9 圓", "要用圓規畫直徑 8 公分的圓，圓規的兩腳要張開（　）公分。", "4", "圓規張開的是半徑，8÷2＝4 公分。"),
+  FL('math', "單元9 圓", "要用圓規畫半徑 3 公分的圓，圓規的兩腳要張開（　）公分。", "3", "張開的距離就是半徑 3 公分。"),
+  TF('math', "單元9 圓", "畫圓時，畫到一半可以把針尖換個位置，再繼續畫。", "錯", "針尖要一直固定在圓心，才畫得出圓。"),
+  TF('math', "單元9 圓", "圓規也可以用來比較兩條線哪一條比較長。", "對", "把圓規兩腳放在一條線的兩端，再移到另一條線上比。"),
+  B('math', "單元9 圓", "用圓規量甲線，兩腳張開剛好；移到乙線上，乙線比兩腳張開的還長一點。哪一條比較長？", ["甲", "乙", "一樣長"], "乙", "乙線超過圓規兩腳，所以乙比較長。"),
+  B('math', "單元9 圓", "一條彎彎折折的線和一條直線比長短，用圓規要怎麼量彎折的線？", ["一段一段量，再接起來比", "只量頭到尾的距離", "不能量"], "一段一段量，再接起來比", "折線要每一段都量，合起來才是它的長度；只量頭尾會比較短。"),
+  B('math', "單元9 圓", "同一個點當圓心，畫半徑 2 公分和半徑 4 公分的兩個圓，會怎麼樣？", ["兩個圓一樣大", "小圓在大圓裡面，圓心相同", "兩個圓不會碰在一起，也沒有共同的圓心"], "小圓在大圓裡面，圓心相同", "圓心一樣、半徑不同，畫出一大一小，小圓在大圓裡面。"),
+  FL('math', "單元9 圓", "小圓的圓心是 A，大圓的圓心是 B，B 點在小圓的圓周上。小圓半徑是 2 公分，A 到 B 是（　）公分。", "2", "B 在小圓的圓周上，AB 就是小圓的半徑。"),
+  FL('math', "單元9 圓", "寶藏在以 A 點為圓心、半徑 3 公分的圓裡面。一點 P 離 A 點 5 公分，P 點在不在圓裡面？在圓裡面填 1，不在填 0：（　）", "0", "5 公分比半徑 3 公分還遠，在圓外面。"),
+  B('math', "單元9 圓", "寶藏在以 B 點為圓心、直徑 10 公分的圓裡面。下面哪一個點可能藏寶藏？", ["離 B 點 4 公分的點", "離 B 點 6 公分的點", "離 B 點 8 公分的點"], "離 B 點 4 公分的點", "直徑 10 公分，半徑是 5 公分，要離 B 點 5 公分以內。"),
+  B('math', "單元9 圓", "要畫 5 個半徑 2 公分的圓連成一排，每個圓的圓規都要張開多少？", ["1 公分", "2 公分", "4 公分"], "2 公分", "半徑 2 公分，就張開 2 公分。"),
+  FL('math', "單元9 圓", "把 3 個直徑 4 公分的圓並排放好，一個接一個不重疊，從最左邊到最右邊共長（　）公分。", "12", "每個圓寬 4 公分（直徑），3 個是 4×3＝12 公分。")
+];
+MWB9.forEach(function (q, i) { q.id = 'mwb9-' + i; });
+/* 數學習作 綜合練習2（單元5～9）（南一）：分析習作題型（分數塗色與國旗、容量相差與還能倒多少、數直角、比角的大小、訂正除法直式、除法應用）後原創出題，沒有使用原書題目 */
+var MWBR2 = [
+  B('math', "單元8 分數", "一張紙平分成 4 份，1/4 塗藍色、2/4 塗黃色，剩下的塗紅色。紅色是幾張紙？", ["1/4", "2/4", "3/4"], "1/4", "4/4－1/4－2/4＝1/4。"),
+  B('math', "單元8 分數", "一面旗子平分成 3 條，中間 1 條是白色，上下 2 條是紅色。紅色部分是旗子的幾分之幾？", ["1/3", "2/3", "3/3"], "2/3", "3 條中的 2 條是紅色，是 2/3。"),
+  B('math', "單元8 分數", "一面旗子由左到右平分成 3 條：藍、白、紅。紅色部分是旗子的幾分之幾？", ["1/3", "2/3", "1/2"], "1/3", "3 條中只有 1 條是紅色。"),
+  FL('math', "單元7 公升和毫升", "甲壺裝 1800 毫升果汁，乙壺裝 1150 毫升，兩壺相差（　）毫升。", "650", "1800－1150＝650 毫升。"),
+  FL('math', "單元7 公升和毫升", "把 1150 毫升和 600 毫升的果汁都倒進一個 2 公升的水壺，水壺最多還可以再倒入（　）毫升。", "250", "1150＋600＝1750 毫升，2000－1750＝250 毫升。"),
+  B('math', "單元7 公升和毫升", "把 1300 毫升和 800 毫升的果汁都倒進一個 2 公升的水壺，會怎麼樣？", ["剛好裝滿", "還有空間", "裝不下，會滿出來"], "裝不下，會滿出來", "1300＋800＝2100 毫升，比 2000 毫升多。"),
+  FL('math', "單元5 角、正方形和長方形", "一個信封是長方形，它有（　）個直角。", "4", "長方形 4 個角都是直角。"),
+  B('math', "單元5 角、正方形和長方形", "一個半圓形的紙片，有幾個直角？", ["0 個", "2 個", "4 個"], "0 個", "半圓形的直邊和彎邊相交，不是直角。"),
+  B('math', "單元5 角、正方形和長方形", "三隻魚張開嘴巴：小魚張得很小、綠魚張得很大、橘魚張得中等。哪一隻嘴巴的角最大？", ["小魚", "橘魚", "綠魚"], "綠魚", "張開越大，角就越大，和嘴巴長短沒關係。"),
+  TF('math', "單元5 角、正方形和長方形", "一隻大魚的嘴巴很長，所以牠嘴巴的角一定比小魚大。", "錯", "角的大小看張開多少，和邊的長短無關。"),
+  B('math', "單元6 除法", "有人算 64 ÷ 9 ＝ 7 … 1，這樣對嗎？", ["對", "錯"], "對", "9×7＝63，64－63＝1，餘數 1 比 9 小，正確。"),
+  B('math', "單元6 除法", "有人算 55 ÷ 9 ＝ 5 … 10，正確答案是什麼？", ["6 … 1", "5 … 1", "6 … 10"], "6 … 1", "餘數 10 比除數 9 大，還能再分：9×6＝54，55－54＝1。"),
+  B('math', "單元6 除法", "有人算 50 ÷ 7 ＝ 6 … 8，正確答案是什麼？", ["7 … 1", "6 … 1", "8 … 1"], "7 … 1", "餘數 8 比 7 大，表示商太小：7×7＝49，50－49＝1。"),
+  FL('math', "單元6 除法", "老師買了 38 包餅乾，平分給 6 個人，每人可以分到（　）包。", "6", "38÷6＝6 … 2。"),
+  FL('math', "單元6 除法", "老師買了 38 包餅乾，平分給 6 個人，還剩（　）包。", "2", "6×6＝36，38－36＝2。"),
+  FL('math', "單元6 除法", "有 29 塊蛋糕，每 8 塊裝 1 盒，最多可以裝（　）盒。", "3", "29÷8＝3 … 5。"),
+  FL('math', "單元6 除法", "有 29 塊蛋糕，每 8 塊裝 1 盒，還剩（　）塊。", "5", "8×3＝24，29－24＝5。"),
+  FL('math', "單元9 圓", "要畫 5 個半徑 2 公分的圓，每個圓的直徑是（　）公分。", "4", "2×2＝4 公分。")
+];
+MWBR2.forEach(function (q, i) { q.id = 'mwr2-' + i; });
 var SOCB_P = [].concat(
   PP('soc', SO1, [['上課前', '閱讀課文、做記號'], ['上課中', '專心上課、記錄重點'], ['上課後', '完成作業、複習重點'], ['自我介紹前', '先想好要說的內容'], ['自我介紹中', '面帶微笑發言'], ['自我介紹後', '謝謝同學聆聽'],
     ['分配工作', '注意公平原則'], ['發生爭執', '先冷靜再溝通'], ['戶外學習第一步', '查資料、分配工作'], ['戶外學習第三步', '整理資料並分享'], ['太晚寫功課', '隔天沒精神'], ['自律', '不需要別人提醒']]),
@@ -3881,7 +3948,7 @@ BANK.forEach(function (q) { if (q.subj === 'eng' && RETIRED_Q[q.q]) q.retired = 
 /* 停用：自然單元1、2 的舊通用題和配對（有些內容課本沒教、用字和課本不同；保留不刪除），改用依課本考點重新出的 NATB */
 [SAMPLE_Q, BANK, SAMPLE_P, BANK_P].forEach(function (list) { list.forEach(function (q) { if (q.subj === 'nat' && (q.unit === U_N[0] || q.unit === U_N[1])) q.retired = true; }); });
 (function applyRemap() {
-  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8].forEach(function (list) {
+  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2].forEach(function (list) {
     list.forEach(function (q) {
       if (RETIRED[q.unit]) { q.retired = true; return; }
       var n = remapU(q.unit);
@@ -3929,7 +3996,7 @@ function selUnits(subj) {
 function comboU(u) { return String(u || '').split('、').filter(function (x) { return /第.+課|學習地圖|單元/.test(x); }).length >= 2; }
 function inU(sel, u) { if (!sel || !sel.length || GENU[u]) return true; var one = function (x) { return typeof sel === 'string' ? sel === x : sel.indexOf(x) >= 0; }; return one(u) || (comboU(u) && String(u).split('、').some(function (x) { return one(x.trim()); })); }
 function togU(arr, v) { if (!v) return []; var i = arr.indexOf(v); if (i >= 0) { arr.splice(i, 1); return arr; } arr.push(v); return arr; }
-function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
+function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
 function ppool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_P).concat(isOff('bank') ? [] : BANK_P, isOff('natmid') ? [] : NATB_P, isOff('socmid') ? [] : SOCB_P, S.pairs).filter(function (p) { return !p.retired && p.subj === subj && inU(unit, p.unit) && !(p.mid && bad[p.mid]); }); }
 function uLbl(u) { return u === 'Unit 1 & 2' ? '期中考範圍 (Unit 1 & 2)' : u; }
 var HIDE_UNITS = ['的、得、地', '量詞', '標點符號'];
@@ -5184,7 +5251,7 @@ function matCount(m) {
   return n;
 }
 function recView() {
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<div class="mat"><div class="top"><span class="st ok">內建</span><span class="nm">' + b[0] + '</span></div><p class="muted small">' + b[1] + '　不能刪除</p></div>'; }).join('');
   var st = { ok: ['ok', 'OK'], bad: ['bad', '不適任'], pend: ['pend', '待確認'] };
   var KIND = { file: '檔案／照片', url: '網址', text: '貼上的文字' };
@@ -5977,6 +6044,8 @@ var BUILTIN = [
   { id: 'mathmwb6', name: '數學習作 單元6 除法（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期末考範圍', '原創題'], note: '分析習作題型（平分與包含除、用乘法想除法、被除數除數商餘數、餘數要比除數小、直式除法與 □ 填數、整除、有餘數的應用、星期換算、0 和 1 的除法、奇數偶數），自己重新出題，沒有使用原書題目與圖', desc: function () { return MWB6.length + ' 題'; } },
   { id: 'mathmwb7', name: '數學習作 單元7 公升和毫升（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期末考範圍', '原創題'], note: '分析習作題型（認識公升毫升、選合適的容量與單位、公升毫升換算、容量比大小與排序、公升毫升加減與應用），自己重新出題，沒有使用原書題目與圖', desc: function () { return MWB7.length + ' 題'; } },
   { id: 'mathmwb8', name: '數學習作 單元8 分數（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期末考範圍', '原創題'], note: '分析習作題型（幾分之幾的讀寫、分子分母的意思、平分才是分數、一盒幾個的分數、單位分數累加、和 1 一樣大的分數、分數數列、敘述對錯判斷），自己重新出題，沒有使用原書題目與圖', desc: function () { return MWB8.length + ' 題'; } },
+  { id: 'mathmwb9', name: '數學習作 單元9 圓（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期末考範圍', '原創題'], note: '分析習作題型（生活中的圓、圓心圓周半徑直徑、直徑是半徑的 2 倍、圓的性質判斷、對折找圓心、圓規畫圓與比長短、同心圓、找寶藏），自己重新出題，沒有使用原書題目與圖；頁尾是版權頁和三角板附件，沒有出題', desc: function () { return MWB9.length + ' 題'; } },
+  { id: 'mathmwbr2', name: '數學習作 綜合練習2（單元5～9）（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期末考範圍', '原創題'], note: '分析習作題型（分數塗色與國旗、容量相差與還能倒多少、數直角、比角的大小、訂正除法直式、除法應用），自己重新出題，沒有使用原書題目與圖；頁尾是版權頁和三角板附件，沒有出題', desc: function () { return MWBR2.length + ' 題'; } },
   { id: 'sample', name: '通用範例題', subjs: ['chi', 'eng', 'math', 'nat', 'hea'], src: '網站內建', kind: '選擇題、填空題', at: '', tags: ['範例'], note: '', desc: function () { return SAMPLE_Q.length + ' 題'; } },
   { id: 'chi', name: '國語範例字庫', subjs: ['chi'], src: '網站內建', kind: '字庫、句型、成語、字音、生字花', at: '', tags: ['範例', '康軒版'], note: '', desc: function () { return CH0.length + ' 字，句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'; } },
   { id: 'eng', name: '英文單字與句子題材', subjs: ['eng'], src: '網站內建', kind: '看圖選字、聽寫、Read and Choose', at: '', tags: ['翰林版', 'Here We Go 3'], note: '', desc: function () { return EV.length + ' 字，Read and Choose ' + RC.length + ' 題'; } },
@@ -6990,7 +7059,7 @@ function bankView() {
   var SUBS = [['chi', '國語'], ['eng', '英文'], ['math', '數學'], ['soc', '社會'], ['nat', '自然'], ['hea', '健康']];
   var ZC = { chi: 'bc-chi', eng: 'bc-eng', math: 'bc-mat', soc: 'bc-soc', nat: 'bc-nat', hea: 'bc-hea' };
   var TYPE = { choice: '選擇', fill: '填空', tf: '是非', num: '計算', build: '排句子', match: '連連看', multi: '勾選' };
-  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
+  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
   var builtP = SAMPLE_P.concat(BANK_P, NATB_P, SOCB_P).filter(function (q) { return !q.retired; }), upP = S.pairs;
   function scope(subj) {
     if (SYL[subj]) return { mid: SYL[subj].mid.units, fin: SYL[subj].fin.units, all: SYL[subj].units };
@@ -7189,7 +7258,7 @@ function listView() {
   for (var i = from; i <= to; i++) nums.push('<button class="pnum" data-act="mpg" data-v="' + i + '" aria-current="' + (i === M.pg) + '">' + i + '</button>');
   var pager = pages > 1 ? '<nav class="pager" aria-label="分頁"><button class="pnum" data-act="mpg" data-v="1" aria-label="第一頁"' + (M.pg === 1 ? ' disabled' : '') + '>|&lt;</button><button class="pnum" data-act="mpg" data-v="' + (M.pg - 1) + '" aria-label="上一頁"' + (M.pg === 1 ? ' disabled' : '') + '>&lt;</button>' + nums.join('') +
     '<button class="pnum" data-act="mpg" data-v="' + (M.pg + 1) + '" aria-label="下一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;</button><button class="pnum" data-act="mpg" data-v="' + pages + '" aria-label="最後一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;|</button></nav>' : '';
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<li><b>' + b[0] + '</b>　<span class="muted small">' + b[1] + '，不能刪除</span></li>'; }).join('');
   var lt = M.ltab === 'builtin' ? 'builtin' : 'own';
   var ltabs = '<div class="mtabs up ltabs" role="tablist">' + [['own', '已上傳資料'], ['builtin', '內建題庫']].map(function (t) { return '<button role="tab" class="mtab" data-act="ltab" data-v="' + t[0] + '" aria-selected="' + (lt === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div>';
