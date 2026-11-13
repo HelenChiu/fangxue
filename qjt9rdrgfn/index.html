@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1794589493"><script>(function(){var B="1794589493";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1794590615"><script>(function(){var B="1794590615";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3082,6 +3082,74 @@ var MWB = [
   FL('math', "單元1 數到10000", "提款機吐出的全是百元鈔票，一共 24 張，是（　）元。", "2400", "24 個百＝2400。")
 ];
 MWB.forEach(function (q, i) { q.id = 'mw' + i; });
+/* 數學習作 單元2 四位數的加減（南一）：分析習作題型（三四位數加法直式與進位、減法直式與連續退位、找錯的直式、加減應用與「多／少」比較、整千估算、□ 填數字、驗算）後原創出題，沒有使用原書題目 */
+var MWB2 = [
+  FL('math', "單元2 四位數的加減", "用直式算算看：2346 ＋ 517 ＝（　）。", "2863", "個位 6＋7＝13，寫 3 進 1；十位 4＋1＋1＝6；百位 3＋5＝8；千位 2。答案 2863。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：4785 ＋ 1638 ＝（　）。", "6423", "個位、十位、百位都要進位：5＋8＝13、8＋3＋1＝12、7＋6＋1＝14、4＋1＋1＝6，答案 6423。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：678 ＋ 2549 ＝（　）。", "3227", "三位數加四位數，個位要對齊個位。678＋2549＝3227。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：998 ＋ 3467 ＝（　）。", "4465", "連續進位三次，998＋3467＝4465。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：3857 ＋ 2143 ＝（　）。", "6000", "每一位加起來都剛好是 10，一路進位，答案是整千 6000。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：1462 ＋ 538 ＝（　）。", "2000", "2＋8＝10、6＋3＋1＝10、4＋5＋1＝10，一路進位變成 2000。"),
+  B('math', "單元2 四位數的加減", "4127 ＋ 386 的直式，哪一個答案算對了？", ["7987", "4403", "4513"], "4513", "個位對個位：7＋6＝13 進 1，2＋8＋1＝11 進 1，1＋3＋1＝5，答案 4513。7987 是沒有對齊位數，4403 是忘了進位。"),
+  B('math', "單元2 四位數的加減", "5268 ＋ 749 的直式，哪一個答案算對了？", ["6017", "5907", "12758"], "6017", "8＋9＝17 進 1，6＋4＋1＝11 進 1，2＋7＋1＝10 進 1，5＋1＝6，答案 6017。5907 是忘了進位，12758 是沒有對齊位數。"),
+  FL('math', "單元2 四位數的加減", "用直式算 3456 ＋ 2789，一共要進位（　）次。", "3", "個位 6＋9＝15 進位、十位 5＋8＋1＝14 進位、百位 4＋7＋1＝12 進位，千位不用，共 3 次。"),
+  TF('math', "單元2 四位數的加減", "計算 5639 ＋ 274 時，個位 9＋4＝13，要寫 3，再進 1 到十位。", "對", "個位滿 10 就要往十位進 1。"),
+  TF('math', "單元2 四位數的加減", "算 2350 ＋ 418 的直式，418 的 4 要寫在 2350 的千位 2 下面。", "錯", "要從個位對齊，418 的 4 是百位，要寫在 3 的下面。"),
+  FL('math', "單元2 四位數的加減", "圖書室上午借出 1286 本書，下午借出 947 本，這一天一共借出（　）本。", "2233", "合起來用加法：1286＋947＝2233。"),
+  FL('math', "單元2 四位數的加減", "果園裡有 3578 顆蘋果和 2694 顆梨子，一共有（　）顆水果。", "6272", "3578＋2694＝6272。"),
+  FL('math', "單元2 四位數的加減", "小樹原本有 2745 張貼紙，又買了 1380 張，現在有（　）張。", "4125", "又買了，就是變多：2745＋1380＝4125。"),
+  FL('math', "單元2 四位數的加減", "一臺電鍋 1875 元，一臺吹風機 965 元，各買一臺共要（　）元。", "2840", "1875＋965＝2840。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：800 － 458 ＝（　）。", "342", "個位 0 不夠減，向十位借，十位也是 0，要先向百位借。800－458＝342。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：703 － 286 ＝（　）。", "417", "703－286＝417。十位是 0，要向百位借。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：5000 － 1736 ＝（　）。", "3264", "連續退位：千位借給百位、百位借給十位、十位借給個位。5000－1736＝3264。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：4012 － 1567 ＝（　）。", "2445", "4012－1567＝2445。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：6230 － 2875 ＝（　）。", "3355", "6230－2875＝3355。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：9000 － 4512 ＝（　）。", "4488", "9000－4512＝4488。"),
+  FL('math', "單元2 四位數的加減", "用直式算算看：7305 － 469 ＝（　）。", "6836", "四位數減三位數，個位對齊。7305－469＝6836。"),
+  B('math', "單元2 四位數的加減", "6400 － 158 的直式，哪一個答案算對了？", ["6358", "6342", "6242"], "6242", "個位 0 不夠減，要向十位借，十位是 0 再向百位借，百位 4 變 3。答案 6242。6358 是用大的減小的，6342 是百位忘了減 1。"),
+  B('math', "單元2 四位數的加減", "3021 － 1475 的直式，哪一個答案算對了？", ["2454", "1546", "2546"], "1546", "3021－1475＝1546。2454 是每一位都用大的減小的，2546 是千位忘了被借走 1。"),
+  TF('math', "單元2 四位數的加減", "4000 － 1 ＝ 3999", "對", "4000 少 1，每一位都要退位，變成 3999。"),
+  TF('math', "單元2 四位數的加減", "算 5203 － 1478 時，個位 3 不夠減 8，要向十位借，可是十位是 0，所以要先向百位借。", "對", "十位是 0 借不出來，要先向百位借 1，十位變成 10，再借給個位。"),
+  TF('math', "單元2 四位數的加減", "算減法時，上面的數字比較小，可以直接用下面大的減上面小的。", "錯", "不夠減要向前一位借 1，不能倒過來減。"),
+  FL('math', "單元2 四位數的加減", "學校有 1350 本故事書和 876 本科學書，兩種書相差（　）本。", "474", "相差用減法，大的減小的：1350－876＝474。"),
+  FL('math', "單元2 四位數的加減", "爸爸付 5000 元買一臺 3680 元的腳踏車，可以找回（　）元。", "1320", "5000－3680＝1320。"),
+  FL('math', "單元2 四位數的加減", "一臺電風扇原價 2480 元，今天特價 1695 元，便宜了（　）元。", "785", "原價－特價：2480－1695＝785。"),
+  FL('math', "單元2 四位數的加減", "弟弟跳繩跳了 1250 下，姊姊跳了 2015 下，弟弟比姊姊少跳（　）下。", "765", "要用大的減小的：2015－1250＝765。"),
+  FL('math', "單元2 四位數的加減", "美術教室有 3200 張圖畫紙，用掉 1875 張，還剩（　）張。", "1325", "3200－1875＝1325。"),
+  FL('math', "單元2 四位數的加減", "一盒有 2650 顆珠子，用掉一些後還剩 1384 顆，用掉了（　）顆。", "1266", "全部－剩下＝用掉：2650－1384＝1266。"),
+  FL('math', "單元2 四位數的加減", "小芸帶了 2000 元，買一雙鞋子後還剩 715 元，一雙鞋子賣（　）元。", "1285", "2000－715＝1285。"),
+  FL('math', "單元2 四位數的加減", "存錢筒裡原本有一些錢，又放進 1450 元後，一共有 4020 元。存錢筒原本有（　）元。", "2570", "全部－放進去的＝原本的：4020－1450＝2570。"),
+  FL('math', "單元2 四位數的加減", "倉庫原本有一些米，又運來 2380 包後，一共有 5100 包。倉庫原本有（　）包米。", "2720", "5100－2380＝2720。"),
+  FL('math', "單元2 四位數的加減", "哥哥收集了 1560 張卡片，比弟弟多 380 張，弟弟有（　）張。", "1180", "哥哥比較多，弟弟比較少：1560－380＝1180。"),
+  FL('math', "單元2 四位數的加減", "姊姊存了 2340 元，比妹妹少 690 元，妹妹存了（　）元。", "3030", "姊姊比較少，妹妹比較多：2340＋690＝3030。"),
+  FL('math', "單元2 四位數的加減", "一個書包特價 1880 元，比原價便宜 450 元，原價是（　）元。", "2330", "原價比較貴：1880＋450＝2330。"),
+  FL('math', "單元2 四位數的加減", "公園裡有 1645 棵樹，比學校裡的樹少 538 棵，學校裡有（　）棵樹。", "2183", "公園比較少，學校比較多，要用加法：1645＋538＝2183。"),
+  FL('math', "單元2 四位數的加減", "花園裡紅花有 3200 朵，比黃花多 1250 朵，黃花有（　）朵。", "1950", "紅花比較多，黃花比較少：3200－1250＝1950。"),
+  B('math', "單元2 四位數的加減", "一雙球鞋特價 1480 元，比原價便宜 320 元。原價是多少？要用哪一個算式？", ["1480 － 320", "1480 ＋ 320", "320 － 1480"], "1480 ＋ 320", "原價比特價貴，要把便宜的 320 元加回去。"),
+  B('math', "單元2 四位數的加減", "樂樂有 2600 元，比安安多 400 元。誰的錢比較多？", ["安安", "一樣多", "樂樂"], "樂樂", "樂樂比安安「多」400 元，所以樂樂比較多。"),
+  TF('math', "單元2 四位數的加減", "「小明比小華少 300 元」，知道小明的錢，要算小華的錢，要用加法。", "對", "小明比較少，小華比較多，所以要把 300 加上去。"),
+  TF('math', "單元2 四位數的加減", "題目裡有「多」這個字，就一定要用加法。", "錯", "要先想誰比較多、誰比較少。例如「哥哥比弟弟多 50 張，弟弟有幾張」要用減法。"),
+  FL('math', "單元2 四位數的加減", "媽媽有 5000 元，買了一件 1850 元的外套和一雙 1280 元的鞋子，還剩（　）元。", "1870", "5000－1850＝3150，3150－1280＝1870。"),
+  B('math', "單元2 四位數的加減", "3012 ＋ 1980 的答案最接近哪一個數？", ["4000", "5000", "6000"], "5000", "3012 大約是 3000，1980 大約是 2000，3000＋2000＝5000。"),
+  B('math', "單元2 四位數的加減", "8095 － 2910 的答案最接近哪一個數？", ["4000", "5000", "6000"], "5000", "8095 大約是 8000，2910 大約是 3000，8000－3000＝5000。"),
+  B('math', "單元2 四位數的加減", "4980 ＋ 3075 的答案最接近哪一個數？", ["7000", "8000", "9000"], "8000", "4980 大約是 5000，3075 大約是 3000，5000＋3000＝8000。"),
+  B('math', "單元2 四位數的加減", "6020 － 998 的答案最接近哪一個數？", ["4000", "5000", "6000"], "5000", "6020 大約是 6000，998 大約是 1000，6000－1000＝5000。"),
+  B('math', "單元2 四位數的加減", "要買 1990 元的書桌和 2950 元的椅子，付錢時只有千元鈔票，最少要拿出幾張千元鈔票才夠？", ["3 張", "4 張", "5 張"], "5 張", "1990＋2950＝4940，4 張千元只有 4000 元不夠，要 5 張。"),
+  B('math', "單元2 四位數的加減", "錢包裡有 4020 元，買了 1150 元的東西後，最多還剩下幾張千元鈔票？", ["1 張", "2 張", "3 張"], "2 張", "4020－1150＝2870，不到 3000，所以最多剩 2 張千元鈔票。"),
+  B('math', "單元2 四位數的加減", "文具店價目表：彩色筆 1980 元、畫架 2995 元。兩樣都買，大約要花幾千元？", ["4000 元", "5000 元", "6000 元"], "5000 元", "1980 大約 2000，2995 大約 3000，2000＋3000＝5000。"),
+  B('math', "單元2 四位數的加減", "叔叔帶了 6000 元，買了一臺 2995 元的吸塵器，大約剩下幾千元？", ["2000 元", "3000 元", "4000 元"], "3000 元", "2995 大約是 3000，6000－3000＝3000。"),
+  B('math', "單元2 四位數的加減", "買 1980 元、2995 元和 1010 元的三樣東西，大約要花幾千元？", ["5000 元", "6000 元", "7000 元"], "6000 元", "2000＋3000＋1000＝6000。"),
+  TF('math', "單元2 四位數的加減", "估算 3980 ＋ 2015 時，可以想成 4000 ＋ 2000，大約是 6000。", "對", "用整千來心算，就能很快知道大約是多少。"),
+  FL('math', "單元2 四位數的加減", "直式 5□63 － 2748 ＝ 3015，□ 裡要填（　）。", "7", "用 3015＋2748＝5763 來想，□ 是 7。"),
+  FL('math', "單元2 四位數的加減", "直式 4□28 ＋ 1365 ＝ 5893，□ 裡要填（　）。", "5", "用 5893－1365＝4528 來想，□ 是 5。"),
+  FL('math', "單元2 四位數的加減", "直式 6□40 － 2187 ＝ 4453，□ 裡要填（　）。", "6", "用 4453＋2187＝6640 來想，□ 是 6。"),
+  FL('math', "單元2 四位數的加減", "直式 3□76 ＋ 2849 ＝ 6625，□ 裡要填（　）。", "7", "用 6625－2849＝3776 來想，□ 是 7。"),
+  FL('math', "單元2 四位數的加減", "直式 9□00 － 1835 ＝ 7365，□ 裡要填（　）。", "2", "用 7365＋1835＝9200 來想，□ 是 2。"),
+  TF('math', "單元2 四位數的加減", "3842 － 1567 ＝ 2275，可以用 2275 ＋ 1567 算算看是不是 3842 來檢查。", "對", "2275＋1567＝3842，加法可以用來檢查減法。"),
+  FL('math', "單元2 四位數的加減", "（　）＋ 1468 ＝ 4000", "2532", "4000－1468＝2532。"),
+  FL('math', "單元2 四位數的加減", "6000 －（　）＝ 2745", "3255", "6000－2745＝3255。")
+];
+MWB2.forEach(function (q, i) { q.id = 'mw2' + i; });
 var SOCB_P = [].concat(
   PP('soc', SO1, [['上課前', '閱讀課文、做記號'], ['上課中', '專心上課、記錄重點'], ['上課後', '完成作業、複習重點'], ['自我介紹前', '先想好要說的內容'], ['自我介紹中', '面帶微笑發言'], ['自我介紹後', '謝謝同學聆聽'],
     ['分配工作', '注意公平原則'], ['發生爭執', '先冷靜再溝通'], ['戶外學習第一步', '查資料、分配工作'], ['戶外學習第三步', '整理資料並分享'], ['太晚寫功課', '隔天沒精神'], ['自律', '不需要別人提醒']]),
@@ -3477,7 +3545,7 @@ BANK.forEach(function (q) { if (q.subj === 'eng' && RETIRED_Q[q.q]) q.retired = 
 /* 停用：自然單元1、2 的舊通用題和配對（有些內容課本沒教、用字和課本不同；保留不刪除），改用依課本考點重新出的 NATB */
 [SAMPLE_Q, BANK, SAMPLE_P, BANK_P].forEach(function (list) { list.forEach(function (q) { if (q.subj === 'nat' && (q.unit === U_N[0] || q.unit === U_N[1])) q.retired = true; }); });
 (function applyRemap() {
-  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB].forEach(function (list) {
+  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2].forEach(function (list) {
     list.forEach(function (q) {
       if (RETIRED[q.unit]) { q.retired = true; return; }
       var n = remapU(q.unit);
@@ -3525,7 +3593,7 @@ function selUnits(subj) {
 function comboU(u) { return String(u || '').split('、').filter(function (x) { return /第.+課|學習地圖|單元/.test(x); }).length >= 2; }
 function inU(sel, u) { if (!sel || !sel.length || GENU[u]) return true; var one = function (x) { return typeof sel === 'string' ? sel === x : sel.indexOf(x) >= 0; }; return one(u) || (comboU(u) && String(u).split('、').some(function (x) { return one(x.trim()); })); }
 function togU(arr, v) { if (!v) return []; var i = arr.indexOf(v); if (i >= 0) { arr.splice(i, 1); return arr; } arr.push(v); return arr; }
-function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
+function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
 function ppool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_P).concat(isOff('bank') ? [] : BANK_P, isOff('natmid') ? [] : NATB_P, isOff('socmid') ? [] : SOCB_P, S.pairs).filter(function (p) { return !p.retired && p.subj === subj && inU(unit, p.unit) && !(p.mid && bad[p.mid]); }); }
 function uLbl(u) { return u === 'Unit 1 & 2' ? '期中考範圍 (Unit 1 & 2)' : u; }
 var HIDE_UNITS = ['的、得、地', '量詞', '標點符號'];
@@ -4780,7 +4848,7 @@ function matCount(m) {
   return n;
 }
 function recView() {
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<div class="mat"><div class="top"><span class="st ok">內建</span><span class="nm">' + b[0] + '</span></div><p class="muted small">' + b[1] + '　不能刪除</p></div>'; }).join('');
   var st = { ok: ['ok', 'OK'], bad: ['bad', '不適任'], pend: ['pend', '待確認'] };
   var KIND = { file: '檔案／照片', url: '網址', text: '貼上的文字' };
@@ -5565,6 +5633,7 @@ var BUILTIN = [
   { id: 'socmid', name: '社會期中題庫（課本＋習作考點）', subjs: ['soc'], src: '對話新增', kind: '選擇題、是非題、填空題、配對、閱讀題', at: '2026/11/03', tags: ['翰林版', '期中考範圍', '原創題'], note: '分析課本 P.10–55、習作 P.4–13、作業簿第 1–8 回、考前範圍練習卷的考點後自己重新出題，沒有使用原題、原圖；社會學習+、社會補充包不出題', desc: function () { return SOCB.length + ' 題，另有配對 ' + SOCB_P.length + ' 組'; } },
   { id: 'chirev', name: '國語重點複習 L1–L12（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['康軒版', '期中考範圍', '原創題'], note: '分析重點複習講義的題型（詞語解釋、字音字形辨析、延伸成語、短語短句結構、句型、修辭補給、拼字造詞），自己重新出題，沒有使用原書句子與例句', desc: function () { return CHRV.length + ' 題'; } },
   { id: 'mathwb', name: '數學習作 單元1 數到10000（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（讀數記數、往上往下數、位值與定位板、千百十一換算、錢幣付款、大小比較、數字卡組數、數線移動、綜合應用），自己重新出題，沒有使用原書題目', desc: function () { return MWB.length + ' 題'; } },
+  { id: 'mathwb2', name: '數學習作 單元2 四位數的加減（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（三、四位數加法進位、減法連續退位、找出算對的直式、加減應用與多少比較、整千估算、□ 填數字、驗算），自己重新出題，沒有使用原書題目', desc: function () { return MWB2.length + ' 題'; } },
   { id: 'sample', name: '通用範例題', subjs: ['chi', 'eng', 'math', 'nat', 'hea'], src: '網站內建', kind: '選擇題、填空題', at: '', tags: ['範例'], note: '', desc: function () { return SAMPLE_Q.length + ' 題'; } },
   { id: 'chi', name: '國語範例字庫', subjs: ['chi'], src: '網站內建', kind: '字庫、句型、成語、字音、生字花', at: '', tags: ['範例', '康軒版'], note: '', desc: function () { return CH0.length + ' 字，句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'; } },
   { id: 'eng', name: '英文單字與句子題材', subjs: ['eng'], src: '網站內建', kind: '看圖選字、聽寫、Read and Choose', at: '', tags: ['翰林版', 'Here We Go 3'], note: '', desc: function () { return EV.length + ' 字，Read and Choose ' + RC.length + ' 題'; } },
@@ -6578,7 +6647,7 @@ function bankView() {
   var SUBS = [['chi', '國語'], ['eng', '英文'], ['math', '數學'], ['soc', '社會'], ['nat', '自然'], ['hea', '健康']];
   var ZC = { chi: 'bc-chi', eng: 'bc-eng', math: 'bc-mat', soc: 'bc-soc', nat: 'bc-nat', hea: 'bc-hea' };
   var TYPE = { choice: '選擇', fill: '填空', tf: '是非', num: '計算', build: '排句子', match: '連連看', multi: '勾選' };
-  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
+  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
   var builtP = SAMPLE_P.concat(BANK_P, NATB_P, SOCB_P).filter(function (q) { return !q.retired; }), upP = S.pairs;
   function scope(subj) {
     if (SYL[subj]) return { mid: SYL[subj].mid.units, fin: SYL[subj].fin.units, all: SYL[subj].units };
@@ -6777,7 +6846,7 @@ function listView() {
   for (var i = from; i <= to; i++) nums.push('<button class="pnum" data-act="mpg" data-v="' + i + '" aria-current="' + (i === M.pg) + '">' + i + '</button>');
   var pager = pages > 1 ? '<nav class="pager" aria-label="分頁"><button class="pnum" data-act="mpg" data-v="1" aria-label="第一頁"' + (M.pg === 1 ? ' disabled' : '') + '>|&lt;</button><button class="pnum" data-act="mpg" data-v="' + (M.pg - 1) + '" aria-label="上一頁"' + (M.pg === 1 ? ' disabled' : '') + '>&lt;</button>' + nums.join('') +
     '<button class="pnum" data-act="mpg" data-v="' + (M.pg + 1) + '" aria-label="下一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;</button><button class="pnum" data-act="mpg" data-v="' + pages + '" aria-label="最後一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;|</button></nav>' : '';
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<li><b>' + b[0] + '</b>　<span class="muted small">' + b[1] + '，不能刪除</span></li>'; }).join('');
   var lt = M.ltab === 'builtin' ? 'builtin' : 'own';
   var ltabs = '<div class="mtabs up ltabs" role="tablist">' + [['own', '已上傳資料'], ['builtin', '內建題庫']].map(function (t) { return '<button role="tab" class="mtab" data-act="ltab" data-v="' + t[0] + '" aria-selected="' + (lt === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div>';
