@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1794592525"><script>(function(){var B="1794592525";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1794592683"><script>(function(){var B="1794592683";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3873,6 +3873,51 @@ var CHW3 = [
   TF('chi', "第十一課 巨人的花園", "寫故事時，加入人物的對話、動作和表情，故事會更生動。", "對", "讓讀者更像身在故事裡。")
 ];
 CHW3.forEach(function (q, i) { q.id = 'chw3-' + i; });
+/* 國語習作 第十二課、閱讀階梯二（康軒）：分析習作題型（寫國字或注音、揮輝形近字、多音字冠、詞義、句子更具體、句子完整、課文理解、閱讀理解：排序、推論、支持觀點、摘要）後原創出題，沒有使用原書句子 */
+var CHW4 = [
+  B('chi', "第十二課 模仿貓", "「農田」的「農」要怎麼唸？", ["ㄋㄨㄥˊ", "ㄋㄨㄥ", "ㄌㄨㄥˊ"], "ㄋㄨㄥˊ", "農唸ㄋㄨㄥˊ。"),
+  B('chi', "第十二課 模仿貓", "「救命」的「救」要怎麼唸？", ["ㄐㄧㄡˇ", "ㄐㄧㄡˋ", "ㄑㄧㄡˋ"], "ㄐㄧㄡˋ", "救唸ㄐㄧㄡˋ。"),
+  B('chi', "第十二課 模仿貓", "「眼淚」的「淚」要怎麼唸？", ["ㄌㄟˊ", "ㄌㄟˇ", "ㄌㄟˋ"], "ㄌㄟˋ", "淚唸ㄌㄟˋ。"),
+  B('chi', "第十二課 模仿貓", "「咬住」的「咬」要怎麼唸？", ["ㄧㄠˇ", "ㄧㄠ", "ㄧㄠˋ"], "ㄧㄠˇ", "咬唸ㄧㄠˇ。"),
+  B('chi', "第十二課 模仿貓", "「沙啞」的「啞」要怎麼唸？", ["ㄧㄚ", "ㄧㄚˇ", "ㄧㄚˋ"], "ㄧㄚˇ", "啞唸ㄧㄚˇ。"),
+  B('chi', "第十二課 模仿貓", "「脖子」的「脖」要怎麼唸？", ["ㄅㄛ", "ㄅㄛˋ", "ㄅㄛˊ"], "ㄅㄛˊ", "脖唸ㄅㄛˊ。"),
+  B('chi', "第十二課 模仿貓", "「揮手」的「揮」要怎麼唸？", ["ㄏㄨㄟ", "ㄏㄨㄟˊ", "ㄏㄨㄟˇ"], "ㄏㄨㄟ", "揮唸ㄏㄨㄟ，一聲。"),
+  B('chi', "第十二課 模仿貓", "「冠軍」的「冠」要怎麼唸？", ["ㄍㄨㄢ", "ㄍㄨㄢˋ", "ㄍㄨㄢˇ"], "ㄍㄨㄢˋ", "冠軍、奪冠的冠唸ㄍㄨㄢˋ（四聲）。"),
+  B('chi', "第十二課 模仿貓", "「桂冠」的「冠」要怎麼唸？", ["ㄍㄨㄢˋ", "ㄍㄨㄢ", "ㄍㄨㄢˇ"], "ㄍㄨㄢ", "戴在頭上的帽子「桂冠、皇冠」唸ㄍㄨㄢ（一聲）。"),
+  B('chi', "第十二課 模仿貓", "下面哪一個「冠」要唸ㄍㄨㄢ（一聲）？", ["冠軍", "奪冠", "皇冠"], "皇冠", "皇冠是戴在頭上的，唸一聲；冠軍、奪冠唸四聲。"),
+  B('chi', "第十二課 模仿貓", "球隊努力練習，終於在比賽中奪（　）！", ["冠", "寇", "官"], "冠", "奪冠就是得到第一名。"),
+  B('chi', "第十二課 模仿貓", "哥哥跑得最快，拿到了（　）軍。", ["冠", "觀", "官"], "冠", "冠軍的冠，上面是冖。"),
+  B('chi', "第十二課 模仿貓", "老師（　）手跟大家說再見。", ["輝", "揮", "暉"], "揮", "用手的動作是揮，手字旁。"),
+  B('chi', "第十二課 模仿貓", "夜空中的星星閃著光（　）。", ["揮", "輝", "渾"], "輝", "光輝和光有關，右邊是光。"),
+  B('chi', "第十二課 模仿貓", "爺爺細心照（　）受傷的小狗。", ["顧", "雇", "故"], "顧", "照顧的顧，右邊是頁。"),
+  B('chi', "第十二課 模仿貓", "小鳥張開翅（　），飛上藍天。", ["旁", "膀", "傍"], "膀", "翅膀是身體的部位，月字旁。"),
+  B('chi', "第十二課 模仿貓", "天冷了，弟弟的喉嚨痛，聲音變得沙（　）。", ["亞", "啞", "惡"], "啞", "說話的聲音，口字旁的啞。"),
+  B('chi', "第十二課 模仿貓", "老鷹在天空中輕輕（　）翔。", ["飛", "非", "肥"], "飛", "飛翔就是在天空飛。"),
+  B('chi', "第十二課 模仿貓", "「心中充滿感激」的意思是：", ["很生氣", "心裡很謝謝對方", "很想睡覺"], "心裡很謝謝對方", "感激就是非常感謝。"),
+  B('chi', "第十二課 模仿貓", "「悉心照顧」的意思是：", ["隨便照顧", "用全部的心力好好照顧", "很少照顧"], "用全部的心力好好照顧", "悉心就是盡心、用心。"),
+  B('chi', "第十二課 模仿貓", "下面哪一句寫得比較具體？", ["妹妹長高了不少。", "妹妹這學期長高了五公分。"], "妹妹這學期長高了五公分。", "寫出長高五公分，比「不少」更清楚具體。"),
+  B('chi', "第十二課 模仿貓", "下面哪一句寫得比較具體？", ["園遊會的人很多。", "園遊會來了上千人，比去年多兩倍。"], "園遊會來了上千人，比去年多兩倍。", "有數字和比較，讓人一看就知道有多少。"),
+  B('chi', "第十二課 模仿貓", "下面哪一句寫得比較具體？", ["這棵樹很老了。", "這棵樹已經有一百多年了。"], "這棵樹已經有一百多年了。", "寫出年數更清楚。"),
+  B('chi', "第十二課 模仿貓", "「撐著雨傘，等家人來接他。」這句話少了什麼？", ["誰在撐傘", "撐什麼", "在等什麼"], "誰在撐傘", "句子要說出是誰，才完整。"),
+  B('chi', "第十二課 模仿貓", "下面哪一句的意思最完整？", ["喜歡吃草莓蛋糕。", "妹妹最喜歡吃草莓蛋糕。", "最喜歡的。"], "妹妹最喜歡吃草莓蛋糕。", "有人物、有動作、有東西，句子才完整。"),
+  B('chi', "第十二課 模仿貓", "「是我最喜歡的書，我讀了好多遍。」要改成完整的句子，可以怎麼改？", ["《小王子》是我最喜歡的書，我讀了好多遍。", "是我最喜歡的書。", "我讀了好多遍。"], "《小王子》是我最喜歡的書，我讀了好多遍。", "加上「是什麼書」，句子就完整了。"),
+  B('chi', "第十二課 模仿貓", "一隻小貓總是羨慕別人有長尾巴、會游泳、會唱歌，什麼都想學。這隻貓的個性最像：", ["喜歡模仿別人", "很懶惰", "很愛生氣"], "喜歡模仿別人", "什麼都想學別人，就是愛模仿。"),
+  B('chi', "第十二課 模仿貓", "小貓學別人游泳，結果掉進水裡。被救起來後，牠最可能覺得：", ["又冷又害怕", "很好玩", "很生氣"], "又冷又害怕", "落水後又溼又冷，也會害怕。"),
+  B('chi', "第十二課 模仿貓", "小貓學會了別人的本領，卻發現大家喜歡的其實是牠原本的樣子。這個故事告訴我們：", ["要做自己，珍惜自己的特點", "一定要學會所有本領", "不要交朋友"], "要做自己，珍惜自己的特點", "每個人都有自己的優點。"),
+  B('chi', "第十二課 模仿貓", "大家都說：「你本來的樣子就很可愛！」小貓聽了覺得又驚又喜。驚喜的原因是：", ["沒想到大家喜歡的是牠本來的樣子", "牠肚子餓了", "牠學會了游泳"], "沒想到大家喜歡的是牠本來的樣子", "沒想到又很高興，就是又驚又喜。"),
+  B('chi', "第十二課 模仿貓", "「不知所措」的意思是：", ["很開心", "不知道該怎麼辦", "知道很多事"], "不知道該怎麼辦", "措是處理的意思，不知所措就是不知道怎麼辦。"),
+  B('chi', "第十二課 模仿貓", "受傷的小鳥被細心照顧後恢復健康，離開前牠繞著爺爺飛了好幾圈。這表示小鳥：", ["很感激爺爺", "很生氣", "迷路了"], "很感激爺爺", "飛繞道別，表達感謝。"),
+  TF('chi', "第十二課 模仿貓", "寫「哥哥長高了十公分」，比寫「哥哥長高了很多」更具體。", "對", "有數字更清楚。"),
+  B('chi', "第十二課 模仿貓", "閱讀〈小島的誕生〉：「海底火山噴發，岩漿冒出海面，冷卻後慢慢堆高，形成一座小島。」小島是怎麼形成的？", ["海底火山噴發後堆積", "有人用土堆出來", "下大雨沖出來"], "海底火山噴發後堆積", "岩漿冷卻堆高，就成了小島。"),
+  B('chi', "第十二課 模仿貓", "海底火山形成小島的順序，下面哪一個正確？", ["火山噴發→岩漿堆高→形成小島", "形成小島→火山噴發→岩漿堆高", "岩漿堆高→形成小島→火山噴發"], "火山噴發→岩漿堆高→形成小島", "先噴發，再堆高，最後形成小島。"),
+  B('chi', "第十二課 模仿貓", "一位小朋友說：「我今天去浮潛看到很多珊瑚和魚，晚上去泡海邊的溫泉。」他最可能在：", ["海島", "沙漠", "高山上的城市"], "海島", "有浮潛、珊瑚、海邊溫泉，是在海島。"),
+  B('chi', "第十二課 模仿貓", "作者說「這座島是潛水人的天堂」，哪一句最能支持這個說法？", ["島上的夕陽很美", "島的周圍有豐富的珊瑚和魚群", "島上有很多商店"], "島的周圍有豐富的珊瑚和魚群", "潛水時能看到豐富的海底景觀，才是潛水天堂。"),
+  B('chi', "第十二課 模仿貓", "一座島被叫做「火燒島」，最可能的原因是：", ["夕陽把整座島照得紅紅的", "島上很冷", "島上沒有樹"], "夕陽把整座島照得紅紅的", "夕陽餘暉把島染紅，看起來像火在燒。"),
+  B('chi', "第十二課 模仿貓", "閱讀〈奇幻的旅程〉：小女孩想回家、稻草人想要聰明的頭腦、獅子想要勇氣。他們一起出發的主要原因是：", ["各自都有想實現的願望", "大家想去玩", "被壞人追趕"], "各自都有想實現的願望", "每個角色都想達成自己的願望。"),
+  B('chi', "第十二課 模仿貓", "「一陣風讓住在小鎮的女孩，來到奇幻的國度。」摘要這句話的重點，要抓住：", ["什麼人發生了什麼事", "天氣怎麼樣", "房子什麼顏色"], "什麼人發生了什麼事", "摘要要寫出人物和事件。"),
+  B('chi', "第十二課 模仿貓", "雖然知道路上會有危險，他們還是一起往前走。這表示他們：", ["很勇敢、很團結", "很害怕就放棄了", "迷路了"], "很勇敢、很團結", "不怕危險、一起前進，是勇敢又團結。")
+];
+CHW4.forEach(function (q, i) { q.id = 'chw4-' + i; });
 var SOCB_P = [].concat(
   PP('soc', SO1, [['上課前', '閱讀課文、做記號'], ['上課中', '專心上課、記錄重點'], ['上課後', '完成作業、複習重點'], ['自我介紹前', '先想好要說的內容'], ['自我介紹中', '面帶微笑發言'], ['自我介紹後', '謝謝同學聆聽'],
     ['分配工作', '注意公平原則'], ['發生爭執', '先冷靜再溝通'], ['戶外學習第一步', '查資料、分配工作'], ['戶外學習第三步', '整理資料並分享'], ['太晚寫功課', '隔天沒精神'], ['自律', '不需要別人提醒']]),
@@ -4268,7 +4313,7 @@ BANK.forEach(function (q) { if (q.subj === 'eng' && RETIRED_Q[q.q]) q.retired = 
 /* 停用：自然單元1、2 的舊通用題和配對（有些內容課本沒教、用字和課本不同；保留不刪除），改用依課本考點重新出的 NATB */
 [SAMPLE_Q, BANK, SAMPLE_P, BANK_P].forEach(function (list) { list.forEach(function (q) { if (q.subj === 'nat' && (q.unit === U_N[0] || q.unit === U_N[1])) q.retired = true; }); });
 (function applyRemap() {
-  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW, CHW2, CHW3].forEach(function (list) {
+  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW, CHW2, CHW3, CHW4].forEach(function (list) {
     list.forEach(function (q) {
       if (RETIRED[q.unit]) { q.retired = true; return; }
       var n = remapU(q.unit);
@@ -4316,7 +4361,7 @@ function selUnits(subj) {
 function comboU(u) { return String(u || '').split('、').filter(function (x) { return /第.+課|學習地圖|單元/.test(x); }).length >= 2; }
 function inU(sel, u) { if (!sel || !sel.length || GENU[u]) return true; var one = function (x) { return typeof sel === 'string' ? sel === x : sel.indexOf(x) >= 0; }; return one(u) || (comboU(u) && String(u).split('、').some(function (x) { return one(x.trim()); })); }
 function togU(arr, v) { if (!v) return []; var i = arr.indexOf(v); if (i >= 0) { arr.splice(i, 1); return arr; } arr.push(v); return arr; }
-function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, isOff('chiwb12') ? [] : CHW, isOff('chiwb36') ? [] : CHW2, isOff('chiwb711') ? [] : CHW3, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
+function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, isOff('chiwb12') ? [] : CHW, isOff('chiwb36') ? [] : CHW2, isOff('chiwb711') ? [] : CHW3, isOff('chiwb12b') ? [] : CHW4, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
 function ppool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_P).concat(isOff('bank') ? [] : BANK_P, isOff('natmid') ? [] : NATB_P, isOff('socmid') ? [] : SOCB_P, S.pairs).filter(function (p) { return !p.retired && p.subj === subj && inU(unit, p.unit) && !(p.mid && bad[p.mid]); }); }
 function uLbl(u) { return u === 'Unit 1 & 2' ? '期中考範圍 (Unit 1 & 2)' : u; }
 var HIDE_UNITS = ['的、得、地', '量詞', '標點符號'];
@@ -5571,7 +5616,7 @@ function matCount(m) {
   return n;
 }
 function recView() {
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['國語習作 第三～六課、閱讀階梯一（題型分析後原創）', CHW2.length + ' 題'], ['國語習作 第七～十一課（題型分析後原創）', CHW3.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['國語習作 第三～六課、閱讀階梯一（題型分析後原創）', CHW2.length + ' 題'], ['國語習作 第七～十一課（題型分析後原創）', CHW3.length + ' 題'], ['國語習作 第十二課、閱讀階梯二（題型分析後原創）', CHW4.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<div class="mat"><div class="top"><span class="st ok">內建</span><span class="nm">' + b[0] + '</span></div><p class="muted small">' + b[1] + '　不能刪除</p></div>'; }).join('');
   var st = { ok: ['ok', 'OK'], bad: ['bad', '不適任'], pend: ['pend', '待確認'] };
   var KIND = { file: '檔案／照片', url: '網址', text: '貼上的文字' };
@@ -6358,6 +6403,7 @@ var BUILTIN = [
   { id: 'chiwb12', name: '國語習作 第一、二課（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題', at: '2026/11/14', tags: ['康軒版', '期中考範圍', '原創題'], note: '分析習作題型（寫國字或注音、查字典詞義、猜字謎、組字、形近字、改疑問句、多音字、依情境填詞、成語、雖然可是、閱讀理解），自己重新出題，沒有使用原書句子；封面、前言、目錄沒有出題，封面姓名班級不使用', desc: function () { return CHW.length + ' 題'; } },
   { id: 'chiwb36', name: '國語習作 第三～六課、閱讀階梯一（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題', at: '2026/11/14', tags: ['康軒版', '期中考範圍', '原創題'], note: '分析習作題型（字音字形、形近字、名詞分類、由於因此、一就、近義詞、多音字、動詞、感嘆句祈使句、拆詞、分號、成語、起因經過結果、代名詞、閱讀理解），自己重新出題，沒有使用原書句子；閱讀階梯一的題目放在第六課，作文練習沒有出題', desc: function () { return CHW2.length + ' 題'; } },
   { id: 'chiwb711', name: '國語習作 第七～十一課（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題', at: '2026/11/14', tags: ['康軒版', '期末考範圍', '原創題'], note: '分析習作題型（字音字形、形近字、一詞多義、有有還有、形容詞分類、標點符號、組字、押韻、成語與表情、間隔號、免得、近義複合詞、閱讀理解、遊記與故事結構），自己重新出題，沒有使用原書句子；作文練習沒有出題', desc: function () { return CHW3.length + ' 題'; } },
+  { id: 'chiwb12b', name: '國語習作 第十二課、閱讀階梯二（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題', at: '2026/11/14', tags: ['康軒版', '期末考範圍', '原創題'], note: '分析習作題型（字音字形、揮輝、多音字冠、詞義、句子更具體、句子完整、課文理解、閱讀理解），自己重新出題，沒有使用原書句子；閱讀階梯二放在第十二課；頁尾是版權頁，沒有出題', desc: function () { return CHW4.length + ' 題'; } },
   { id: 'mathwb', name: '數學習作 單元1 數到10000（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（讀數記數、往上往下數、位值與定位板、千百十一換算、錢幣付款、大小比較、數字卡組數、數線移動、綜合應用），自己重新出題，沒有使用原書題目', desc: function () { return MWB.length + ' 題'; } },
   { id: 'mathwb2', name: '數學習作 單元2 四位數的加減（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（三、四位數加法進位、減法連續退位、找出算對的直式、加減應用與多少比較、整千估算、□ 填數字、驗算），自己重新出題，沒有使用原書題目', desc: function () { return MWB2.length + ' 題'; } },
   { id: 'mathmwb3', name: '數學習作 單元3 乘法（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（三位數乘以一位數、整十整百乘法、中間有 0 的乘法、找出算錯的直式、連加與倍數、乘法估算、□ 填數字），自己重新出題，沒有使用原書題目與圖', desc: function () { return MWB3.length + ' 題'; } },
@@ -7382,7 +7428,7 @@ function bankView() {
   var SUBS = [['chi', '國語'], ['eng', '英文'], ['math', '數學'], ['soc', '社會'], ['nat', '自然'], ['hea', '健康']];
   var ZC = { chi: 'bc-chi', eng: 'bc-eng', math: 'bc-mat', soc: 'bc-soc', nat: 'bc-nat', hea: 'bc-hea' };
   var TYPE = { choice: '選擇', fill: '填空', tf: '是非', num: '計算', build: '排句子', match: '連連看', multi: '勾選' };
-  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW, CHW2, CHW3).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
+  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW, CHW2, CHW3, CHW4).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
   var builtP = SAMPLE_P.concat(BANK_P, NATB_P, SOCB_P).filter(function (q) { return !q.retired; }), upP = S.pairs;
   function scope(subj) {
     if (SYL[subj]) return { mid: SYL[subj].mid.units, fin: SYL[subj].fin.units, all: SYL[subj].units };
@@ -7581,7 +7627,7 @@ function listView() {
   for (var i = from; i <= to; i++) nums.push('<button class="pnum" data-act="mpg" data-v="' + i + '" aria-current="' + (i === M.pg) + '">' + i + '</button>');
   var pager = pages > 1 ? '<nav class="pager" aria-label="分頁"><button class="pnum" data-act="mpg" data-v="1" aria-label="第一頁"' + (M.pg === 1 ? ' disabled' : '') + '>|&lt;</button><button class="pnum" data-act="mpg" data-v="' + (M.pg - 1) + '" aria-label="上一頁"' + (M.pg === 1 ? ' disabled' : '') + '>&lt;</button>' + nums.join('') +
     '<button class="pnum" data-act="mpg" data-v="' + (M.pg + 1) + '" aria-label="下一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;</button><button class="pnum" data-act="mpg" data-v="' + pages + '" aria-label="最後一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;|</button></nav>' : '';
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['國語習作 第三～六課、閱讀階梯一（題型分析後原創）', CHW2.length + ' 題'], ['國語習作 第七～十一課（題型分析後原創）', CHW3.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['國語習作 第三～六課、閱讀階梯一（題型分析後原創）', CHW2.length + ' 題'], ['國語習作 第七～十一課（題型分析後原創）', CHW3.length + ' 題'], ['國語習作 第十二課、閱讀階梯二（題型分析後原創）', CHW4.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<li><b>' + b[0] + '</b>　<span class="muted small">' + b[1] + '，不能刪除</span></li>'; }).join('');
   var lt = M.ltab === 'builtin' ? 'builtin' : 'own';
   var ltabs = '<div class="mtabs up ltabs" role="tablist">' + [['own', '已上傳資料'], ['builtin', '內建題庫']].map(function (t) { return '<button role="tab" class="mtab" data-act="ltab" data-v="' + t[0] + '" aria-selected="' + (lt === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div>';
