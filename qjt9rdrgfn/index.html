@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1794591434"><script>(function(){var B="1794591434";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1794592110"><script>(function(){var B="1794592110";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -3553,6 +3553,96 @@ var MWBR2 = [
   FL('math', "單元9 圓", "要畫 5 個半徑 2 公分的圓，每個圓的直徑是（　）公分。", "4", "2×2＝4 公分。")
 ];
 MWBR2.forEach(function (q, i) { q.id = 'mwr2-' + i; });
+/* 國語習作 第一、二課（康軒）：分析習作題型（寫國字或注音、查字典詞義、猜字謎、組字、形近字辨別、改成疑問句、多音字「答」、依情境填詞、成語運用、雖然……可是……、閱讀理解）後原創出題，沒有使用原書句子 */
+var CHW = [
+  B('chi', "第一課 字的小旅行", "「航行」的「航」要怎麼唸？", ["ㄏㄤˊ", "ㄏㄤˋ", "ㄏㄨㄤˊ"], "ㄏㄤˊ", "航行、航空的「航」唸ㄏㄤˊ。"),
+  B('chi', "第一課 字的小旅行", "「一葉扁舟」的「舟」要怎麼唸？", ["ㄓㄡˇ", "ㄓㄡ", "ㄔㄡ"], "ㄓㄡ", "舟是船，唸ㄓㄡ，一聲。"),
+  B('chi', "第一課 字的小旅行", "「告訴」的「訴」要怎麼唸？", ["ㄙㄨˋ", "ㄕㄨˋ", "ㄙㄨˇ"], "ㄙㄨˋ", "訴是ㄙㄨˋ，不是ㄕ。"),
+  B('chi', "第一課 字的小旅行", "「嫉妒」的「妒」要怎麼唸？", ["ㄉㄨˇ", "ㄉㄨ", "ㄉㄨˋ"], "ㄉㄨˋ", "妒唸ㄉㄨˋ，四聲。"),
+  B('chi', "第一課 字的小旅行", "「揮灑」的「灑」要怎麼唸？", ["ㄙㄚ", "ㄙㄚˇ", "ㄕㄚˇ"], "ㄙㄚˇ", "灑水、揮灑的「灑」唸ㄙㄚˇ。"),
+  B('chi', "第一課 字的小旅行", "「禁忌」的「忌」要怎麼唸？", ["ㄐㄧˋ", "ㄐㄧˇ", "ㄑㄧˋ"], "ㄐㄧˋ", "忌唸ㄐㄧˋ。"),
+  B('chi', "第一課 字的小旅行", "「意義」的「義」要怎麼唸？", ["ㄧˊ", "ㄧˋ", "ㄧˇ"], "ㄧˋ", "意義的「義」唸ㄧˋ。"),
+  B('chi', "第一課 字的小旅行", "爸爸開船出海，在海上（　）行了三天。", ["杭", "航", "抗"], "航", "和船有關，舟字旁的「航」。"),
+  B('chi', "第一課 字的小旅行", "弟弟把心裡的委屈全都告（　）媽媽。", ["訴", "拆", "沂"], "訴", "說話用的，言字旁的「訴」。"),
+  B('chi', "第一課 字的小旅行", "看到同學得獎，她心裡有點（　）妒。", ["記", "忌", "紀"], "忌", "忌妒是心裡的感覺，下面是心。"),
+  B('chi', "第一課 字的小旅行", "看到別人比自己好就不開心，叫做忌（　）。", ["姑", "肚", "妒"], "妒", "忌妒的「妒」是女字旁加戶。"),
+  B('chi', "第一課 字的小旅行", "園丁拿著水管在花園裡（　）水。", ["灑", "曬", "麗"], "灑", "和水有關，三點水的「灑」。"),
+  B('chi', "第一課 字的小旅行", "我的鉛筆盒不見了，好像（　）去了寶物一樣。", ["矢", "夫", "失"], "失", "丟掉是「失」，上面有出頭。"),
+  B('chi', "第一課 字的小旅行", "這篇文章要告訴我們一個很重要的意（　）。", ["議", "義", "儀"], "義", "意義的「義」沒有偏旁。"),
+  B('chi', "第一課 字的小旅行", "「工整」是什麼意思？", ["寫得很快", "精細整齊", "寫得很大"], "精細整齊", "字寫得工整，就是精細整齊。"),
+  B('chi', "第一課 字的小旅行", "「揮灑自如」最適合形容什麼？", ["寫字畫畫很自在、很順手", "水灑得到處都是", "手一直發抖"], "寫字畫畫很自在、很順手", "揮灑自如形容做事、寫字很自在流暢。"),
+  B('chi', "第一課 字的小旅行", "老師說要寫好國字，要先掌握什麼？", ["寫得越快越好", "筆順和結構", "用很粗的筆"], "筆順和結構", "掌握筆順和結構，多練習，字才會工整。"),
+  B('chi', "第一課 字的小旅行", "猜字謎：「房子下面住著一個小孩。」是哪個字？", ["字", "安", "宇"], "字", "宀（房子）下面加子（小孩），就是「字」。"),
+  B('chi', "第一課 字的小旅行", "猜字謎：「自己的一顆心。」是哪個字？", ["思", "忌", "忘"], "忌", "己加上心，就是「忌」。"),
+  B('chi', "第一課 字的小旅行", "猜字謎：「女生住在門戶旁。」是哪個字？", ["好", "如", "妒"], "妒", "女加戶，就是「妒」。"),
+  B('chi', "第一課 字的小旅行", "猜字謎：「一個人靠著樹休息。」是哪個字？", ["休", "林", "体"], "休", "亻（人）加木（樹），就是「休」。"),
+  B('chi', "第一課 字的小旅行", "猜字謎：「田地下面藏著一顆心。」是哪個字？", ["怒", "思", "累"], "思", "田加心，就是「思」。"),
+  B('chi', "第一課 字的小旅行", "「自」加上「心」，會變成哪一個字？", ["息", "思", "恩"], "息", "自在上、心在下，是休息的「息」。"),
+  B('chi', "第一課 字的小旅行", "「你」加上「心」，會變成哪一個字？", ["您", "念", "恁"], "您", "你加心是「您」，是禮貌的說法。"),
+  B('chi', "第一課 字的小旅行", "「忄」加上「青」，會變成哪一個字？", ["請", "清", "情"], "情", "心字旁加青，是心情的「情」。"),
+  B('chi', "第一課 字的小旅行", "下面哪一個字「沒有」心或心字旁？", ["您", "怕", "休"], "休", "您下面有心、怕有忄，休是人字旁加木。"),
+  B('chi', "第一課 字的小旅行", "老農夫牽著（　）去田裡工作。", ["午", "牛", "年"], "牛", "牛的中間一豎有出頭；午沒有出頭。"),
+  B('chi', "第一課 字的小旅行", "中（　）十二點，我們在教室吃飯。", ["牛", "午", "干"], "午", "中午的午，上面沒有出頭。"),
+  B('chi', "第一課 字的小旅行", "農（　）每天很早就下田工作。", ["天", "失", "夫"], "夫", "農夫的夫，上面一橫有出頭。"),
+  B('chi', "第一課 字的小旅行", "今（　）天氣很晴朗，適合去郊遊。", ["夫", "天", "大"], "天", "天的上面兩橫都不出頭。"),
+  B('chi', "第一課 字的小旅行", "媽媽拿菜（　）切青菜。", ["力", "刀", "刁"], "刀", "刀的第二筆沒有出頭。"),
+  B('chi', "第一課 字的小旅行", "拔河的時候，大家一起用（　）拉。", ["刀", "方", "力"], "力", "力的撇有出頭。"),
+  B('chi', "第一課 字的小旅行", "路口往（　）轉就是學校。", ["石", "右", "左"], "右", "右是方向；右的撇穿過橫往上出頭，石的一橫蓋在最上面。"),
+  B('chi', "第一課 字的小旅行", "河邊有很多圓圓的（　）頭。", ["石", "右", "古"], "石", "石頭的石。"),
+  B('chi', "第一課 字的小旅行", "「下課了，大家去操場玩。」改成疑問的語氣，哪一句對？", ["下課了，大家去操場玩吧！", "下課了，大家要去操場玩嗎？", "下課了，大家去操場玩。"], "下課了，大家要去操場玩嗎？", "加上「嗎」，句尾改成問號，就是疑問句。"),
+  B('chi', "第一課 字的小旅行", "「弟弟已經吃飽了。」改成疑問的語氣，哪一句對？", ["弟弟已經吃飽了沒有？", "弟弟已經吃飽了！", "弟弟一定吃飽了。"], "弟弟已經吃飽了沒有？", "加上「沒有」並改成問號，表示疑問。"),
+  B('chi', "第一課 字的小旅行", "「外面在下雨。」加上哪一個詞，可以變成疑問句？", ["外面在下雨啦！", "外面真的在下雨。", "外面是不是在下雨？"], "外面是不是在下雨？", "「是不是……？」是表示疑問的說法。"),
+  B('chi', "第一課 字的小旅行", "要把句子改成疑問句，句尾的標點符號要用：", ["句號 。", "驚嘆號 ！", "問號 ？"], "問號 ？", "表示疑問，句尾要用問號。"),
+  TF('chi', "第一課 字的小旅行", "「你明天會來嗎？」是疑問句。", "對", "有「嗎」又用問號，是疑問句。"),
+  TF('chi', "第一課 字的小旅行", "「今天的作業好多啊！」是疑問句。", "錯", "這句是感嘆，句尾是驚嘆號，不是疑問。"),
+  B('chi', "第一課 字的小旅行", "「心是一葉舟」這句口訣，是用「心」字的什麼來聯想？", ["讀音", "字形", "意思"], "字形", "心的三點像水花、彎鉤像小船，是用字的樣子來聯想。"),
+  B('chi', "第一課 字的小旅行", "用口訣記生字，有什麼好處？", ["可以不用寫字", "學字變得更有趣、更好記", "字會變得比較少"], "學字變得更有趣、更好記", "把字的樣子編成口訣，學字更有趣。"),
+  TF('chi', "第一課 字的小旅行", "每個「心」部的字，意思都和小船有關。", "錯", "心部的字通常和心情、想法有關，不是小船。"),
+  TF('chi', "第一課 字的小旅行", "「心」可以和不同的字組合，變成新的字。", "對", "像心加自是息、心加田是思。"),
+  TF('chi', "第一課 字的小旅行", "現代人常用電腦打字，所以更應該把握用紙筆寫字的機會。", "對", "多寫多練，字才會工整漂亮。"),
+  B('chi', "第二課 妙故事點點名", "「茫茫大霧」的「霧」要怎麼唸？", ["ㄨˇ", "ㄨˋ", "ㄇㄨˋ"], "ㄨˋ", "霧唸ㄨˋ。"),
+  B('chi', "第二課 妙故事點點名", "「好似」的「似」要怎麼唸？", ["ㄙˋ", "ㄕˋ", "ㄙˇ"], "ㄙˋ", "好似、相似的「似」唸ㄙˋ。"),
+  B('chi', "第二課 妙故事點點名", "「搖晃」的「晃」要怎麼唸？", ["ㄏㄨㄤˊ", "ㄏㄨㄤ", "ㄏㄨㄤˋ"], "ㄏㄨㄤˋ", "搖晃的「晃」唸ㄏㄨㄤˋ（四聲），小心不要寫成二聲。"),
+  B('chi', "第二課 妙故事點點名", "「吶喊」的「喊」要怎麼唸？", ["ㄏㄢˋ", "ㄏㄢˇ", "ㄍㄢˇ"], "ㄏㄢˇ", "喊唸ㄏㄢˇ。"),
+  B('chi', "第二課 妙故事點點名", "「歪頭」的「歪」要怎麼唸？", ["ㄨㄞ", "ㄨㄞˇ", "ㄨㄟ"], "ㄨㄞ", "歪唸ㄨㄞ，一聲。"),
+  B('chi', "第二課 妙故事點點名", "「比賽」的「賽」要怎麼唸？", ["ㄙㄞ", "ㄙㄞˋ", "ㄕㄞˋ"], "ㄙㄞˋ", "賽唸ㄙㄞˋ。"),
+  B('chi', "第二課 妙故事點點名", "「收穫」的「穫」要怎麼唸？", ["ㄏㄨㄛˋ", "ㄏㄨㄛˊ", "ㄏㄨˋ"], "ㄏㄨㄛˋ", "收穫的「穫」唸ㄏㄨㄛˋ。"),
+  B('chi', "第二課 妙故事點點名", "秋天到了，農夫的稻田大豐收，收（　）很多。", ["獲", "穫", "護"], "穫", "和稻米、農作物有關，禾字旁的「穫」。"),
+  B('chi', "第二課 妙故事點點名", "風一吹，窗（　）就被吹開了。", ["戶", "房", "尸"], "戶", "窗戶的戶。"),
+  B('chi', "第二課 妙故事點點名", "老師在黑（　）上寫字。", ["版", "板", "飯"], "板", "黑板是木頭做的，木字旁的「板」。"),
+  B('chi', "第二課 妙故事點點名", "下雨了，記得帶一把雨（　）。", ["傘", "全", "金"], "傘", "雨傘的傘，裡面有四個人。"),
+  B('chi', "第二課 妙故事點點名", "弟弟的玩具丟得滿地都是，房間好（　）。", ["乳", "亂", "辭"], "亂", "亂七八糟的亂。"),
+  B('chi', "第二課 妙故事點點名", "天上的白雲好（　）一團團棉花糖。", ["以", "似", "仍"], "似", "好似就是好像，人字旁的「似」。"),
+  B('chi', "第二課 妙故事點點名", "這次跑步比（　）我得了第二名。", ["塞", "寨", "賽"], "賽", "比賽的賽，下面是貝。"),
+  B('chi', "第二課 妙故事點點名", "上課要（　）心聽講。", ["專", "傳", "轉"], "專", "專心的專沒有偏旁。"),
+  B('chi', "第二課 妙故事點點名", "小狗在後面一直（　）著我跑。", ["堆", "推", "追"], "追", "追是辵字旁（辶）。"),
+  B('chi', "第二課 妙故事點點名", "我已（　）把作業寫完了。", ["己", "已", "巳"], "已", "已經的已，左上角開一點點口；自己的己完全不封口。"),
+  B('chi', "第二課 妙故事點點名", "「答應」的「答」要怎麼唸？", ["ㄉㄚˊ", "ㄉㄚ", "ㄉㄚˇ"], "ㄉㄚ", "答應、答理的「答」唸ㄉㄚ（一聲）。"),
+  B('chi', "第二課 妙故事點點名", "「回答」的「答」要怎麼唸？", ["ㄉㄚˊ", "ㄉㄚ", "ㄉㄚˋ"], "ㄉㄚˊ", "回答、答案的「答」唸ㄉㄚˊ（二聲）。"),
+  B('chi', "第二課 妙故事點點名", "「時鐘滴答滴答響」的「答」要怎麼唸？", ["ㄉㄚˊ", "ㄉㄚˋ", "ㄉㄚ"], "ㄉㄚ", "形容聲音的「滴答」唸ㄉㄚ。"),
+  B('chi', "第二課 妙故事點點名", "下面哪一個「答」要唸ㄉㄚ（一聲）？", ["答案", "答應", "問答"], "答應", "答應唸ㄉㄚ；答案、問答唸ㄉㄚˊ。"),
+  B('chi', "第二課 妙故事點點名", "下面哪一個「答」要唸ㄉㄚˊ（二聲）？", ["答覆", "答應", "滴答"], "答覆", "答覆唸ㄉㄚˊ ㄈㄨˋ。"),
+  B('chi', "第二課 妙故事點點名", "夏天去海邊玩，要撐一把（　）擋太陽。", ["飛行傘", "陽傘", "愛心傘"], "陽傘", "擋太陽用的是陽傘。"),
+  B('chi', "第二課 妙故事點點名", "從山上跳下來、在天空飛的是：", ["油紙傘", "飛行傘", "陽傘"], "飛行傘", "飛行傘可以讓人在空中飛。"),
+  B('chi', "第二課 妙故事點點名", "放在學校門口、忘了帶傘的人可以借用、用完要還的是：", ["愛心傘", "飛行傘", "油紙傘"], "愛心傘", "愛心傘是借給需要的人，用完記得歸還。"),
+  B('chi', "第二課 妙故事點點名", "用紙和竹子做的、美濃有名的紀念品是：", ["陽傘", "愛心傘", "油紙傘"], "油紙傘", "油紙傘是美濃的特色。"),
+  B('chi', "第二課 妙故事點點名", "「雨是一位有名的藝術家」，用了哪一種修辭？", ["設問", "譬喻", "排比"], "譬喻", "把雨比成藝術家，是譬喻。"),
+  B('chi', "第二課 妙故事點點名", "作者說「雨景是雨的作品」，是因為：", ["雨天適合畫畫", "把雨比成藝術家，雨景就是它創作出來的", "雨的名字叫作品"], "把雨比成藝術家，雨景就是它創作出來的", "藝術家的作品就是他創作的東西。"),
+  B('chi', "第二課 妙故事點點名", "妹妹第一次自己煮麵，又找鍋子又找碗，忙得團團轉。可以用哪一個成語？", ["一馬當先", "手忙腳亂", "霧裡看花"], "手忙腳亂", "慌慌張張、忙亂沒有條理，是手忙腳亂。"),
+  B('chi', "第二課 妙故事點點名", "大掃除時，班長第一個拿起掃把開始掃地。可以說他：", ["手忙腳亂", "一馬當先", "霧裡看花"], "一馬當先", "第一個帶頭行動，就是一馬當先。"),
+  B('chi', "第二課 妙故事點點名", "小明這學期很用功，數學從 60 分進步到 95 分。可以說他：", ["突飛猛進", "手忙腳亂", "霧裡看花"], "突飛猛進", "進步得又快又多，叫突飛猛進。"),
+  B('chi', "第二課 妙故事點點名", "下面哪一種情形最適合用「霧裡看花」形容？", ["眼鏡起霧了，看黑板模模糊糊", "花園的花開得很漂亮", "跑步跑第一名"], "眼鏡起霧了，看黑板模模糊糊", "霧裡看花是看不清楚、模模糊糊。"),
+  B('chi', "第二課 妙故事點點名", "「（　）外面下著大雨，（　）他還是準時到學校。」括號要填：", ["因為……所以……", "雖然……可是……", "如果……就……"], "雖然……可是……", "前後意思相反，用「雖然……可是……」。"),
+  B('chi', "第二課 妙故事點點名", "「雖然哥哥很累，可是（　）。」哪一句接起來最通順？", ["他還是把作業寫完了", "他很想睡覺", "所以他去睡了"], "他還是把作業寫完了", "雖然……可是……後面要接和前面相反、出乎意料的事。"),
+  B('chi', "第二課 妙故事點點名", "「雖然這題很難，（　）我還是想試試看。」括號要填：", ["所以", "可是", "因為"], "可是", "雖然……可是……。"),
+  B('chi', "第二課 妙故事點點名", "小芸寫功課時一邊看電視，寫了一個小時還沒寫完。這告訴我們：", ["做事要專心，才會有收穫", "看電視可以寫得更快", "功課太多了"], "做事要專心，才會有收穫", "一心兩用容易分心，做事要專心。"),
+  B('chi', "第二課 妙故事點點名", "兩個人一起學畫畫，一個專心練習，一個常常東張西望。結果最可能是：", ["兩個人畫得一樣好", "東張西望的人畫得比較好", "專心的人進步比較多"], "專心的人進步比較多", "專心致志才能把事情學好。"),
+  B('chi', "第二課 妙故事點點名", "「專心致志」的意思是：", ["做事一心一意、集中精神", "做事很快", "喜歡到處玩"], "做事一心一意、集中精神", "專心致志就是把心思全放在一件事上。"),
+  TF('chi', "第二課 妙故事點點名", "「答應」和「答案」的「答」唸法一樣。", "錯", "答應唸ㄉㄚ，答案唸ㄉㄚˊ。"),
+  TF('chi', "第二課 妙故事點點名", "「雖然……可是……」前後兩句的意思通常是相反的。", "對", "例如：雖然下雨，可是他還是去跑步。"),
+  TF('chi', "第二課 妙故事點點名", "「好似」的意思就是「好像」。", "對", "好似＝好像。")
+];
+CHW.forEach(function (q, i) { q.id = 'chw-' + i; });
 var SOCB_P = [].concat(
   PP('soc', SO1, [['上課前', '閱讀課文、做記號'], ['上課中', '專心上課、記錄重點'], ['上課後', '完成作業、複習重點'], ['自我介紹前', '先想好要說的內容'], ['自我介紹中', '面帶微笑發言'], ['自我介紹後', '謝謝同學聆聽'],
     ['分配工作', '注意公平原則'], ['發生爭執', '先冷靜再溝通'], ['戶外學習第一步', '查資料、分配工作'], ['戶外學習第三步', '整理資料並分享'], ['太晚寫功課', '隔天沒精神'], ['自律', '不需要別人提醒']]),
@@ -3948,7 +4038,7 @@ BANK.forEach(function (q) { if (q.subj === 'eng' && RETIRED_Q[q.q]) q.retired = 
 /* 停用：自然單元1、2 的舊通用題和配對（有些內容課本沒教、用字和課本不同；保留不刪除），改用依課本考點重新出的 NATB */
 [SAMPLE_Q, BANK, SAMPLE_P, BANK_P].forEach(function (list) { list.forEach(function (q) { if (q.subj === 'nat' && (q.unit === U_N[0] || q.unit === U_N[1])) q.retired = true; }); });
 (function applyRemap() {
-  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2].forEach(function (list) {
+  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW].forEach(function (list) {
     list.forEach(function (q) {
       if (RETIRED[q.unit]) { q.retired = true; return; }
       var n = remapU(q.unit);
@@ -3996,7 +4086,7 @@ function selUnits(subj) {
 function comboU(u) { return String(u || '').split('、').filter(function (x) { return /第.+課|學習地圖|單元/.test(x); }).length >= 2; }
 function inU(sel, u) { if (!sel || !sel.length || GENU[u]) return true; var one = function (x) { return typeof sel === 'string' ? sel === x : sel.indexOf(x) >= 0; }; return one(u) || (comboU(u) && String(u).split('、').some(function (x) { return one(x.trim()); })); }
 function togU(arr, v) { if (!v) return []; var i = arr.indexOf(v); if (i >= 0) { arr.splice(i, 1); return arr; } arr.push(v); return arr; }
-function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
+function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, isOff('chiwb12') ? [] : CHW, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
 function ppool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_P).concat(isOff('bank') ? [] : BANK_P, isOff('natmid') ? [] : NATB_P, isOff('socmid') ? [] : SOCB_P, S.pairs).filter(function (p) { return !p.retired && p.subj === subj && inU(unit, p.unit) && !(p.mid && bad[p.mid]); }); }
 function uLbl(u) { return u === 'Unit 1 & 2' ? '期中考範圍 (Unit 1 & 2)' : u; }
 var HIDE_UNITS = ['的、得、地', '量詞', '標點符號'];
@@ -5251,7 +5341,7 @@ function matCount(m) {
   return n;
 }
 function recView() {
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<div class="mat"><div class="top"><span class="st ok">內建</span><span class="nm">' + b[0] + '</span></div><p class="muted small">' + b[1] + '　不能刪除</p></div>'; }).join('');
   var st = { ok: ['ok', 'OK'], bad: ['bad', '不適任'], pend: ['pend', '待確認'] };
   var KIND = { file: '檔案／照片', url: '網址', text: '貼上的文字' };
@@ -6035,6 +6125,7 @@ var BUILTIN = [
   { id: 'natmid', name: '自然期中題庫（課本＋習作考點）', subjs: ['nat'], src: '對話新增', kind: '選擇題、是非題、填空題、配對', at: '2026/11/02', tags: ['南一版', '期中考範圍', '原創題'], note: '分析課本 P.10–67、習作 P.2–25 的考點後自己重新出題，沒有使用原題、原圖；P.67 焚風頁標示不宜評量，沒有出題', desc: function () { return NATB.length + ' 題，另有配對 ' + NATB_P.length + ' 組'; } },
   { id: 'socmid', name: '社會期中題庫（課本＋習作考點）', subjs: ['soc'], src: '對話新增', kind: '選擇題、是非題、填空題、配對、閱讀題', at: '2026/11/03', tags: ['翰林版', '期中考範圍', '原創題'], note: '分析課本 P.10–55、習作 P.4–13、作業簿第 1–8 回、考前範圍練習卷的考點後自己重新出題，沒有使用原題、原圖；社會學習+、社會補充包不出題', desc: function () { return SOCB.length + ' 題，另有配對 ' + SOCB_P.length + ' 組'; } },
   { id: 'chirev', name: '國語重點複習 L1–L12（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['康軒版', '期中考範圍', '原創題'], note: '分析重點複習講義的題型（詞語解釋、字音字形辨析、延伸成語、短語短句結構、句型、修辭補給、拼字造詞），自己重新出題，沒有使用原書句子與例句', desc: function () { return CHRV.length + ' 題'; } },
+  { id: 'chiwb12', name: '國語習作 第一、二課（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題', at: '2026/11/14', tags: ['康軒版', '期中考範圍', '原創題'], note: '分析習作題型（寫國字或注音、查字典詞義、猜字謎、組字、形近字、改疑問句、多音字、依情境填詞、成語、雖然可是、閱讀理解），自己重新出題，沒有使用原書句子；封面、前言、目錄沒有出題，封面姓名班級不使用', desc: function () { return CHW.length + ' 題'; } },
   { id: 'mathwb', name: '數學習作 單元1 數到10000（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（讀數記數、往上往下數、位值與定位板、千百十一換算、錢幣付款、大小比較、數字卡組數、數線移動、綜合應用），自己重新出題，沒有使用原書題目', desc: function () { return MWB.length + ' 題'; } },
   { id: 'mathwb2', name: '數學習作 單元2 四位數的加減（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（三、四位數加法進位、減法連續退位、找出算對的直式、加減應用與多少比較、整千估算、□ 填數字、驗算），自己重新出題，沒有使用原書題目', desc: function () { return MWB2.length + ' 題'; } },
   { id: 'mathmwb3', name: '數學習作 單元3 乘法（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（三位數乘以一位數、整十整百乘法、中間有 0 的乘法、找出算錯的直式、連加與倍數、乘法估算、□ 填數字），自己重新出題，沒有使用原書題目與圖', desc: function () { return MWB3.length + ' 題'; } },
@@ -7059,7 +7150,7 @@ function bankView() {
   var SUBS = [['chi', '國語'], ['eng', '英文'], ['math', '數學'], ['soc', '社會'], ['nat', '自然'], ['hea', '健康']];
   var ZC = { chi: 'bc-chi', eng: 'bc-eng', math: 'bc-mat', soc: 'bc-soc', nat: 'bc-nat', hea: 'bc-hea' };
   var TYPE = { choice: '選擇', fill: '填空', tf: '是非', num: '計算', build: '排句子', match: '連連看', multi: '勾選' };
-  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
+  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
   var builtP = SAMPLE_P.concat(BANK_P, NATB_P, SOCB_P).filter(function (q) { return !q.retired; }), upP = S.pairs;
   function scope(subj) {
     if (SYL[subj]) return { mid: SYL[subj].mid.units, fin: SYL[subj].fin.units, all: SYL[subj].units };
@@ -7258,7 +7349,7 @@ function listView() {
   for (var i = from; i <= to; i++) nums.push('<button class="pnum" data-act="mpg" data-v="' + i + '" aria-current="' + (i === M.pg) + '">' + i + '</button>');
   var pager = pages > 1 ? '<nav class="pager" aria-label="分頁"><button class="pnum" data-act="mpg" data-v="1" aria-label="第一頁"' + (M.pg === 1 ? ' disabled' : '') + '>|&lt;</button><button class="pnum" data-act="mpg" data-v="' + (M.pg - 1) + '" aria-label="上一頁"' + (M.pg === 1 ? ' disabled' : '') + '>&lt;</button>' + nums.join('') +
     '<button class="pnum" data-act="mpg" data-v="' + (M.pg + 1) + '" aria-label="下一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;</button><button class="pnum" data-act="mpg" data-v="' + pages + '" aria-label="最後一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;|</button></nav>' : '';
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<li><b>' + b[0] + '</b>　<span class="muted small">' + b[1] + '，不能刪除</span></li>'; }).join('');
   var lt = M.ltab === 'builtin' ? 'builtin' : 'own';
   var ltabs = '<div class="mtabs up ltabs" role="tablist">' + [['own', '已上傳資料'], ['builtin', '內建題庫']].map(function (t) { return '<button role="tab" class="mtab" data-act="ltab" data-v="' + t[0] + '" aria-selected="' + (lt === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div>';
