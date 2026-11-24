@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1794917374"><script>(function(){var B="1794917374";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1795517659"><script>(function(){var B="1795517659";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -2481,7 +2481,8 @@ BANK.forEach(function (q, i) { q.id = 'b' + i; });
 var BANK_P = [].concat(
   PP('eng', E[1], [['sunny', '晴天'], ['rainy', '下雨'], ['cloudy', '多雲'], ['windy', '有風']]),
   PP('eng', E[2], [['thirsty', '口渴'], ['hungry', '肚子餓'], ['tired', '累'], ['sleepy', '想睡']]),
-  PP('eng', E[3], [['a book', 'books'], ['a bag', 'bags'], ['a dog', 'dogs'], ['a pencil', 'pencils']]),
+  /* 停用（保留不刪除）：Unit 3 舊配對用的是課本沒教的字 PP('eng', E[3], [['a book', 'books'], ['a bag', 'bags'], ['a dog', 'dogs'], ['a pencil', 'pencils']]), */
+  PP('eng', E[3], [['apples', '蘋果'], ['bananas', '香蕉'], ['oranges', '柳橙'], ['watermelons', '西瓜'], ['hamburgers', '漢堡'], ['hot dogs', '熱狗'], ['sandwiches', '三明治']]),
   PP('eng', E[4], [['pizza', '披薩'], ['cake', '蛋糕'], ['juice', '果汁'], ['milk', '牛奶']]),
   PP('nat', N[0], [['根', '吸收水分'], ['莖', '支撐和運水'], ['葉', '製造養分'], ['花', '結成果實']]),
   PP('nat', N[1], [['風車', '利用風力'], ['水車', '利用流水'], ['空氣', '會佔空間'], ['水', '往低處流']]),
@@ -4211,6 +4212,72 @@ var CHTM4 = [
 CHTM4.forEach(function (q, i) { q.id = 'chtm4-' + i; });
 var RETIRED_C12 = {"「全身溼答答的模仿貓，眼淚一滴滴落下，如同牠心裡的眼淚。」用了哪一種修辭？": 1};
 CHRV.forEach(function (q) { if (RETIRED_C12[q.q]) q.retired = true; });
+/* 英文課本 Unit 3 What Are These?（翰林 Here We Go 3）：對照課本 Story Time、Target Language、Daily Talk、Phonics（v-、f-）、Discover、Kung Fu Abu（this/that/these/those）原創出題，沒有使用原書句子 */
+var ENB3 = [
+  B('eng', E[3], "朋友問你 \"Are you tired?\"，你覺得很累，要怎麼回答？", ["Yes, I am.", "Yes, I do.", "No, I don't."], "Yes, I am.", "Are you ...? 要用 Yes, I am. 回答。"),
+  B('eng', E[3], "看到朋友快要撞到東西，要提醒他「小心！」，英文要說：", ["Watch out!", "Come on!", "Yummy!"], "Watch out!", "Watch out! 是「小心！」。"),
+  B('eng', E[3], "想叫朋友「走吧！快一點！」，英文要說：", ["Come on!", "Oops, sorry!", "Here you are."], "Come on!", "Come on! 是「走吧！來吧！」。"),
+  B('eng', E[3], "把東西拿給別人的時候，可以說：", ["Here you are.", "Watch out!", "How about you?"], "Here you are.", "Here you are. 是「給你」。"),
+  B('eng', E[3], "說完自己喜歡什麼，想問對方「那你呢？」，要說：", ["How about you?", "What are these?", "Are you tired?"], "How about you?", "How about you? 是「你呢？」。"),
+  B('eng', E[3], "不小心撞到別人，可以說：", ["Oops, sorry!", "Yummy!", "Come on!"], "Oops, sorry!", "Oops 是「哎呀」，sorry 是「對不起」。"),
+  B('eng', E[3], "吃到很好吃的柳橙，可以開心的說：", ["Yummy!", "Watch out!", "Oops!"], "Yummy!", "yummy 是「好吃的、美味的」。"),
+  B('eng', E[3], "看到別人拿走你的熱狗，你大叫「嘿！那是我的熱狗！」，英文是：", ["Hey! That's my hot dog!", "Here you are.", "Yes, I do."], "Hey! That's my hot dog!", "hey 是「嘿」。"),
+  B('eng', E[3], "故事裡，海鷗搶走了大家的什麼食物？", ["熱狗和漢堡", "柳橙和蘋果", "三明治和西瓜"], "熱狗和漢堡", "Oh, no! My hamburger! / Hey! That's my hot dog!"),
+  B('eng', E[3], "故事裡大家搭的那種有軌道的車，在中文叫做：", ["叮噹車（纜車）", "腳踏車", "飛機"], "叮噹車（纜車）", "Unit 3 的故事發生在有叮噹車的海邊城市。"),
+  B('eng', E[3], "\"No, I don't.\" 是什麼意思？", ["不，我不喜歡。", "是的，我喜歡。", "是的，我很累。"], "不，我不喜歡。", "回答 Do you like ...? 時，No, I don't. 是不喜歡。"),
+  B('eng', E[3], "🍎🍎 What are these? — They're ___.", ["apples", "watermelons", "oranges"], "apples", "apples 是「蘋果」。"),
+  B('eng', E[3], "🍌🍌 What are these? — They're ___.", ["bananas", "watermelons", "hot dogs"], "bananas", "bananas 是「香蕉」。"),
+  B('eng', E[3], "🍊🍊 What are these? — They're ___.", ["oranges", "hamburgers", "hot dogs"], "oranges", "oranges 是「柳橙」。"),
+  B('eng', E[3], "🍉🍉 What are these? — They're ___.", ["watermelons", "sandwiches", "oranges"], "watermelons", "watermelons 是「西瓜」。"),
+  B('eng', E[3], "🍔🍔 What are these? — They're ___.", ["hamburgers", "bananas", "apples"], "hamburgers", "hamburgers 是「漢堡」。"),
+  B('eng', E[3], "🌭🌭 What are these? — They're ___.", ["hot dogs", "apples", "sandwiches"], "hot dogs", "hot dogs 是「熱狗」。"),
+  B('eng', E[3], "🥪🥪 What are these? — They're ___.", ["sandwiches", "watermelons", "oranges"], "sandwiches", "sandwiches 是「三明治」。"),
+  FL('eng', E[3], "「香蕉」（很多根）的英文怎麼寫？", "bananas", "banana 加 s 變 bananas。"),
+  FL('eng', E[3], "「柳橙」（很多顆）的英文怎麼寫？", "oranges", "orange 加 s 變 oranges。"),
+  FL('eng', E[3], "「蘋果」（很多顆）的英文怎麼寫？", "apples", "apple 加 s 變 apples。"),
+  FL('eng', E[3], "「漢堡」（很多個）的英文怎麼寫？", "hamburgers", "hamburger 加 s 變 hamburgers。"),
+  FL('eng', E[3], "「西瓜」（很多顆）的英文怎麼寫？", "watermelons", "watermelon 加 s 變 watermelons。"),
+  B('eng', E[3], "sandwich（三明治）變成很多個，字尾要加什麼？", ["es", "s", "ies"], "es", "sandwich 加 es，變成 sandwiches。"),
+  B('eng', E[3], "下面哪一個是水果（fruit）？", ["oranges", "hamburgers", "hot dogs"], "oranges", "oranges 是柳橙，是水果。"),
+  B('eng', E[3], "下面哪一個是食物（food），不是水果？", ["sandwiches", "bananas", "watermelons"], "sandwiches", "sandwiches 是三明治。"),
+  B('eng', E[3], "桌上有很多蘋果，就在你手邊，要問「這些是什麼？」：", ["What are these?", "What are those?", "What's that?"], "What are these?", "很多個、離我近，用 these。"),
+  B('eng', E[3], "遠遠的攤子上有很多熱狗，要問「那些是什麼？」：", ["What are those?", "What are these?", "What's this?"], "What are those?", "很多個、離我遠，用 those。"),
+  B('eng', E[3], "手上拿著一個熱狗，要問「這是什麼？」：", ["What's this?", "What's that?", "What are these?"], "What's this?", "一個、離我近，用 this。"),
+  B('eng', E[3], "遠遠的有一顆西瓜，要問「那是什麼？」：", ["What's that?", "What's this?", "What are those?"], "What's that?", "一個、離我遠，用 that。"),
+  B('eng', E[3], "this、that 是指幾個東西？", ["一個", "很多個", "沒有"], "一個", "this、that 指一個；these、those 指很多個。"),
+  B('eng', E[3], "these 和 those 哪裡不一樣？", ["these 離我近，those 離我遠", "these 是一個，those 是很多個", "兩個意思完全一樣"], "these 離我近，those 離我遠", "兩個都是很多個，差在遠近。"),
+  B('eng', E[3], "What are these? 要怎麼回答？", ["They're oranges.", "It's an orange.", "Yes, I do."], "They're oranges.", "很多個要用 They're ...。"),
+  B('eng', E[3], "What's this? 要怎麼回答？", ["It's a hot dog.", "They're hot dogs.", "Yes, I am."], "It's a hot dog.", "一個要用 It's a ...。"),
+  B('eng', E[3], "They're 是哪兩個字縮在一起？", ["They are", "They is", "There are"], "They are", "They're = They are。"),
+  B('eng', E[3], "don't 是哪兩個字縮在一起？", ["do not", "does not", "did not"], "do not", "don't = do not。"),
+  B('eng', E[3], "朋友問 \"Do you like apples?\"，你喜歡蘋果，要回答：", ["Yes, I do.", "Yes, I am.", "No, I don't."], "Yes, I do.", "Do you like ...? 喜歡就說 Yes, I do."),
+  B('eng', E[3], "朋友問 \"Do you like apples?\"，你不喜歡蘋果、喜歡香蕉，要回答：", ["No, I don't. I like bananas.", "Yes, I do. I like bananas.", "No, I'm not. I like bananas."], "No, I don't. I like bananas.", "不喜歡說 No, I don't.，再說自己喜歡的。"),
+  FL('eng', E[3], "Do you like sandwiches? — No, I ___. I like hot dogs.", "don't", "不喜歡就說 No, I don't.，don't 是 do not 的縮寫。"),
+  FL('eng', E[3], "What ___ these? — They're sandwiches.", "are", "What are these? 這些是什麼？"),
+  B('eng', E[3], "Do you like hamburgers? — No, I ___.", ["don't", "am not", "not"], "don't", "No, I don't. 不，我不喜歡。"),
+  B('eng', E[3], "What are ___? （很多個，離我很遠）", ["those", "these", "this"], "those", "很多個又離我遠，用 those。"),
+  B('eng', E[3], "\"They're banana.\" 哪裡寫錯了？", ["banana 要變 bananas", "They're 要變 It's a", "沒有寫錯"], "banana 要變 bananas", "They're 是很多個，banana 要加 s。"),
+  B('eng', E[3], "\"What's this? — They're apples.\" 回答錯在哪裡？", ["問一個要回答 It's an apple.", "應該說 Yes, I do.", "沒有錯"], "問一個要回答 It's an apple.", "What's this? 問一個，要用 It's ...。"),
+  TF('eng', E[3], "What are these? 和 What are those? 都可以用 They're ... 回答。", "對", "these、those 都是很多個，都用 They're 回答。"),
+  TF('eng', E[3], "Do you like oranges? 可以回答 Yes, I am.", "錯", "Do you like ...? 要用 Yes, I do. 回答。"),
+  B('eng', E[3], "哪一個字的開頭是 v 的音？", ["vet", "fan", "fun"], "vet", "vet（獸醫）開頭是 v。"),
+  B('eng', E[3], "哪一個字的開頭是 f 的音？", ["fat", "van", "vat"], "fat", "fat（胖的）開頭是 f。"),
+  B('eng', E[3], "箱型車：＿an，空格要填哪個字母？", ["v", "f", "p"], "v", "van 是箱型車。"),
+  B('eng', E[3], "扇子：＿an，空格要填哪個字母？", ["f", "v", "b"], "f", "fan 是扇子。"),
+  B('eng', E[3], "「獸醫」的英文是：", ["vet", "fet", "vat"], "vet", "vet 是獸醫。"),
+  B('eng', E[3], "fun 是什麼意思？", ["樂趣、好玩", "扇子", "胖的"], "樂趣、好玩", "have fun 就是玩得開心。"),
+  FL('eng', E[3], "「There is a van. A vet is in the van.」這兩句裡，v 開頭的字一共出現幾次？（寫數字）", "3", "van、vet、van，一共 3 次。"),
+  B('eng', E[3], "Discover 頁：蘋果、柳橙、香蕉長在哪裡？", ["On Trees（樹上）", "On Vines（藤蔓上）", "On Bushes（樹叢上）"], "On Trees（樹上）", "apples、oranges、bananas 長在樹上。"),
+  B('eng', E[3], "Discover 頁：藍莓（blueberries）長在哪裡？", ["On Bushes（樹叢上）", "On Trees（樹上）", "On Vines（藤蔓上）"], "On Bushes（樹叢上）", "blueberries、cranberries 長在樹叢上。"),
+  B('eng', E[3], "Discover 頁：葡萄和西瓜長在哪裡？", ["On Vines（藤蔓上）", "On Trees（樹上）", "On Bushes（樹叢上）"], "On Vines（藤蔓上）", "grapes、watermelons 長在藤蔓上。"),
+  B('eng', E[3], "grapes 是什麼水果？", ["葡萄", "藍莓", "蘋果"], "葡萄", "grapes 是葡萄。")
+];
+ENB3.forEach(function (q, i) { q.id = 'enb3-' + i; });
+/* 停用（保留不刪除）：英文 Unit 3 舊的通用題，用的是 cat、book、bag 等課本 Unit 3 沒教的字，改用依課本出的 ENB3 */
+var RETIRED_E3 = {"What are these? 是在問什麼？": 1, "哪一個是「一個」的說法（單數）？": 1, "cat 的複數怎麼寫？": 1, "These are three ___.": 1, "What are these? 要怎麼回答？": 1, "bag 的複數怎麼寫？": 1, "What's this? 要怎麼回答？": 1, "two apple 哪裡寫錯了？": 1, "哪一個是不只一個（複數）？": 1, "These ___ my books.（填一個字：是）": 1};
+BANK.forEach(function (q) { if (q.subj === 'eng' && q.unit === E[3] && RETIRED_E3[q.q]) q.retired = true; });
+/* 範例題庫裡 Unit 3 的題目和配對（cat、duck、bird…）課本也沒教，一起停用（保留不刪除） */
+SAMPLE_Q.concat(SAMPLE_P).forEach(function (q) { if (q.subj === 'eng' && q.unit === E[3]) q.retired = true; });
 var SOCB_P = [].concat(
   PP('soc', SO1, [['上課前', '閱讀課文、做記號'], ['上課中', '專心上課、記錄重點'], ['上課後', '完成作業、複習重點'], ['自我介紹前', '先想好要說的內容'], ['自我介紹中', '面帶微笑發言'], ['自我介紹後', '謝謝同學聆聽'],
     ['分配工作', '注意公平原則'], ['發生爭執', '先冷靜再溝通'], ['戶外學習第一步', '查資料、分配工作'], ['戶外學習第三步', '整理資料並分享'], ['太晚寫功課', '隔天沒精神'], ['自律', '不需要別人提醒']]),
@@ -4551,6 +4618,12 @@ var LRW = [ /* [圖, 句子, 單元編號] */
   ['☀️', "It's sunny.", 1], ['🌧️', "It's rainy.", 1], ['🥶', "I'm cold.", 1], ['😩', "I'm tired.", 2], ['🍕', 'I want some pizza.', 4],
   ['🎂', 'I want some cake.', 4], ['🐱', "It's a cat.", 3], ['📖', "It's a book.", 3], ['🐶🐶', 'They are dogs.', 3], ['🧃', 'I want some juice.', 4]
 ];
+/* 英文 Unit 3：原本的單字和句子（cat、dog、book、bag…）課本 Unit 3 沒有教，停用（保留在上面不刪除），改用課本的食物和水果 */
+EV = EV.filter(function (v) { return v[3] !== 3; }).concat([['apples', '蘋果', '🍎🍎', 3], ['bananas', '香蕉', '🍌🍌', 3], ['oranges', '柳橙', '🍊🍊', 3], ['watermelons', '西瓜', '🍉🍉', 3], ['hamburgers', '漢堡', '🍔🍔', 3], ['hot dogs', '熱狗', '🌭🌭', 3], ['sandwiches', '三明治', '🥪🥪', 3]]);
+RC = RC.filter(function (r) { return r[3] !== 3; }).concat([["What are these? — They're ___.", 'bananas', ['banana', 'a banana', 'an banana'], 3], ["___ are those? — They're hot dogs.", 'What', ['Who', 'How', 'Where'], 3],
+  ['Do you like apples? — Yes, I ___.', 'do', ['am', 'is', 'are'], 3], ["Do you like oranges? — No, I ___. I like watermelons.", "don't", ['am', 'do', 'not'], 3],
+  ["What's this? — ___ a hamburger.", "It's", ["They're", "I'm", "You're"], 3], ["What are ___? — They're sandwiches.", 'those', ['this', 'that', 'it'], 3]]);
+LRW = LRW.filter(function (r) { return r[2] !== 3; }).concat([['🍊🍊', "They're oranges.", 3], ['🍉🍉', "They're watermelons.", 3], ['🌭', "It's a hot dog.", 3], ['🍎🍎', 'I like apples.', 3], ['🥪🥪', "They're sandwiches.", 3]]);
 
 
 /* ---------- storage (this device only) ---------- */
@@ -4676,7 +4749,7 @@ BANK.forEach(function (q) { if (q.subj === 'eng' && RETIRED_Q[q.q]) q.retired = 
 /* 停用：自然單元1、2 的舊通用題和配對（有些內容課本沒教、用字和課本不同；保留不刪除），改用依課本考點重新出的 NATB */
 [SAMPLE_Q, BANK, SAMPLE_P, BANK_P].forEach(function (list) { list.forEach(function (q) { if (q.subj === 'nat' && (q.unit === U_N[0] || q.unit === U_N[1])) q.retired = true; }); });
 (function applyRemap() {
-  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW, CHW2, CHW3, CHW4, CHT8, CHT9, CHT10, CHTM3, CHT11, CHT12, CHTM4].forEach(function (list) {
+  [SAMPLE_Q, BANK, SAMPLE_P, BANK_P, NATB, NATB_P, SOCB, SOCB_P, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW, CHW2, CHW3, CHW4, CHT8, CHT9, CHT10, CHTM3, CHT11, CHT12, CHTM4, ENB3].forEach(function (list) {
     list.forEach(function (q) {
       if (RETIRED[q.unit]) { q.retired = true; return; }
       var n = remapU(q.unit);
@@ -4724,7 +4797,7 @@ function selUnits(subj) {
 function comboU(u) { return String(u || '').split('、').filter(function (x) { return /第.+課|學習地圖|單元/.test(x); }).length >= 2; }
 function inU(sel, u) { if (!sel || !sel.length || GENU[u]) return true; var one = function (x) { return typeof sel === 'string' ? sel === x : sel.indexOf(x) >= 0; }; return one(u) || (comboU(u) && String(u).split('、').some(function (x) { return one(x.trim()); })); }
 function togU(arr, v) { if (!v) return []; var i = arr.indexOf(v); if (i >= 0) { arr.splice(i, 1); return arr; } arr.push(v); return arr; }
-function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, isOff('chiwb12') ? [] : CHW, isOff('chiwb36') ? [] : CHW2, isOff('chiwb711') ? [] : CHW3, isOff('chiwb12b') ? [] : CHW4, isOff('chitext') ? [] : CHT8, isOff('chitext') ? [] : CHT9, isOff('chitext') ? [] : CHT10, isOff('chitext') ? [] : CHTM3, isOff('chitext') ? [] : CHT11, isOff('chitext') ? [] : CHT12, isOff('chitext') ? [] : CHTM4, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
+function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, isOff('chiwb12') ? [] : CHW, isOff('chiwb36') ? [] : CHW2, isOff('chiwb711') ? [] : CHW3, isOff('chiwb12b') ? [] : CHW4, isOff('chitext') ? [] : CHT8, isOff('chitext') ? [] : CHT9, isOff('chitext') ? [] : CHT10, isOff('chitext') ? [] : CHTM3, isOff('chitext') ? [] : CHT11, isOff('chitext') ? [] : CHT12, isOff('chitext') ? [] : CHTM4, isOff('engu3') ? [] : ENB3, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
 function ppool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_P).concat(isOff('bank') ? [] : BANK_P, isOff('natmid') ? [] : NATB_P, isOff('socmid') ? [] : SOCB_P, S.pairs).filter(function (p) { return !p.retired && p.subj === subj && inU(unit, p.unit) && !(p.mid && bad[p.mid]); }); }
 function uLbl(u) { return u === 'Unit 1 & 2' ? '期中考範圍 (Unit 1 & 2)' : u; }
 var HIDE_UNITS = ['的、得、地', '量詞', '標點符號'];
@@ -5979,7 +6052,7 @@ function matCount(m) {
   return n;
 }
 function recView() {
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['國語習作 第三～六課、閱讀階梯一（題型分析後原創）', CHW2.length + ' 題'], ['國語習作 第七～十一課（題型分析後原創）', CHW3.length + ' 題'], ['國語習作 第十二課、閱讀階梯二（題型分析後原創）', CHW4.length + ' 題'], ['國語課本 第八～十二課、學習地圖三、四（依課文原創）', CHT8.length + CHT9.length + CHT10.length + CHTM3.length + CHT11.length + CHT12.length + CHTM4.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['國語習作 第三～六課、閱讀階梯一（題型分析後原創）', CHW2.length + ' 題'], ['國語習作 第七～十一課（題型分析後原創）', CHW3.length + ' 題'], ['國語習作 第十二課、閱讀階梯二（題型分析後原創）', CHW4.length + ' 題'], ['國語課本 第八～十二課、學習地圖三、四（依課文原創）', CHT8.length + CHT9.length + CHT10.length + CHTM3.length + CHT11.length + CHT12.length + CHTM4.length + ' 題'], ['英文課本 Unit 3（依課文原創）', ENB3.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<div class="mat"><div class="top"><span class="st ok">內建</span><span class="nm">' + b[0] + '</span></div><p class="muted small">' + b[1] + '　不能刪除</p></div>'; }).join('');
   var st = { ok: ['ok', 'OK'], bad: ['bad', '不適任'], pend: ['pend', '待確認'] };
   var KIND = { file: '檔案／照片', url: '網址', text: '貼上的文字' };
@@ -6493,7 +6566,8 @@ var ORAL = {
   words: [['sixteen', '16', 0], ['seventeen', '17', 0], ['eighteen', '18', 0], ['nineteen', '19', 0], ['twenty', '20', 0],
     ['sunny', '晴朗的', 1], ['rainy', '下雨的', 1], ['cloudy', '多雲的', 1], ['windy', '有風的', 1], ['hot', '熱的', 1],
     ['warm', '溫暖的', 1], ['cool', '涼爽的', 1], ['cold', '冷的', 1], ['angry', '生氣的', 2], ['happy', '快樂的', 2],
-    ['sad', '難過的', 2], ['tired', '累的', 2], ['full', '飽的', 2], ['hungry', '餓的', 2], ['thirsty', '口渴的', 2]],
+    ['sad', '難過的', 2], ['tired', '累的', 2], ['full', '飽的', 2], ['hungry', '餓的', 2], ['thirsty', '口渴的', 2],
+    ['apples', '蘋果', 3], ['bananas', '香蕉', 3], ['oranges', '柳橙', 3], ['watermelons', '西瓜', 3], ['hamburgers', '漢堡', 3], ['hot dogs', '熱狗', 3], ['sandwiches', '三明治', 3]],
   /* 第二大題：句子（畫底線的字會換成其他單字） */
   sents: [
     { u: 0, mk: function () { var p = rnd([['he', 'He', 'brother'], ['he', 'He', 'father'], ['he', 'He', 'grandpa'], ['she', 'She', 'sister'], ['she', 'She', 'mother'], ['she', 'She', 'grandma']]); return "Who's " + p[0] + "? " + p[1] + "'s my " + p[2] + '.'; } },
@@ -6503,7 +6577,11 @@ var ORAL = {
     { u: 0, mk: function () { return 'I have an idea.'; } },
     { u: 2, mk: function () { return 'Are you ' + rnd(['thirsty', 'hungry', 'tired', 'happy', 'sad', 'full']) + "? Yes, I am. / No, I'm not."; } },
     { u: 2, mk: function () { var f = shuffle(['sad', 'happy', 'angry', 'tired', 'hungry', 'thirsty']).slice(0, 2); return 'Is she ' + f[0] + "? Yes, she is. / No, she isn't. She's " + f[1] + '.'; } },
-    { u: 2, mk: function () { return 'A: Watch out!　B: Are you OK?'; } }
+    { u: 2, mk: function () { return 'A: Watch out!　B: Are you OK?'; } },
+    { u: 3, mk: function () { return "What are these? They're " + rnd(['apples', 'bananas', 'oranges', 'watermelons', 'hamburgers', 'hot dogs', 'sandwiches']) + '.'; } },
+    { u: 3, mk: function () { return "What are those? They're " + rnd(['apples', 'bananas', 'oranges', 'watermelons', 'hamburgers', 'hot dogs', 'sandwiches']) + '.'; } },
+    { u: 3, mk: function () { var f = shuffle(['apples', 'bananas', 'oranges', 'watermelons', 'hamburgers', 'hot dogs', 'sandwiches']).slice(0, 2); return 'Do you like ' + f[0] + "? Yes, I do. / No, I don't. I like " + f[1] + '.'; } },
+    { u: 3, mk: function () { return 'A: Here you are.　B: Yummy! How about you?'; } }
   ],
   /* 第三大題：發音單字與韻文 */
   phon: ['big', 'pig', 'Ben', 'pen', 'box', 'pat', 'dot', 'tot', 'duck', 'tuck', 'dig', 'ten', 'gap', 'cap', 'gut', 'cut', 'gum', 'cop'],
@@ -6512,6 +6590,8 @@ var ORAL = {
     'Ten little ducks, dig, dig, dig. A tot sees a dot. Tuck, tuck, tuck in bed!',
     'Mind the gap, mind the gap! A cop in a cap has gum. Cut, cut, cut the gum!'], /* 原創韻文（依同一組發音單字自編） */
   chantU: 2,
+  /* Unit 3 發音（v-、f-）：單字照課本，韻文是原創 */
+  more: [{ u: 3, phon: ['van', 'vat', 'vet', 'fan', 'fat', 'fun'], chants: ['Vic the vet has a big red van. Fan, fan, fan! Five fat cats have fun in the van.'] }],
   ref: '口試練習（原創）'
 };
 function oralItems(uf, part) {
@@ -6522,6 +6602,7 @@ function oralItems(uf, part) {
   if (!part || part === 'p') {
     if (ok(ORAL.phonU)) ORAL.phon.forEach(function (w) { out.push({ part: 'p', text: w, unit: U_E[ORAL.phonU] }); });
     if (ok(ORAL.chantU)) ORAL.chants.forEach(function (c) { out.push({ part: 'c', text: c, unit: U_E[ORAL.chantU] }); });
+    (ORAL.more || []).forEach(function (m) { if (!ok(m.u)) return; m.phon.forEach(function (w) { out.push({ part: 'p', text: w, unit: U_E[m.u] }); }); m.chants.forEach(function (c) { out.push({ part: 'c', text: c, unit: U_E[m.u] }); }); });
   }
   return out;
 }
@@ -6768,6 +6849,7 @@ var BUILTIN = [
   { id: 'chiwb711', name: '國語習作 第七～十一課（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題', at: '2026/11/14', tags: ['康軒版', '期末考範圍', '原創題'], note: '分析習作題型（字音字形、形近字、一詞多義、有有還有、形容詞分類、標點符號、組字、押韻、成語與表情、間隔號、免得、近義複合詞、閱讀理解、遊記與故事結構），自己重新出題，沒有使用原書句子；作文練習沒有出題', desc: function () { return CHW3.length + ' 題'; } },
   { id: 'chiwb12b', name: '國語習作 第十二課、閱讀階梯二（題型分析後原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題', at: '2026/11/14', tags: ['康軒版', '期末考範圍', '原創題'], note: '分析習作題型（字音字形、揮輝、多音字冠、詞義、句子更具體、句子完整、課文理解、閱讀理解），自己重新出題，沒有使用原書句子；閱讀階梯二放在第十二課；頁尾是版權頁，沒有出題', desc: function () { return CHW4.length + ' 題'; } },
   { id: 'chitext', name: '國語課本 第八～十二課、學習地圖三、四（依課文原創）', subjs: ['chi'], src: '對話新增', kind: '選擇題、是非題', at: '2026/11/17', tags: ['康軒版', '期末考範圍', '原創題'], note: '對照課本課文和語文焦點原創出題（課文理解、生字部首與形近字、一詞多義、句型、標點、寫景方法、文章結構、摘要、閱讀階梯二）；同時停用 4 題解說或選項有誤的舊題（保留不刪除）', desc: function () { return (CHT8.length + CHT9.length + CHT10.length + CHTM3.length + CHT11.length + CHT12.length + CHTM4.length) + ' 題'; } },
+  { id: 'engu3', name: '英文課本 Unit 3 What Are These?（依課文原創）', subjs: ['eng'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/24', tags: ['翰林版', '期末考範圍', '原創題'], note: '對照課本 Story Time、Target Language、Daily Talk、Phonics、Discover、Kung Fu Abu 原創出題；看圖選字、聽寫、Read and Choose、Look read and write、口試練習的 Unit 3 題材也換成課本的食物和水果；停用 10 題用 cat、book 等課本沒教的字的舊題（保留不刪除）', desc: function () { return ENB3.length + ' 題'; } },
   { id: 'mathwb', name: '數學習作 單元1 數到10000（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（讀數記數、往上往下數、位值與定位板、千百十一換算、錢幣付款、大小比較、數字卡組數、數線移動、綜合應用），自己重新出題，沒有使用原書題目', desc: function () { return MWB.length + ' 題'; } },
   { id: 'mathwb2', name: '數學習作 單元2 四位數的加減（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（三、四位數加法進位、減法連續退位、找出算對的直式、加減應用與多少比較、整千估算、□ 填數字、驗算），自己重新出題，沒有使用原書題目', desc: function () { return MWB2.length + ' 題'; } },
   { id: 'mathmwb3', name: '數學習作 單元3 乘法（題型分析後原創）', subjs: ['math'], src: '對話新增', kind: '選擇題、是非題、填空題', at: '2026/11/14', tags: ['南一版', '期中考範圍', '原創題'], note: '分析習作題型（三位數乘以一位數、整十整百乘法、中間有 0 的乘法、找出算錯的直式、連加與倍數、乘法估算、□ 填數字），自己重新出題，沒有使用原書題目與圖', desc: function () { return MWB3.length + ' 題'; } },
@@ -7792,7 +7874,7 @@ function bankView() {
   var SUBS = [['chi', '國語'], ['eng', '英文'], ['math', '數學'], ['soc', '社會'], ['nat', '自然'], ['hea', '健康']];
   var ZC = { chi: 'bc-chi', eng: 'bc-eng', math: 'bc-mat', soc: 'bc-soc', nat: 'bc-nat', hea: 'bc-hea' };
   var TYPE = { choice: '選擇', fill: '填空', tf: '是非', num: '計算', build: '排句子', match: '連連看', multi: '勾選' };
-  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW, CHW2, CHW3, CHW4, CHT8, CHT9, CHT10, CHTM3, CHT11, CHT12, CHTM4).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
+  var builtQ = SAMPLE_Q.concat(BANK, NATB, SOCB, CHRV, MWB, MWB2, MWB3, MWB4, MWBR1, MWB5, MWB6, MWB7, MWB8, MWB9, MWBR2, CHW, CHW2, CHW3, CHW4, CHT8, CHT9, CHT10, CHTM3, CHT11, CHT12, CHTM4, ENB3).filter(function (q) { return !q.retired; }), upQ = S.questions.filter(function (q) { return !q.retired; });
   var builtP = SAMPLE_P.concat(BANK_P, NATB_P, SOCB_P).filter(function (q) { return !q.retired; }), upP = S.pairs;
   function scope(subj) {
     if (SYL[subj]) return { mid: SYL[subj].mid.units, fin: SYL[subj].fin.units, all: SYL[subj].units };
@@ -7991,7 +8073,7 @@ function listView() {
   for (var i = from; i <= to; i++) nums.push('<button class="pnum" data-act="mpg" data-v="' + i + '" aria-current="' + (i === M.pg) + '">' + i + '</button>');
   var pager = pages > 1 ? '<nav class="pager" aria-label="分頁"><button class="pnum" data-act="mpg" data-v="1" aria-label="第一頁"' + (M.pg === 1 ? ' disabled' : '') + '>|&lt;</button><button class="pnum" data-act="mpg" data-v="' + (M.pg - 1) + '" aria-label="上一頁"' + (M.pg === 1 ? ' disabled' : '') + '>&lt;</button>' + nums.join('') +
     '<button class="pnum" data-act="mpg" data-v="' + (M.pg + 1) + '" aria-label="下一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;</button><button class="pnum" data-act="mpg" data-v="' + pages + '" aria-label="最後一頁"' + (M.pg === pages ? ' disabled' : '') + '>&gt;|</button></nav>' : '';
-  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['國語習作 第三～六課、閱讀階梯一（題型分析後原創）', CHW2.length + ' 題'], ['國語習作 第七～十一課（題型分析後原創）', CHW3.length + ' 題'], ['國語習作 第十二課、閱讀階梯二（題型分析後原創）', CHW4.length + ' 題'], ['國語課本 第八～十二課、學習地圖三、四（依課文原創）', CHT8.length + CHT9.length + CHT10.length + CHTM3.length + CHT11.length + CHT12.length + CHTM4.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
+  var builtin = [['老師學期規劃表題庫（英文／自然／健康）', BANK.length + ' 題'], ['自然期中題庫（課本＋習作考點）', NATB.length + ' 題'], ['社會期中題庫（課本＋習作考點）', SOCB.length + ' 題'], ['國語重點複習 L1–L12（題型分析後原創）', CHRV.length + ' 題'], ['國語習作 第一、二課（題型分析後原創）', CHW.length + ' 題'], ['國語習作 第三～六課、閱讀階梯一（題型分析後原創）', CHW2.length + ' 題'], ['國語習作 第七～十一課（題型分析後原創）', CHW3.length + ' 題'], ['國語習作 第十二課、閱讀階梯二（題型分析後原創）', CHW4.length + ' 題'], ['國語課本 第八～十二課、學習地圖三、四（依課文原創）', CHT8.length + CHT9.length + CHT10.length + CHTM3.length + CHT11.length + CHT12.length + CHTM4.length + ' 題'], ['英文課本 Unit 3（依課文原創）', ENB3.length + ' 題'], ['數學習作 單元1 數到10000（題型分析後原創）', MWB.length + ' 題'], ['數學習作 單元2 四位數的加減（題型分析後原創）', MWB2.length + ' 題'], ['數學習作 單元3 乘法（題型分析後原創）', MWB3.length + ' 題'], ['數學習作 單元4 幾毫米（題型分析後原創）', MWB4.length + ' 題'], ['數學習作 綜合練習1（單元1～4）（題型分析後原創）', MWBR1.length + ' 題'], ['數學習作 單元5 角、正方形和長方形（題型分析後原創）', MWB5.length + ' 題'], ['數學習作 單元6 除法（題型分析後原創）', MWB6.length + ' 題'], ['數學習作 單元7 公升和毫升（題型分析後原創）', MWB7.length + ' 題'], ['數學習作 單元8 分數（題型分析後原創）', MWB8.length + ' 題'], ['數學習作 單元9 圓（題型分析後原創）', MWB9.length + ' 題'], ['數學習作 綜合練習2（單元5～9）（題型分析後原創）', MWBR2.length + ' 題'], ['通用範例題（五科）', SAMPLE_Q.length + ' 題'], ['國文範例字庫、句型、成語、字音', CH0.length + ' 字，另有句型 ' + SENT.length + '、成語 ' + IDIOMS.length + ' 組'], ['英文單字與句子題材', EV.length + ' 字，Read and Choose ' + RC.length + ' 題']]
     .map(function (b) { return '<li><b>' + b[0] + '</b>　<span class="muted small">' + b[1] + '，不能刪除</span></li>'; }).join('');
   var lt = M.ltab === 'builtin' ? 'builtin' : 'own';
   var ltabs = '<div class="mtabs up ltabs" role="tablist">' + [['own', '已上傳資料'], ['builtin', '內建題庫']].map(function (t) { return '<button role="tab" class="mtab" data-act="ltab" data-v="' + t[0] + '" aria-selected="' + (lt === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div>';
