@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1795519696"><script>(function(){var B="1795519696";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1795520398"><script>(function(){var B="1795520398";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -5927,7 +5927,7 @@ function classView() {
   var s = SUBJ[CZ.subj], units = unitList(CZ.subj).filter(function (u) { return showUnit(CZ.subj, u); });
   var uchips = '<button class="chip" data-act="czunit" data-v="" aria-pressed="' + (!CZ.unit.length) + '">全部</button>' + units.map(function (u) { return '<button class="chip" data-act="czunit" data-v="' + esc(u) + '" aria-pressed="' + (CZ.unit.indexOf(u) >= 0) + '">' + esc(uLbl(u)) + '</button>'; }).join('');
   var tchips = '<button class="chip" data-act="cztall" data-v="" aria-pressed="' + TYPES[CZ.subj].every(function (t) { return czOn(CZ.subj, t[0]); }) + '">全部</button>' + TYPES[CZ.subj].map(function (t) { return '<button class="chip" data-act="cztype" data-v="' + t[0] + '" aria-pressed="' + czOn(CZ.subj, t[0]) + '">' + t[1] + '</button>'; }).join('');
-  var nchips = [5, 10, 15, 20].map(function (n) { return '<button class="chip" data-act="czn" data-v="' + n + '" aria-pressed="' + (CZ.n === n) + '">' + n + ' 題</button>'; }).join('');
+  var nchips = czNs(CZ.subj).map(function (n) { return '<button class="chip" data-act="czn" data-v="' + n + '" aria-pressed="' + (CZ.n === n) + '">' + n + ' 題</button>'; }).join('');
   return h + '<div class="row"><button class="btn ghost" data-act="czsubj" data-v="">← 返回</button></div>' +
     subjTabs('czsubj', CZ.subj) +
     introHTML([['範圍', CZ.unit.length ? esc(CZ.unit.join('、')) : '所選單元（沒選就是全部）'], ['題型', '可以自己勾選要練哪些題型']].concat(howSubjRows(CZ.subj)).concat([['課本位置', '每題標示單元和頁數；頁數還空白的，請到「教材上傳專區 → 課本頁數」填寫。']]), '本次考試說明') +
@@ -7651,18 +7651,20 @@ function sname(k) { return k === 'chi' ? '國語' : SUBJ[k].name; }
 var SELM = (function () { try { return JSON.parse(localStorage.getItem('fx-sel') || '{}') || {}; } catch (e) { return {}; } })(), SYNC = { u: null, n: null };
 function selMem(k) { var m = SELM[k]; if (!m || !Array.isArray(m.unit)) m = SELM[k] = { unit: [NONE], types: {}, n: 5 }; if (!m.types) m.types = {}; return m; }
 function selSave() { try { localStorage.setItem('fx-sel', JSON.stringify(SELM)); } catch (e) {} }
+/* 線上測驗的題數：國語、英文、數學多一個 30 題 */
+function czNs(s) { return ['chi', 'eng', 'math'].indexOf(s) >= 0 ? [5, 10, 15, 20, 30] : [5, 10, 15, 20]; }
 function syncSel() {
   if (view !== 'subject' || !sel.subj) return;
   var m = selMem(sel.subj), cand = [sel.unit, CZ.unit, SH.unit].map(function (a) { return JSON.stringify(a); }), ch = cand.filter(function (u) { return u !== SYNC.u; })[0];
   if (ch !== undefined) { SYNC.u = ch; var a = JSON.parse(ch); sel.unit = a.slice(); CZ.unit = a.slice(); SH.unit = a.slice(); m.unit = a.slice(); }
   if (CZ.n !== SYNC.n && CZ.n != null) { SYNC.n = CZ.n; SH.n = CZ.n; }
-  else if (SH.n !== SYNC.n && SH.n != null) { SYNC.n = SH.n; CZ.n = [5, 10, 15, 20].indexOf(SH.n) >= 0 ? SH.n : 20; }
+  else if (SH.n !== SYNC.n && SH.n != null) { SYNC.n = SH.n; CZ.n = czNs(CZ.subj).indexOf(SH.n) >= 0 ? SH.n : 20; }
   m.n = SYNC.n; selSave();
 }
 function enterSubj(k, tab) {
   var m = selMem(k);
   sel = { subj: k, unit: m.unit.slice() };
-  CZ.subj = k; CZ.unit = m.unit.slice(); CZ.types = m.types; CZ.n = [5, 10, 15, 20].indexOf(m.n) >= 0 ? m.n : 20;
+  CZ.subj = k; CZ.unit = m.unit.slice(); CZ.types = m.types; CZ.n = czNs(k).indexOf(m.n) >= 0 ? m.n : 20;
   SH.subj = k; SH.unit = m.unit.slice(); SH.types = m.types; SH.n = m.n || 5; SH.pages = null; SH.qs = null;
   SYNC.u = JSON.stringify(m.unit); SYNC.n = SH.n;
   GT.types = {}; FE = {};
@@ -7855,7 +7857,7 @@ function axFor(subj, unit) {
 }
 function classBody() {
   var hw = howSubjRows(CZ.subj);
-  return '<p class="gonote">' + hw.map(function (r) { return r[1]; }).join('<br>') + '</p>' + unitPanel('czunit', CZ.unit, czUnits(), CZ.subj) + typePanel('cztype', 'cztall', CZ.subj, czOn) + countPanel('czn', CZ.n, [5, 10, 15, 20], 'czans', CZ.answers !== false) +
+  return '<p class="gonote">' + hw.map(function (r) { return r[1]; }).join('<br>') + '</p>' + unitPanel('czunit', CZ.unit, czUnits(), CZ.subj) + typePanel('cztype', 'cztall', CZ.subj, czOn) + countPanel('czn', CZ.n, czNs(CZ.subj), 'czans', CZ.answers !== false) +
     '<button class="gobtn" data-act="czgo">開始測驗</button>';
 }
 function sheetBody() {
