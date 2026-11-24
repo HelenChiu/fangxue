@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1795520398"><script>(function(){var B="1795520398";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1795524567"><script>(function(){var B="1795524567";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -5172,7 +5172,7 @@ function resultView() {
 /* ================= 書寫板（田字格／英文四線格） ================= */
 function padHTML(kind, o) {
   return '<div class="padbox"><div class="pad" data-kind="' + kind + '" data-rows="' + (o.rows || 1) + '" data-cells="' + (o.cells || 5) + '" data-model="' + esc(o.model || '') + '" data-showmodel="' + (o.show ? 1 : 0) + '"><canvas class="g"></canvas><canvas class="ink"></canvas></div>' +
-    '<div class="padtools"><button class="btn ghost padico" data-act="padundo" aria-label="返回上一步" title="返回上一步"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 5 9l4 4"/><path d="M5 9h10a4.5 4.5 0 0 1 0 9H7"/></svg></button><button class="btn ghost padico" data-act="paderase" aria-label="橡皮擦" aria-pressed="false" title="橡皮擦"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 13.2 12.4 5a2 2 0 0 1 2.8 0l3.8 3.8a2 2 0 0 1 0 2.8L11.6 19H7.8l-3.6-3.6a1.6 1.6 0 0 1 0-2.2z"/><path d="M8.4 9l6.6 6.6"/><path d="M11.6 19H20"/></svg></button><button class="btn ghost" data-act="padclear">清除重寫</button>' + (kind === 'tian' ? '<button class="btn ghost" data-act="padmodel">看範字／隱藏</button>' : '') + '</div></div>';
+    '<div class="padtools"><button class="btn ghost padico" data-act="padundo" aria-label="返回上一步" title="返回上一步"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 5 9l4 4"/><path d="M5 9h10a4.5 4.5 0 0 1 0 9H7"/></svg></button><button class="btn ghost padico" data-act="paderase" aria-label="橡皮擦" aria-pressed="false" title="橡皮擦"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 13.2 12.4 5a2 2 0 0 1 2.8 0l3.8 3.8a2 2 0 0 1 0 2.8L11.6 19H7.8l-3.6-3.6a1.6 1.6 0 0 1 0-2.2z"/><path d="M8.4 9l6.6 6.6"/><path d="M11.6 19H20"/></svg></button><button class="btn ghost" data-act="padclear">清除重寫</button>' + (kind === 'tian' ? '<button class="btn ghost" data-act="padmodel"' + (PM && PM.done ? '' : ' style="display:none"') + '>看範字／隱藏</button>' : '') /* 看範字：交卷後才出現 */ + '</div></div>';
 }
 function initPads(root) {
   (root || document).querySelectorAll('.pad:not([data-ok])').forEach(function (pad) {
@@ -5407,7 +5407,7 @@ function qBody(q, i) {
       }
       return h + '</div>';
     case 'tian':
-      return '<p class="qt">看注音，寫出國字</p><div class="zy" style="font-size:28px"><span style="color:var(--ink)">' + esc(q.word).replace('（　）', '（</span>' + esc(q.zy) + '<span style="color:var(--ink)">）') + '</span></div>' + padHTML('tian', { cells: 1, model: q.c }) + '<p class="muted small">用手指或觸控筆寫在格子裡。想偷看可以按「看範字」。</p>';
+      return '<p class="qt">看注音，寫出國字</p><div class="zy" style="font-size:28px"><span style="color:var(--ink)">' + esc(q.word).replace('（　）', '（</span>' + esc(q.zy) + '<span style="color:var(--ink)">）') + '</span></div>' + padHTML('tian', { cells: 1, model: q.c }) + '<p class="muted small">用手指或觸控筆寫在格子裡。交卷後可以按「看範字」對答案。</p>';
     case 'four':
       return '<div class="big-em" style="font-size:48px">' + q.em + '</div><p class="qt">' + esc(q.q) + '</p>' + padHTML('four', { rows: FOUR_TRACE ? 2 : 1, model: FOUR_TRACE ? q.model : '' }) + '<p class="muted small">' + (FOUR_TRACE ? '第一行描一描，下面一行自己寫。' : '看圖和中文，在四線格裡寫出英文單字。') + '</p>';
     case 'oral':
@@ -5475,6 +5475,7 @@ function submitPaper(force) {
       if (q.t === 'choice') card.querySelectorAll('.opt').forEach(function (b) { if (b.dataset.v === q.answer) b.classList.add('ok'); else if (b.classList.contains('sel')) b.classList.add('no-ok'); });
     }
     card.insertAdjacentHTML('beforeend', reviewHTML(q, i, g));
+    card.querySelectorAll('[data-act="padmodel"]').forEach(function (b) { b.style.display = ''; }); /* 交卷後才能看範字 */
     card.querySelectorAll('input,select,textarea').forEach(function (el) { el.disabled = true; });
   });
   S.stars += stars; save();
@@ -8271,7 +8272,7 @@ on(document, 'click', function (e) {
     case 'padclear': var pd = b.closest('.padbox').querySelector('.pad'); if (pd && pd._clear) pd._clear(); break;
     case 'padundo': var pdu = b.closest('.padbox').querySelector('.pad'); if (pdu && pdu._undo) pdu._undo(); break;
     case 'paderase': var pde = b.closest('.padbox').querySelector('.pad'); if (pde) { pde._erase = !pde._erase; b.setAttribute('aria-pressed', pde._erase); pde.classList.toggle('erasing', pde._erase); } break;
-    case 'padmodel': var pd2 = b.closest('.padbox').querySelector('.pad'); if (pd2) { pd2.dataset.showmodel = pd2.dataset.showmodel === '1' ? '0' : '1'; pd2._draw(); } break;
+    case 'padmodel': if (PM && !PM.done) break; var pd2 = b.closest('.padbox').querySelector('.pad'); if (pd2) { pd2.dataset.showmodel = pd2.dataset.showmodel === '1' ? '0' : '1'; pd2._draw(); } break;
     case 'submitp': submitPaper(false); break;
     case 'submitforce': closeAsk(); submitPaper(true); break;
     case 'selfm': selfMark(+b.dataset.i, +b.dataset.v); break;
