@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<meta name="fx-build" content="1795517659"><script>(function(){var B="1795517659";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
+<meta name="fx-build" content="1795519018"><script>(function(){var B="1795519018";function chk(){try{fetch(location.pathname+"?nc="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(t){var m=t.match(/name="fx-build" content="(\d+)"/);if(!m||m[1]===B)return;var k="fx-rl-"+m[1];try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");}catch(e){}location.replace(location.pathname+"?v="+m[1]+location.hash);}).catch(function(){});}catch(e){}}chk();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")chk();});})();</script><meta name="robots" content="noindex, nofollow">
 </head><body><style>
 /* Layout concept: a school exercise book. Grid-paper ground, teacher's red pen for marks,
    one 米字格 tile per subject. Kid screens are big and single-task; the parent area is a quiet form. */
@@ -4278,6 +4278,8 @@ var RETIRED_E3 = {"What are these? 是在問什麼？": 1, "哪一個是「一�
 BANK.forEach(function (q) { if (q.subj === 'eng' && q.unit === E[3] && RETIRED_E3[q.q]) q.retired = true; });
 /* 範例題庫裡 Unit 3 的題目和配對（cat、duck、bird…）課本也沒教，一起停用（保留不刪除） */
 SAMPLE_Q.concat(SAMPLE_P).forEach(function (q) { if (q.subj === 'eng' && q.unit === E[3]) q.retired = true; });
+/* 和其他題庫幾乎一模一樣的題目（只差一兩個字），停用重複的那一題 */
+SAMPLE_Q.forEach(function (q) { if (q.q === '「仿生科技」是什麼意思？' && q.answer === '模仿生物的特徵來發明東西') q.retired = true; });
 var SOCB_P = [].concat(
   PP('soc', SO1, [['上課前', '閱讀課文、做記號'], ['上課中', '專心上課、記錄重點'], ['上課後', '完成作業、複習重點'], ['自我介紹前', '先想好要說的內容'], ['自我介紹中', '面帶微笑發言'], ['自我介紹後', '謝謝同學聆聽'],
     ['分配工作', '注意公平原則'], ['發生爭執', '先冷靜再溝通'], ['戶外學習第一步', '查資料、分配工作'], ['戶外學習第三步', '整理資料並分享'], ['太晚寫功課', '隔天沒精神'], ['自律', '不需要別人提醒']]),
@@ -4797,8 +4799,8 @@ function selUnits(subj) {
 function comboU(u) { return String(u || '').split('、').filter(function (x) { return /第.+課|學習地圖|單元/.test(x); }).length >= 2; }
 function inU(sel, u) { if (!sel || !sel.length || GENU[u]) return true; var one = function (x) { return typeof sel === 'string' ? sel === x : sel.indexOf(x) >= 0; }; return one(u) || (comboU(u) && String(u).split('、').some(function (x) { return one(x.trim()); })); }
 function togU(arr, v) { if (!v) return []; var i = arr.indexOf(v); if (i >= 0) { arr.splice(i, 1); return arr; } arr.push(v); return arr; }
-function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, isOff('chiwb12') ? [] : CHW, isOff('chiwb36') ? [] : CHW2, isOff('chiwb711') ? [] : CHW3, isOff('chiwb12b') ? [] : CHW4, isOff('chitext') ? [] : CHT8, isOff('chitext') ? [] : CHT9, isOff('chitext') ? [] : CHT10, isOff('chitext') ? [] : CHTM3, isOff('chitext') ? [] : CHT11, isOff('chitext') ? [] : CHT12, isOff('chitext') ? [] : CHTM4, isOff('engu3') ? [] : ENB3, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }).map(withPic); }
-function ppool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_P).concat(isOff('bank') ? [] : BANK_P, isOff('natmid') ? [] : NATB_P, isOff('socmid') ? [] : SOCB_P, S.pairs).filter(function (p) { return !p.retired && p.subj === subj && inU(unit, p.unit) && !(p.mid && bad[p.mid]); }); }
+function qpool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_Q).concat(isOff('bank') ? [] : BANK, isOff('natmid') ? [] : NATB, isOff('socmid') ? [] : SOCB, isOff('chirev') ? [] : CHRV, isOff('mathwb') ? [] : MWB, isOff('mathwb2') ? [] : MWB2, isOff('mathmwb3') ? [] : MWB3, isOff('mathmwb4') ? [] : MWB4, isOff('mathmwbr1') ? [] : MWBR1, isOff('mathmwb5') ? [] : MWB5, isOff('mathmwb6') ? [] : MWB6, isOff('mathmwb7') ? [] : MWB7, isOff('mathmwb8') ? [] : MWB8, isOff('mathmwb9') ? [] : MWB9, isOff('mathmwbr2') ? [] : MWBR2, isOff('chiwb12') ? [] : CHW, isOff('chiwb36') ? [] : CHW2, isOff('chiwb711') ? [] : CHW3, isOff('chiwb12b') ? [] : CHW4, isOff('chitext') ? [] : CHT8, isOff('chitext') ? [] : CHT9, isOff('chitext') ? [] : CHT10, isOff('chitext') ? [] : CHTM3, isOff('chitext') ? [] : CHT11, isOff('chitext') ? [] : CHT12, isOff('chitext') ? [] : CHTM4, isOff('engu3') ? [] : ENB3, S.questions, subj === 'math' ? picPool() : []).filter(function (q) { var dk = q.unit + '|' + String(q.q).replace(/\s+/g, '') + '|' + String(q.answer); if (this[dk]) return false; if (!q.retired && q.subj === subj) this[dk] = 1; return !q.retired && q.subj === subj && inU(unit, q.unit) && !(q.mid && bad[q.mid]) && !leaky(fixQ(q)); }, {}).map(withPic); }
+function ppool(subj, unit) { var bad = badMids(); return (isOff('sample') ? [] : SAMPLE_P).concat(isOff('bank') ? [] : BANK_P, isOff('natmid') ? [] : NATB_P, isOff('socmid') ? [] : SOCB_P, S.pairs).filter(function (p) { var dk = p.unit + '|' + p.a + '|' + p.b; if (this[dk]) return false; if (!p.retired && p.subj === subj) this[dk] = 1; return !p.retired && p.subj === subj && inU(unit, p.unit) && !(p.mid && bad[p.mid]); }, {}); }
 function uLbl(u) { return u === 'Unit 1 & 2' ? '期中考範圍 (Unit 1 & 2)' : u; }
 var HIDE_UNITS = ['的、得、地', '量詞', '標點符號'];
 function showUnit(subj, name) { return !comboU(name) && !(subj === 'chi' && (HIDE_UNITS.indexOf(name) >= 0 || name === UX)); }
@@ -4884,6 +4886,7 @@ var PUNC = [
   ['對或錯？' + '「第 3～5 頁」裡的「～」，表示從第 3 頁到第 5 頁。', ['對', '錯'], '對', '連接號表示範圍，從哪裡到哪裡。'],
   ['對或錯？' + '分號的停頓，比頓號還要短。', ['對', '錯'], '錯', '頓號的停頓最短；分號用來分開兩個關係密切的句子。']
 ];
+var FOUR_TRACE = false; /* 英文四線格的「描」：先隱藏，改成 true 就恢復 */
 var GEN = {
   punct: function (subj, uf) {
     if (!okU(uf, UX)) return null;
@@ -4893,7 +4896,7 @@ var GEN = {
   base: function (subj, uf, fixed) {
     var pool = fixed ? [fixed] : qpool(subj).filter(function (q) { return okU(uf, q.unit); });
     if (!pool.length) return null;
-    var q = rnd(pool), o = { t: q.type, subj: q.subj, unit: q.unit, ref: q.ref, kind: q.svg ? '看圖題' : '基礎題', q: q.q, answer: q.answer, alt: q.alt || [], explain: q.explain || '', pts: 1, key: q.svg ? q.q + Math.random() : q.q, svg: q.svg };
+    var q = rnd(pool), o = { t: q.type, subj: q.subj, unit: q.unit, ref: q.ref, kind: q.svg ? '看圖題' : '基礎題', q: q.q, answer: q.answer, alt: q.alt || [], explain: q.explain || '', pts: 1, key: q.svg ? q.q + '|' + q.answer : q.q, svg: q.svg };
     if (q.type === 'choice') o.o = shuffle(q.options);
     return o;
   },
@@ -4932,7 +4935,7 @@ var GEN = {
       if (p.ask === 'c') blanks.push({ i: i, ask: 'c', a: p.c, o: shuffle(allC.filter(function (x, k) { return allC.indexOf(x) === k; })) });
       else { var zs = allZ.filter(function (z, k) { return allZ.indexOf(z) === k; }); var o = [p.zy].concat(shuffle(zs.filter(function (z) { return z !== p.zy; })).slice(0, 2)); if (o.length < 3) o = o.concat(toneVars(p.zy, 3 - o.length)); blanks.push({ i: i, ask: 'zy', a: p.zy, o: shuffle(o) }); }
     });
-    return { t: 'flower', subj: 'chi', unit: UX, ref: UX + '，頁數待補', kind: '生字花', q: '生字花：中間是「' + f.center + '」', center: f.center, petals: petals, blanks: blanks, pts: blanks.length, key: 'fl' + f.center + petals.map(function (p) { return p.c + p.ask; }).join(''),
+    return { t: 'flower', subj: 'chi', unit: UX, ref: UX + '，頁數待補', kind: '生字花', q: '生字花：中間是「' + f.center + '」', center: f.center, petals: petals, blanks: blanks, pts: blanks.length, key: 'fl' + f.center,
       answer: petals.map(function (p) { return p.c + '（' + p.zy + '）'; }).join('、'), explain: '都有「' + f.center + '」的字，一起記起來：' + petals.map(function (p) { return p.w; }).join('、') + '。' };
   },
   tian: function (subj, uf) {
@@ -4986,7 +4989,7 @@ var GEN = {
     var v = rnd(pool), n = v[0].length, k = n >= 6 ? 3 : 2, pos = [];
     while (pos.length < k) { var p = 1 + Math.floor(Math.random() * (n - 1)); if (pos.indexOf(p) < 0) pos.push(p); }
     pos.sort(function (a, b) { return a - b; });
-    return { t: 'lw', subj: 'eng', unit: U_E[v[3]], kind: 'Listen and write', q: 'Listen and write：' + v[1], w: v[0], zh: v[1], em: v[2], hide: pos, answer: v[0], explain: v[0] + ' 是「' + v[1] + '」。', pts: 1, key: 'lw' + v[0] + pos.join('') };
+    return { t: 'lw', subj: 'eng', unit: U_E[v[3]], kind: 'Listen and write', q: 'Listen and write：' + v[1], w: v[0], zh: v[1], em: v[2], hide: pos, answer: v[0], explain: v[0] + ' 是「' + v[1] + '」。', pts: 1, key: 'lw' + v[0] };
   },
   lrw: function (subj, uf) {
     var pool = LRW.filter(function (r) { return okU(uf, U_E[r[2]]); }); if (!pool.length) return null;
@@ -4994,9 +4997,10 @@ var GEN = {
     return { t: 'lrw', subj: 'eng', unit: U_E[r[2]], kind: 'Look, read, and write', q: 'Look, read, and write：看圖，用下面的單字寫出完整的句子', em: r[0], words: words, answer: r[1], model: r[1], explain: '句子：' + r[1], pts: 1, self: true, key: 'lr' + r[1] };
   },
   four: function (subj, uf) {
+    /* FOUR_TRACE = false：暫時不顯示淡淡的描寫字，只看圖和中文自己寫 */
     var pool = EV.filter(function (v) { return okU(uf, U_E[v[3]]); }); if (!pool.length) return null;
     var v = rnd(pool);
-    return { t: 'four', subj: 'eng', unit: U_E[v[3]], kind: 'Trace and Write', q: 'Trace and Write：描一次，再寫一次　' + v[1], em: v[2], model: v[0], answer: v[0], explain: v[0] + ' 是「' + v[1] + '」。', pts: 1, self: true, key: 'fo' + v[0] };
+    return { t: 'four', subj: 'eng', unit: U_E[v[3]], kind: FOUR_TRACE ? 'Trace and Write' : 'Write', q: (FOUR_TRACE ? 'Trace and Write：描一次，再寫一次　' : 'Write：看圖和中文，寫出英文單字　') + v[1], em: v[2], model: v[0], answer: v[0], explain: v[0] + ' 是「' + v[1] + '」。', pts: 1, self: true, key: 'fo' + v[0] };
   }
 };
 var TYPES = {
@@ -5405,7 +5409,7 @@ function qBody(q, i) {
     case 'tian':
       return '<p class="qt">看注音，寫出國字</p><div class="zy" style="font-size:28px"><span style="color:var(--ink)">' + esc(q.word).replace('（　）', '（</span>' + esc(q.zy) + '<span style="color:var(--ink)">）') + '</span></div>' + padHTML('tian', { cells: 1, model: q.c }) + '<p class="muted small">用手指或觸控筆寫在格子裡。想偷看可以按「看範字」。</p>';
     case 'four':
-      return '<div class="big-em" style="font-size:48px">' + q.em + '</div><p class="qt">' + esc(q.q) + '</p>' + padHTML('four', { rows: 2, model: q.model }) + '<p class="muted small">第一行描一描，下面一行自己寫。</p>';
+      return '<div class="big-em" style="font-size:48px">' + q.em + '</div><p class="qt">' + esc(q.q) + '</p>' + padHTML('four', { rows: 2, model: FOUR_TRACE ? q.model : '' }) + '<p class="muted small">' + (FOUR_TRACE ? '第一行描一描，下面一行自己寫。' : '看圖和中文，在四線格裡寫出英文單字。') + '</p>';
     case 'oral':
       return '<div class="oqrow"><p class="qt">大聲念出來</p><button class="odone" data-act="pdone" data-i="' + i + '" aria-pressed="' + !!r + '">' + (r ? '✓ 完成' : '完成') + '</button></div>' + oralItemHTML({ part: q.part || 'w', text: q.text, ico: q.ico }, true);
     case 'lrw':
@@ -5590,7 +5594,7 @@ function printHTML(q, n) {
       h += '<p class="pt">' + b + '看注音，寫國字。</p><div class="tzr" style="margin-left:1.6em"><div class="zyc">' + esc(q.word.replace('（　）', '（' + q.zy + '）')) + '</div>' + '<div class="tz"></div>'.repeat(6) + '</div>';
       break;
     case 'oral': h += '<p class="pt">' + b + '（○ ✕）口試練習：大聲念出來</p><div class="porl">' + (q.ico ? '<span class="pico">' + q.ico + '</span>' : '') + '<span class="ptx' + (q.text.length > 40 ? ' long' : '') + '">' + esc(q.text) + '</span></div>'; break;
-    case 'four': h += '<p class="pt">' + b + esc(q.q) + ' <span style="font-size:26px">' + q.em + '</span></p>' + fourSVG(640, 110, 2, q.model); break;
+    case 'four': h += '<p class="pt">' + b + esc(q.q) + ' <span style="font-size:26px">' + q.em + '</span></p>' + fourSVG(640, 110, 2, FOUR_TRACE ? q.model : ''); break;
     case 'lrw':
       h += '<p class="pt">' + b + 'Look, read, and write：<span style="font-size:34px">' + q.em + '</span></p><div class="po" style="margin-left:1.6em">' + q.words.map(function (w) { return '<span style="border:1.5px solid #555;border-radius:6px;padding:0 8px">' + esc(w) + '</span>'; }).join('') + '</div>' + fourSVG(640, 100, 2, '');
       break;
@@ -7268,20 +7272,20 @@ GEN.mfill = function (subj, uf) { return mPool(uf, function (q) { return q.type 
 var U99 = '九九乘法表（基礎複習）'; GENU[U99] = 1;
 GEN.m99 = function (subj, uf) {
   var a = rnd([2, 3, 4, 5, 6, 7, 8, 9]), b = rnd([1, 2, 3, 4, 5, 6, 7, 8, 9]), p = a * b, k = Math.random(), base = { subj: 'math', unit: U99, ref: U99, kind: '九九乘法表' };
-  function fill(q, ans, ex) { return Object.assign({ t: 'fill', q: q, answer: String(ans), alt: [], explain: ex, pts: 1, key: 'm99' + q }, base); }
+  function fill(q, ans, ex) { return Object.assign({ t: 'fill', q: q, answer: String(ans), alt: [], explain: ex, pts: 1, key: 'm99' + a + 'x' + b }, base); }
   if (k < 0.35) return fill(a + ' × ' + b + ' ＝ ？', p, a + ' × ' + b + ' ＝ ' + p + '。');
   if (k < 0.55) return fill(a + ' × （　） ＝ ' + p, b, a + ' × ' + b + ' ＝ ' + p + '，所以括號裡是 ' + b + '。');
   if (k < 0.7) return fill(a + ' 的 ' + b + ' 倍是多少？', p, a + ' 的 ' + b + ' 倍就是 ' + a + ' × ' + b + ' ＝ ' + p + '。');
   if (k < 0.85) {
     var wrong = [p + a, p - a, p + 1, p - 1, (a + 1) * b].filter(function (x) { return x > 0 && x !== p; });
     var opts = [String(p)]; shuffle(wrong).forEach(function (x) { if (opts.length < 3 && opts.indexOf(String(x)) < 0) opts.push(String(x)); });
-    return Object.assign(mkChoice({ q: a + ' × ' + b + ' ＝ ？', options: opts, answer: String(p), explain: a + ' × ' + b + ' ＝ ' + p + '。', key: 'm99c' + a + 'x' + b }), base);
+    return Object.assign(mkChoice({ q: a + ' × ' + b + ' ＝ ？', options: opts, answer: String(p), explain: a + ' × ' + b + ' ＝ ' + p + '。', key: 'm99' + a + 'x' + b }), base);
   }
   /* 哪一個算式的答案是 p？ */
   var ok = a + ' × ' + b, bad = [], tries = 0;
   while (bad.length < 2 && tries++ < 40) { var x = rnd([2, 3, 4, 5, 6, 7, 8, 9]), y = rnd([1, 2, 3, 4, 5, 6, 7, 8, 9]), e = x + ' × ' + y; if (x * y !== p && Math.abs(x * y - p) <= 6 && bad.indexOf(e) < 0) bad.push(e); }
   if (bad.length < 2) return fill(a + ' × ' + b + ' ＝ ？', p, a + ' × ' + b + ' ＝ ' + p + '。');
-  return Object.assign(mkChoice({ q: '哪一個算式的答案是 ' + p + '？', options: [ok].concat(bad), answer: ok, explain: ok + ' ＝ ' + p + '。', key: 'm99w' + p + ok }), base);
+  return Object.assign(mkChoice({ q: '哪一個算式的答案是 ' + p + '？', options: [ok].concat(bad), answer: ok, explain: ok + ' ＝ ' + p + '。', key: 'm99' + a + 'x' + b }), base);
 };
 GEN.mcalc = function (subj, uf) {
   var kind = '做做看 / 算算看';
@@ -7425,7 +7429,7 @@ GEN.sck = function (subj, uf) {
   var items = shuffle(T.slice(0, nt).concat(F.slice(0, nf))), segs = items.map(function (f) { return f[0].replace(/。$/, ''); });
   var ans = []; items.forEach(function (f, k) { if (f[1]) ans.push(k); });
   var wrong = items.filter(function (f) { return !f[1]; }).map(function (f) { return '「' + f[0].replace(/。$/, '') + '」不對' + (f[2] ? '：' + f[2] : '。'); }).join('');
-  return { t: 'mark', ck: true, subj: 'soc', unit: sU(i), ref: sU(i), kind: '勾選題', q: '下面哪些句子是對的？請把對的都勾起來（可以勾不只一個）。', segs: segs, ans: ans, answer: ans.map(function (k) { return segs[k]; }).join('、'), alt: [], explain: wrong, pts: 1, key: 'sck' + segs.join('|') };
+  return { t: 'mark', ck: true, subj: 'soc', unit: sU(i), ref: sU(i), kind: '勾選題', q: '下面哪些句子是對的？請把對的都勾起來（可以勾不只一個）。', segs: segs, ans: ans, answer: ans.map(function (k) { return segs[k]; }).join('、'), alt: [], explain: wrong, pts: 1, key: 'sck' + ans.map(function (k) { return segs[k]; }).sort().join('|') };
 };
 GEN.sread = function (subj, uf) {
   var i = sUnit(uf); if (i < 0) return null;
@@ -7485,7 +7489,7 @@ GEN.nck = function (subj, uf) {
   var nf = Math.min(F.length, ri(1, 2)), nt = Math.min(T.length, 4 - nf); if (!nt || !nf) return null;
   var items = shuffle(T.slice(0, nt).concat(F.slice(0, nf))), segs = items.map(function (f) { return f[0].replace(/。$/, ''); }), ans = [];
   items.forEach(function (f, k) { if (f[1]) ans.push(k); });
-  return { t: 'mark', ck: true, subj: 'nat', unit: nU(i), ref: nU(i), kind: '勾選題', q: '下面哪些句子是對的？請把對的都勾起來（可以勾不只一個）。', segs: segs, ans: ans, answer: ans.map(function (k) { return segs[k]; }).join('、'), alt: [], explain: items.filter(function (f) { return !f[1]; }).map(function (f) { return '「' + f[0].replace(/。$/, '') + '」不對' + (f[2] ? '：' + f[2] : '。'); }).join(''), pts: 1, key: 'nck' + segs.join('|') };
+  return { t: 'mark', ck: true, subj: 'nat', unit: nU(i), ref: nU(i), kind: '勾選題', q: '下面哪些句子是對的？請把對的都勾起來（可以勾不只一個）。', segs: segs, ans: ans, answer: ans.map(function (k) { return segs[k]; }).join('、'), alt: [], explain: items.filter(function (f) { return !f[1]; }).map(function (f) { return '「' + f[0].replace(/。$/, '') + '」不對' + (f[2] ? '：' + f[2] : '。'); }).join(''), pts: 1, key: 'nck' + ans.map(function (k) { return segs[k]; }).sort().join('|') };
 };
 /* 連連看：左邊 4 個，右邊打亂成 A～D，選代號 */
 GEN.nmatch = function (subj, uf) {
@@ -7533,7 +7537,7 @@ var NPIC = {
 GEN.npic = function (subj, uf) {
   var i = nUnit(uf); if (i < 0) return null;
   var r = NPIC[['plant', 'cup', 'bug', 'magnet'][i]]();
-  return nChoice('圖文題', r[0], r[1], r[2], r[3], r[4], { svg: r[5], key: 'npic' + r[1] + r[3] + Math.random() });
+  return nChoice('圖文題', r[0], r[1], r[2], r[3], r[4], { svg: r[5], key: 'npic' + r[1] + r[3] });
 };
 /* ---------- 健康題型：情境素養、簡答題（翰林三上，依單元主題編寫） ---------- */
 var HEAQ = [
